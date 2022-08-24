@@ -1,4 +1,5 @@
 /* gcc te_tgetent.c -lcurses -ltermcap */
+/* ターミナルが使えるか判断するってことかな？ */
 #include <termcap.h>
 #include <string.h>
 #include <stdlib.h>

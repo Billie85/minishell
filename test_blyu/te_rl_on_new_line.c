@@ -15,10 +15,11 @@
 void sig_handler()
 {
     //TEST
-    printf ("  ");
-    //rl_on_new_line();
-    rl_replace_line("hello", 0);
-    //rl_redisplay();
+    printf ("\n");
+    rl_on_new_line();
+    rl_add_undo(UNDO_DELETE, 0, 6, strdup("hello "));
+    rl_replace_line("world", 1);
+    rl_redisplay();
 }
 int main()
 {
@@ -28,7 +29,9 @@ int main()
     {
         //TEST
         char *str = readline(">");
+        add_history(str);
 		printf("%s\n",str);
+        free(str);
         //TEST
     }
 }
