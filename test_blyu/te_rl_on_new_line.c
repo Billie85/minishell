@@ -18,20 +18,34 @@ void sig_handler()
     printf ("\n");
     rl_on_new_line();
     rl_add_undo(UNDO_DELETE, 0, 6, strdup("hello "));
-    rl_replace_line("world", 1);
+    unsigned char c[9];
+    c[0] = 0xff;
+    c[1] = 0xff;
+    c[2] = 0xff;
+    c[3] = 0xff;
+    c[4] = 0xff;
+    c[5] = 0xff;
+    c[6] = 0xff;
+    c[7] = 0xff;
+    c[8] = 0x0;
+    rl_replace_line((char *)c, 1);
     rl_redisplay();
 }
 int main()
 {
-    signal(SIGQUIT, SIG_IGN);
     signal(SIGINT, sig_handler);
     while (1)
     {
         //TEST
         char *str = readline(">");
-        add_history(str);
-		printf("%s\n",str);
-        free(str);
+        if (str)
+        {
+            add_history(str);
+		    printf("%s\n",str);
+            free(str);
+        }
+        else
+            printf("readline retun null\n");
         //TEST
     }
 }
