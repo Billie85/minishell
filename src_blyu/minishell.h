@@ -34,6 +34,8 @@ typedef struct s_cmd
 
 //sig.c
 void sigint_handler(int sig);
+//envcl.c
+char *etcl(char *cl);
 
 #endif
 
