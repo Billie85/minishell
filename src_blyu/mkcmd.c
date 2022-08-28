@@ -1,38 +1,68 @@
 #include "minishell.h"
 #include "debug.h"
-//構文に問題がある場合は"\0"返す/* 未完 */
-char	*ecl_std(char *cl, size_t B);
-char	*ecl_dq(char *cl, size_t B);
-char	*ecl_sq(char *cl, size_t B);
-char	*ecl_sp(char *cl, size_t B);
-char	*ecl_env_std(char *cl, size_t B);
-char	*ecl_env_dq(char *cl, size_t B);
+char	*tk_std(char *cl, char **ncl, size_t B);
+char	*tk_dq(char *cl, char **ncl, size_t B);
+char	*tk_sq(char *cl, char **ncl, size_t B);
+char	*tk_sp(char *cl, char **ncl, size_t B);
+char	*tk_env(char *cl, char **ncl, size_t B);
 char	*extractenv(char *cl);
 
+extern int exeret;
 
-char *etcl(char *cl)
+char    *mkcmd(t_cmd *c, char *cl, int *pipe)
 {
-	char *r;
-
-	r = ecl_std(cl, 0);
-	free(cl);
-	return (r);
+	char	*ncl;
+	
+	c->cmd = cmdlist(cl, pipe, &ncl, 0);
+	if(c->cmd)
+		return (NULL);
+	return (ncl);
 }
 
+char **cmdlist(char *cl, int *pipe, char **ncl, size_t ll)
+{
+	char	**r;
+	char	*s;
 
-char	*ecl_std(char	*cl, size_t	B)
+	s = tk_std(cl, ncl, 0);
+	if (!s)
+		return (NULL);
+	else if (!*s)
+	{
+		//malloc->null->free(s);->return;
+	}
+	else if (!strcmp(s, "<"))/*  */
+	{}
+	else if (!strcmp(s, ">"))/*  */
+	{}
+	else if (!strcmp(s, "<<"))/*  */
+	{}
+	else if (!strcmp(s, ">>"))/*  */
+	{}
+	else if (!strcmp(s, "|"))/*  */
+	{}
+	else if (!strcmp(s, ";"))/*  */
+	{}
+	else if (!strcmp(s, "||"))/*  */
+	{}
+	else if (!strcmp(s, "&&"))/*  */
+	{}
+	else
+	{
+		//自分を呼ぶ
+	}
+}
+
+char	*tk_std(char *cl, char **ncl, size_t B)
 {
 	size_t	i;
 	char	*ncl;
 	char	*r;
-//TEST
+
 	i = 0;
 	while (*cl == ' ' && *cl)
 		cl++;
-	while (cl[i] != ' ' && cl[i] != '<' && cl[i] != '>' && cl[i] != '|' && cl[i] != ';' && strncmp(cl + i, "&&", 2)/*  */ \
-	&& cl[i] != '$' \
-	&& cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' \
-	&& cl[i])
+	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && cl[i] != '$' && cl[i] == ' ' && cl[i])
 		i++;
 	if (!cl[i])
 	{
@@ -44,36 +74,36 @@ char	*ecl_std(char	*cl, size_t	B)
 		}
 		r[B + i] = '\0';
 	}
-	else if (cl[i] == ' ' || cl[i] == '<' || cl[i] == '>' || cl[i] == '|' || cl[i] == ';' || cl[i] == '&')
+	else if ((cl[i] == ' ' || cl[i] == '<' || cl[i] == '>' || cl[i] == '|' || cl[i] == ';' || cl[i] == '&'))
 	{
-		r = ecl_sp(cl + i, B + i + 1);
+		r = tk_sp(cl + i, ncl, B + i + 1);
 		if (!r)
 			return (NULL);
 		r[B + i] = ' ';
 	}
 	else if (cl[i] == '$')
 	{
-		r = ecl_env_std(cl + i, B + i);
+		r = tk_env(cl + i, ncl, B + i);
 		if (!r)
 			return (NULL);		
 	}
 	else if (cl[i] == '\\')
 	{
 		i += 2;
-		r = ecl_std(cl + i, B + i);
+		r = tk_std(cl + i, ncl, B + i);
 		if (!r)
 			return (NULL);		
 	}
 	else if (cl[i] == '"')
 	{
-		r = ecl_dq(cl + i + 1, B + i + 1);
+		r = tk_dq(cl + i + 1, ncl, B + i + 1);
 		if (!r)
 			return (NULL);
 		r[B + i] = '"';
 	}
 	else //(cl[i] == '\'')
 	{
-		r = ecl_sq(cl + i + 1, B + i + 1);
+		r = tk_sq(cl + i + 1, ncl, B + i + 1);
 		if (!r)
 			return (NULL);
 		r[B + i] = '\'';
@@ -83,7 +113,7 @@ char	*ecl_std(char	*cl, size_t	B)
 	return (r);
 }
 
-char	*ecl_sp(char *cl, size_t B)
+char	*tk_sp(char *cl, char **ncl, size_t B)
 {
 	size_t	i;
 	char	*r;
@@ -93,14 +123,14 @@ char	*ecl_sp(char *cl, size_t B)
 	{
 		while (*cl == ' ' && *cl)
 			cl++;
-		r = ecl_std(cl, B);
+		r = tk_std(cl, ncl, B);
 		if (!r)
 			return(NULL);
 	}
 	else if (!strncmp(cl, ">>", 2) || !strncmp(cl, "<<", 2) || !strncmp(cl, "||", 2) || !strncmp(cl, "&&", 2))/*  */
 	{
 		i = 2;
-		r = ecl_std(cl + i, B + i + 1);
+		r = tk_std(cl + i, ncl, B + i + 1);
 		if (!r)
 			return(NULL);
 		r[B + i] = ' ';
@@ -108,7 +138,7 @@ char	*ecl_sp(char *cl, size_t B)
 	else //(*cl == '>' || *cl == '<' || *cl == '|' || *cl == ';')
 	{
 		i = 1;
-		r = ecl_std(cl + i, B + i + 1);
+		r = tk_std(cl + i, ncl, B + i + 1);
 		if (!r)
 			return(NULL);
 		r[B + i] = ' ';
@@ -118,7 +148,7 @@ char	*ecl_sp(char *cl, size_t B)
 	return (r);
 }
 
-char	*ecl_dq(char	*cl, size_t	B)
+char	*tk_dq(char *cl, char **ncl, size_t B)
 {
 	size_t	i;
 	char	*ncl;
@@ -137,13 +167,13 @@ char	*ecl_dq(char	*cl, size_t	B)
 	}
 	else if (cl[i] == '$')
 	{
-		r = ecl_env_dq(cl + i, B + i);
+		r = tk_env(cl + i, ncl, B + i);
 		if (!r)
 			return (NULL);
 	}
 	else //(cl[i] == '"')
 	{
-		r = ecl_std(cl + i + 1, B + i + 1);
+		r = tk_std(cl + i + 1, ncl, B + i + 1);
 		if (!r)
 			return (NULL);
 		r[B + i] = '"';
@@ -153,7 +183,7 @@ char	*ecl_dq(char	*cl, size_t	B)
 	return (r);
 }
 
-char	*ecl_sq(char	*cl, size_t	B)
+char	*tk_sq(char *cl, char **ncl, size_t B)
 {
 	size_t	i;
 	char	*ncl;
@@ -171,7 +201,7 @@ char	*ecl_sq(char	*cl, size_t	B)
 	}
 	else //(cl[i] == '\'')
 	{
-		r = ecl_std(cl + i + 1, B + i + 1);
+		r = tk_std(cl + i + 1, ncl, B + i + 1);
 		if (!r)
 			return (NULL);
 		r[B + i] = '\'';
@@ -181,14 +211,14 @@ char	*ecl_sq(char	*cl, size_t	B)
 	return (r);
 }
 
-char	*ecl_env_std(char *cl, size_t B)
+char	*tk_env(char *cl, char **ncl, size_t B)
 {
 	char	*envname;
 	char	*env;
 	size_t	i;
 	size_t	ii;
 	char	*r;
-TESTs(cl)
+//TESTs(cl)
 	envname = extractenv(cl);
 	if (!envname)
 		return (NULL);
@@ -212,7 +242,7 @@ TESTs(cl)
 //TESTn(i)
 	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' || cl[ii] == '|' || cl[ii] == ';' || !strncmp(cl + ii, "&&", 2))
 	{
-		r = ecl_sp(cl + ii, B + i + 1);/*  */
+		r = tk_sp(cl + ii, ncl, B + i + 1);/*  */
 		if (!r)
 		{
 			free(envname);
@@ -222,50 +252,13 @@ TESTs(cl)
 	}
 	else
 	{
-		r = ecl_std(cl + ii, B + i);/*  */
+		r = tk_std(cl + ii, ncl, B + i);/*  */
 		if (!r)
 		{
 			free(envname);
 			return (NULL);
 		}
 	}
-	if (i)
-		memcpy(r + B, env, i);/*  */
-	free(envname);
-	return (r);
-}
-
-char	*ecl_env_dq(char *cl, size_t B)
-{
-	char	*envname;
-	char	*env;
-	size_t	i;
-	size_t	ii;
-	char	*r;
-//TEST
-	envname = extractenv(cl);
-	if (!envname)
-		return (NULL);
-	if (*envname)
-	{
-		cl++;
-		env = getenv(envname);
-		ii = strlen(envname);/*  */
-	}
-	else
-	{
-		env = "$";
-		ii = 1;
-	}
-//TESTs(envname)
-//TESTs(env)
-	if (env)
-		i = strlen(env);/*  */
-	else
-		i = 0;
-	r = ecl_dq(cl + ii, B + i);/*  */
-TESTs(env)
-TESTn(i)
 	if (i)
 		memcpy(r + B, env, i);/*  */
 	free(envname);

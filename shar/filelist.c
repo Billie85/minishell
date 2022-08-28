@@ -10,9 +10,11 @@
 //return_value[2] = "\0"
 //return_value[3] = NULL
 
-//存在しない場合は最初の最初の要素にmallocで確保した"\0"を入れる(つまり、mallocエラーのときのみNULLを返す)
-
+//存在しない場合は最初の最初の要素にmallocで確保した場所にNULLを入れる(つまり、mallocエラーのときのみNULLを返す)
+//return_value[0] = NULL<-存在しない場合
+//retuen(return_value);<-存在しない場合
+//retuen(NULL); <-mallocエラーの場合
 char    **find(const char *search)
 {
-
+    
 }

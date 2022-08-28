@@ -10,12 +10,20 @@
 #include <termios.h>
 #define PROMPT "minishell>"
 #define PROMPT_ ">"
-#define EXE 1
 #define NEXE 0
+#define EXE 1
 #define DEFALT 0
 #define REDIRECT 1
 //flag for t_cmd.n_type
 #define NOCMD 0
+#define NEXT 1
+#define PIPE 2
+#define AND 3
+#define OR 4
+
+#define R_PIPE 0
+#define W_PIPE 1
+#define NEXT_PIPE 2
 
 typedef struct s_info
 {
@@ -25,10 +33,8 @@ typedef struct s_info
 typedef struct s_cmd
 {
 	char			**cmd;
-	int				i_type;
-	char			*i_neme;
-	int				o_type;
-	char			*o_neme;
+	int				r_fd;
+	int				w_fd;
 	int				n_type;
 }	t_cmd;
 
