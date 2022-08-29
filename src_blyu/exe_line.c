@@ -1,21 +1,21 @@
 #include "minishell.h"
-	int exeret = 0;
+extern int exeret;
 
 int exe_line(char *cl)
 {
-	int pipe[3];
 	t_cmd c;
 
 	while (*cl || *cl == ' ')
 		cl++;
-	pipe[R_PIPE] = -1;
-	pipe[W_PIPE] = -1;
-	pipe[NEXT_PIPE] = -1;
+	c.n_type = CONTINUE;
+	c.pipe[R_PIPE] = -1;
+	c.pipe[W_PIPE] = -1;
+	c.pipe[NEXT_PIPE] = -1;
 	while (*cl)
 	{
-		pipe[R_PIPE] = pipe[NEXT_PIPE];
-		pipe[NEXT_PIPE] = -1;
-		cl = mkcmd(&c, cl, pipe);
+		c.pipe[R_PIPE] = c.pipe[NEXT_PIPE];
+		c.pipe[NEXT_PIPE] = -1;
+		cl = mkcmd(&c, cl);
 		exeret = exe_cmd(&c);
 		closefd(pipe);
 		while (*cl || *cl == ' ')

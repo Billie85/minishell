@@ -1,71 +1,252 @@
 #include "minishell.h"
 #include "debug.h"
+//tk_stdはデフォルト、ファイル名取得のときのみ使う/* 訂正 */
+//構文のエラーのときは c->type = SYNTAXERROR を設定/* 訂正 */
+char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll);
+
 char	*tk_std(char *cl, char **ncl, size_t B);
 char	*tk_dq(char *cl, char **ncl, size_t B);
 char	*tk_sq(char *cl, char **ncl, size_t B);
-char	*tk_sp(char *cl, char **ncl, size_t B);
-char	*tk_env(char *cl, char **ncl, size_t B);
+char	*tk_ques(char *cl, char **ncl, size_t B, char *(*po)(char *, char **, size_t));
 char	*extractenv(char *cl);
 
 extern int exeret;
 
-char    *mkcmd(t_cmd *c, char *cl, int *pipe)
+char    *mkcmd(t_cmd *c, char *cl)
 {
 	char	*ncl;
-	
-	c->cmd = cmdlist(cl, pipe, &ncl, 0);
-	if(c->cmd)
+//TESTs(cl)
+	c->cmd = cmdlist(c, cl, &ncl, 0);
+	if(!(c->cmd))
 		return (NULL);
 	return (ncl);
 }
-
-char **cmdlist(char *cl, int *pipe, char **ncl, size_t ll)
+//nclの設定は if (*cl) のときに任せず各自で/* 訂正 */
+//
+char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 {
 	char	**r;
 	char	*s;
 
-	s = tk_std(cl, ncl, 0);
-	if (!s)
-		return (NULL);
-	else if (!*s)
+	while (*cl == ' ')
+		cl++;
+	if (!*cl)
 	{
-		//malloc->null->free(s);->return;
+TESTs(cl)
+		r = malloc(sizeof(char	**) * ll + 1);
+		if (!r)
+		{
+			free(s);
+			printf("malloc error\n");
+			return (NULL);
+		}
+		*ncl = cl;
+		r[0] = (char *)1;
+		r[ll] = NULL;
 	}
-	else if (!strcmp(s, "<"))/*  */
-	{}
-	else if (!strcmp(s, ">"))/*  */
-	{}
-	else if (!strcmp(s, "<<"))/*  */
-	{}
-	else if (!strcmp(s, ">>"))/*  */
-	{}
-	else if (!strcmp(s, "|"))/*  */
-	{}
-	else if (!strcmp(s, ";"))/*  */
-	{}
-	else if (!strcmp(s, "||"))/*  */
-	{}
-	else if (!strcmp(s, "&&"))/*  */
-	{}
-	else
+	else if (!strncmp(cl, "< ", 2))/*  */
 	{
-		//自分を呼ぶ
+TESTs(cl)
+		cl++;
+		while (*cl == ' ')
+			cl++;
+		s = tk_std(cl, ncl, 0);
+		if (!s)
+			return (NULL);
+		else if (!*s)
+		{
+			//構文エラー
+		}
+
+
+		char	*fname;
+		fname = full_file_neme(s);
+TESTs(fname)
+		if (!fname)
+		{
+			free(s);
+			return (NULL);
+		}
+
+		if (c->pipe[R_PIPE] >= 0)
+			close(c->pipe[R_PIPE]);
+		c->pipe[R_PIPE] = open(s, O_RDONLY, O_CREAT, S_IREAD | S_IWRITE);
+		free(fname);
+		free(s);
+		r = cmdlist(c, *ncl, ncl, ll);
 	}
+	else if (!strncmp(cl, "> ", 2))/*  */
+	{
+TESTs(cl)
+		cl++;
+		while (*cl == ' ')
+			cl++;
+		s = tk_std(cl, ncl, 0);
+		if (!s)
+			return (NULL);
+		else if (!*s)
+		{
+			//構文エラー
+		}	
+
+
+		char	*fname;
+		fname = full_file_neme(s);
+TESTs(fname)
+		if (!fname)
+		{
+			free(s);
+			return (NULL);
+		}
+
+		if (c->pipe[W_PIPE] >= 0)
+			close(c->pipe[W_PIPE]);
+		c->pipe[W_PIPE] = open(s, O_RDONLY, O_CREAT, S_IREAD | S_IWRITE);
+		free(fname);
+		free(s);
+		r = cmdlist(c, *ncl, ncl, ll);
+	}
+	else if (!strncmp(cl, "<< ", 3))/*  */
+	{
+TESTs(cl)
+		cl += 2;
+		while (*cl == ' ')
+			cl++;
+		s = tk_std(cl, ncl, 0);
+		if (!s)
+			return (NULL);
+		else if (!*s)
+		{
+			//構文エラー
+		}	
+		int fd[2];
+		pipe(fd);
+		//s = get_txt(s);/* 必要 */
+s = strdup("hello world\n");/* test */
+		write(fd[W_PIPE], s, sizeof(s));
+		close(fd[W_PIPE]);
+		free(s);
+		if (c->pipe[R_PIPE] >= 0)
+			close(c->pipe[R_PIPE]);
+		c->pipe[R_PIPE] = fd[R_PIPE];
+		r = cmdlist(c, *ncl, ncl, ll);
+
+	}
+	else if (!strncmp(cl, ">> ", 3))/*  */
+	{
+TESTs(cl)
+		cl += 2;
+		while (*cl == ' ')
+			cl++;
+		s = tk_std(*ncl, ncl, 0);
+		if (!s)
+			return (NULL);
+		else if (!*s)
+		{
+			//構文エラー
+		}	
+		if (c->pipe[W_PIPE] >= 0)
+			close(c->pipe[W_PIPE]);
+
+
+		char	*fname;
+		fname = full_file_neme(s);
+TESTs(fname)
+		if (!fname)
+		{
+			free(s);
+			return (NULL);
+		}
+
+		c->pipe[W_PIPE] = open(s, O_RDONLY, O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
+		free(fname);
+		free(s);
+		r = cmdlist(c, *ncl, ncl, ll);
+	}
+	else if (!strncmp(cl, "| ", 2))/*  */
+	{
+TESTs(cl)
+		cl++;
+		while (*cl == ' ')
+			cl++;
+		int fd[2];
+		pipe(fd);
+		if (c->pipe[W_PIPE] >= 0)
+			close(fd[W_PIPE]);
+		else
+			c->pipe[W_PIPE] = fd[W_PIPE];
+		c->pipe[NEXT_PIPE] = fd[R_PIPE];
+		r = cmdlist(c, *ncl, ncl, ll);
+	}
+	else if (!strncmp(cl, "; ", 2))/*  */
+	{
+TESTs(cl)
+		cl++;
+		while (*cl == ' ')
+			cl++;
+		c->n_type = CONTINUE;
+		r = cmdlist(c, "", ncl, ll);
+		*ncl = cl;
+	}
+	else if (!strncmp(cl, "|| ", 3))/*  */
+	{
+TESTs(cl)
+		cl += 2;
+		while (*cl == ' ')
+			cl++;
+		r = cmdlist(c, "", ncl, ll);
+		if (c->n_type == CONTINUE)
+			c->n_type = OR;
+		*ncl = cl;
+	}
+	else if (!strncmp(cl, "&& ", 3))/*  */
+	{
+TESTs(cl)
+		cl += 2;
+		while (*cl == ' ')
+			cl++;
+TESTn(c->n_type)
+		r = cmdlist(c, "", ncl, ll);
+		if (c->n_type == CONTINUE)
+			c->n_type = AND;
+		*ncl = cl;
+	}
+	else//次のリストを増やしたい。
+	{
+TESTs(cl)
+		s = tk_std(cl, ncl, 0);
+//TESTs(s)
+		if (!s)
+			return (NULL);
+		r = cmdlist(c, *ncl, ncl, ll + 1);
+		if (!r)
+		{
+			free(s);
+			return (NULL);
+		}
+		r[ll] = s;
+	}
+	return (r);
 }
 
 char	*tk_std(char *cl, char **ncl, size_t B)
 {
 	size_t	i;
-	char	*ncl;
+	size_t	ii;
 	char	*r;
 
 	i = 0;
 	while (*cl == ' ' && *cl)
 		cl++;
-	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && cl[i] != '$' && cl[i] == ' ' && cl[i])
+	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && strncmp(cl + i, "$?", 2) && cl[i] != ' ' && cl[i])
 		i++;
-	if (!cl[i])
+	if (!cl[i] || cl[i] == ' ')
 	{
+//TESTn(B + i)
+		ii = 0;
+		while (cl[i + ii] == ' ')
+			ii++;
+		*ncl = cl + i + ii;
 		r = malloc(B + i + 1);
 		if (!r)
 		{
@@ -74,89 +255,49 @@ char	*tk_std(char *cl, char **ncl, size_t B)
 		}
 		r[B + i] = '\0';
 	}
-	else if ((cl[i] == ' ' || cl[i] == '<' || cl[i] == '>' || cl[i] == '|' || cl[i] == ';' || cl[i] == '&'))
-	{
-		r = tk_sp(cl + i, ncl, B + i + 1);
-		if (!r)
-			return (NULL);
-		r[B + i] = ' ';
-	}
 	else if (cl[i] == '$')
 	{
-		r = tk_env(cl + i, ncl, B + i);
+//TEST
+		r = tk_ques(cl + i, ncl, B + i, tk_std);
 		if (!r)
 			return (NULL);		
 	}
 	else if (cl[i] == '\\')
 	{
-		i += 2;
-		r = tk_std(cl + i, ncl, B + i);
+//TEST
+		r = tk_std(cl + i + 2, ncl, B + i + 1);
 		if (!r)
-			return (NULL);		
+			return (NULL);	
+		r[B + i] = 	cl [B + i + 1];
 	}
 	else if (cl[i] == '"')
 	{
-		r = tk_dq(cl + i + 1, ncl, B + i + 1);
+//TEST
+		r = tk_dq(cl + i + 1, ncl, B + i);
 		if (!r)
 			return (NULL);
-		r[B + i] = '"';
 	}
 	else //(cl[i] == '\'')
 	{
-		r = tk_sq(cl + i + 1, ncl, B + i + 1);
+//TEST
+		r = tk_sq(cl + i + 1, ncl, B + i);
 		if (!r)
 			return (NULL);
-		r[B + i] = '\'';
 	}
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
 }
 
-char	*tk_sp(char *cl, char **ncl, size_t B)
-{
-	size_t	i;
-	char	*r;
-//TEST
-	i = 0;
-	if (*cl == ' ')
-	{
-		while (*cl == ' ' && *cl)
-			cl++;
-		r = tk_std(cl, ncl, B);
-		if (!r)
-			return(NULL);
-	}
-	else if (!strncmp(cl, ">>", 2) || !strncmp(cl, "<<", 2) || !strncmp(cl, "||", 2) || !strncmp(cl, "&&", 2))/*  */
-	{
-		i = 2;
-		r = tk_std(cl + i, ncl, B + i + 1);
-		if (!r)
-			return(NULL);
-		r[B + i] = ' ';
-	}
-	else //(*cl == '>' || *cl == '<' || *cl == '|' || *cl == ';')
-	{
-		i = 1;
-		r = tk_std(cl + i, ncl, B + i + 1);
-		if (!r)
-			return(NULL);
-		r[B + i] = ' ';
-	}
-	if (i)
-		memcpy(r + B, cl, i);/*  */
-	return (r);
-}
 
 char	*tk_dq(char *cl, char **ncl, size_t B)
 {
 	size_t	i;
-	char	*ncl;
 	char	*r;
 
 //TEST
 	i = 0;
-	while (cl[i] != '"' && cl[i] != '$' && cl[i])
+	while (cl[i] != '"' && strncmp(cl + i, "$?", 2))
 		i++;
 	if (!cl[i])
 	{//構文エラー
@@ -167,16 +308,15 @@ char	*tk_dq(char *cl, char **ncl, size_t B)
 	}
 	else if (cl[i] == '$')
 	{
-		r = tk_env(cl + i, ncl, B + i);
+		r = tk_ques(cl + i, ncl, B + i, tk_dq);
 		if (!r)
 			return (NULL);
 	}
 	else //(cl[i] == '"')
 	{
-		r = tk_std(cl + i + 1, ncl, B + i + 1);
+		r = tk_std(cl + i + 1, ncl, B + i);
 		if (!r)
 			return (NULL);
-		r[B + i] = '"';
 	}
 	if (i)
 		memcpy(r + B, cl, i);/*  */
@@ -186,11 +326,10 @@ char	*tk_dq(char *cl, char **ncl, size_t B)
 char	*tk_sq(char *cl, char **ncl, size_t B)
 {
 	size_t	i;
-	char	*ncl;
 	char	*r;
 //TEST
 	i = 0;
-	while (cl[i] != '\'' && cl[i])
+	while (cl[i] != '\'')
 		i++;
 	if (!cl[i])
 	{//構文エラー
@@ -201,89 +340,26 @@ char	*tk_sq(char *cl, char **ncl, size_t B)
 	}
 	else //(cl[i] == '\'')
 	{
-		r = tk_std(cl + i + 1, ncl, B + i + 1);
+		r = tk_std(cl + i + 1, ncl, B + i);
 		if (!r)
 			return (NULL);
-		r[B + i] = '\'';
 	}
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
 }
 
-char	*tk_env(char *cl, char **ncl, size_t B)
+char	*tk_ques(char *cl, char **ncl, size_t B, char *(*f)(char *, char **, size_t))
 {
-	char	*envname;
-	char	*env;
+	char	s[32];
 	size_t	i;
-	size_t	ii;
 	char	*r;
-//TESTs(cl)
-	envname = extractenv(cl);
-	if (!envname)
-		return (NULL);
-//TESTs(envname)
-	i = 0;
-	if (*envname)
-	{
-		cl++;
-		env = getenv(envname);
-		ii = strlen(envname);/*  */
-	}
-	else
-	{
-		env = "$";
-		ii = 1;
-	}
-//TESTs(env)
-	if (env)
-		i += strlen(env);/*  */
-//TESTs(cl)
-//TESTn(i)
-	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' || cl[ii] == '|' || cl[ii] == ';' || !strncmp(cl + ii, "&&", 2))
-	{
-		r = tk_sp(cl + ii, ncl, B + i + 1);/*  */
-		if (!r)
-		{
-			free(envname);
-			return (NULL);
-		}
-		r[B + i] = ' ';
-	}
-	else
-	{
-		r = tk_std(cl + ii, ncl, B + i);/*  */
-		if (!r)
-		{
-			free(envname);
-			return (NULL);
-		}
-	}
-	if (i)
-		memcpy(r + B, env, i);/*  */
-	free(envname);
+//TESTn(B)
+	itosd(s, exeret);
+	i = strlen(s);/*  */
+	r = (*f)(cl + 2, ncl, B + i);
+	if (r)
+		memcpy(r + B, s, i);/*  */
 	return (r);
 }
 
-char	*extractenv(char *cl)
-{
-	size_t	i;
-	char	*r;
-//TEST
-	i = 0;
-	cl++;
-	while (cl[i] && isalnum(cl[i]))
-		i++;
-//TESTn(i)
-	r = malloc(i + 1);
-	if (!r)
-	{
-		printf("malloc error\n");
-		return (NULL);
-	}
-	if (i)
-		memcpy(r, cl, i);
-	r[i] = '\0';
-//TEST
-	return (r);
-}

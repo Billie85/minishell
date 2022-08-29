@@ -209,7 +209,7 @@ char	*gcl_nc(char	*cl, size_t	B)
 }
 
 
-/*  */
+/* 
 int main(void)
 {
     char *cl;
@@ -227,3 +227,4 @@ int main(void)
     }
     return 0;
 }
+ */

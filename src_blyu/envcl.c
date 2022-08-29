@@ -1,6 +1,7 @@
 #include "minishell.h"
 #include "debug.h"
 //構文に問題がある場合は"\0"返す/* 未完 */
+//空白を書き込むのはstdのみ/* 訂正 */
 char	*ecl_std(char *cl, size_t B);
 char	*ecl_dq(char *cl, size_t B);
 char	*ecl_sq(char *cl, size_t B);
@@ -10,7 +11,7 @@ char	*ecl_env_dq(char *cl, size_t B);
 char	*extractenv(char *cl);
 
 
-char *etcl(char *cl)
+char *envcl(char *cl)
 {
 	char *r;
 

@@ -1,5 +1,7 @@
 #include "minishell.h"
 int g_;
+int exeret = 0;
+
 int main(int argc, char *argv[])
 {
     preexe();
