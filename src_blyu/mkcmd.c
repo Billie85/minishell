@@ -4,25 +4,26 @@
 //構文のエラーのときは c->type = SYNTAXERROR を設定/* 訂正 */
 char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll);
 
-char	*tk_std(char *cl, char **ncl, size_t B);
-char	*tk_dq(char *cl, char **ncl, size_t B);
-char	*tk_sq(char *cl, char **ncl, size_t B);
-char	*tk_ques(char *cl, char **ncl, size_t B, char *(*po)(char *, char **, size_t));
+char	*tk_std(char *cl, size_t B);
+char	*tk_dq(char *cl, size_t B);
+char	*tk_sq(char *cl, size_t B);
+char	*tk_ques(char *cl, size_t B, char *(*po)(char *, size_t));
 char	*extractenv(char *cl);
+char	*skip_tk(char *cl);
 
 extern int exeret;
 
 char    *mkcmd(t_cmd *c, char *cl)
 {
 	char	*ncl;
-//TESTs(cl)
+
 	c->cmd = cmdlist(c, cl, &ncl, 0);
 	if(!(c->cmd))
 		return (NULL);
 	return (ncl);
 }
 //nclの設定は if (*cl) のときに任せず各自で/* 訂正 */
-//
+//char	*skip_tk(char *cl)
 char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 {
 	char	**r;
@@ -32,7 +33,7 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		cl++;
 	if (!*cl)
 	{
-TESTs(cl)
+//TESTs(cl)
 		r = malloc(sizeof(char	**) * ll + 1);
 		if (!r)
 		{
@@ -46,42 +47,32 @@ TESTs(cl)
 	}
 	else if (!strncmp(cl, "< ", 2))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl++;
 		while (*cl == ' ')
 			cl++;
-		s = tk_std(cl, ncl, 0);
+		s = tk_std(cl, 0);
+		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
 		else if (!*s)
 		{
 			//構文エラー
 		}
-
-
-		char	*fname;
-		fname = full_file_neme(s);
-TESTs(fname)
-		if (!fname)
-		{
-			free(s);
-			return (NULL);
-		}
-
 		if (c->pipe[R_PIPE] >= 0)
 			close(c->pipe[R_PIPE]);
-		c->pipe[R_PIPE] = open(s, O_RDONLY, O_CREAT, S_IREAD | S_IWRITE);
-		free(fname);
+		c->pipe[R_PIPE] = open(s, O_RDONLY | O_CREAT, S_IREAD | S_IWRITE);
 		free(s);
-		r = cmdlist(c, *ncl, ncl, ll);
+		r = cmdlist(c, cl, ncl, ll);
 	}
 	else if (!strncmp(cl, "> ", 2))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl++;
 		while (*cl == ' ')
 			cl++;
-		s = tk_std(cl, ncl, 0);
+		s = tk_std(cl, 0);
+		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
 		else if (!*s)
@@ -89,30 +80,20 @@ TESTs(cl)
 			//構文エラー
 		}	
 
-
-		char	*fname;
-		fname = full_file_neme(s);
-TESTs(fname)
-		if (!fname)
-		{
-			free(s);
-			return (NULL);
-		}
-
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
-		c->pipe[W_PIPE] = open(s, O_RDONLY, O_CREAT, S_IREAD | S_IWRITE);
-		free(fname);
+		c->pipe[W_PIPE] = open(s, O_RDONLY | O_CREAT, S_IREAD | S_IWRITE);
 		free(s);
-		r = cmdlist(c, *ncl, ncl, ll);
+		r = cmdlist(c, cl, ncl, ll);
 	}
 	else if (!strncmp(cl, "<< ", 3))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl += 2;
 		while (*cl == ' ')
 			cl++;
-		s = tk_std(cl, ncl, 0);
+		s = tk_std(cl, 0);
+		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
 		else if (!*s)
@@ -129,16 +110,17 @@ s = strdup("hello world\n");/* test */
 		if (c->pipe[R_PIPE] >= 0)
 			close(c->pipe[R_PIPE]);
 		c->pipe[R_PIPE] = fd[R_PIPE];
-		r = cmdlist(c, *ncl, ncl, ll);
+		r = cmdlist(c, cl, ncl, ll);
 
 	}
 	else if (!strncmp(cl, ">> ", 3))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl += 2;
 		while (*cl == ' ')
 			cl++;
-		s = tk_std(*ncl, ncl, 0);
+		s = tk_std(cl, 0);
+		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
 		else if (!*s)
@@ -148,24 +130,13 @@ TESTs(cl)
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
 
-
-		char	*fname;
-		fname = full_file_neme(s);
-TESTs(fname)
-		if (!fname)
-		{
-			free(s);
-			return (NULL);
-		}
-
-		c->pipe[W_PIPE] = open(s, O_RDONLY, O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
-		free(fname);
+		c->pipe[W_PIPE] = open(s, O_RDONLY | O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
 		free(s);
-		r = cmdlist(c, *ncl, ncl, ll);
+		r = cmdlist(c, cl, ncl, ll);
 	}
 	else if (!strncmp(cl, "| ", 2))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl++;
 		while (*cl == ' ')
 			cl++;
@@ -176,11 +147,11 @@ TESTs(cl)
 		else
 			c->pipe[W_PIPE] = fd[W_PIPE];
 		c->pipe[NEXT_PIPE] = fd[R_PIPE];
-		r = cmdlist(c, *ncl, ncl, ll);
+		r = cmdlist(c, cl, ncl, ll);
 	}
 	else if (!strncmp(cl, "; ", 2))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl++;
 		while (*cl == ' ')
 			cl++;
@@ -190,35 +161,34 @@ TESTs(cl)
 	}
 	else if (!strncmp(cl, "|| ", 3))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl += 2;
 		while (*cl == ' ')
 			cl++;
 		r = cmdlist(c, "", ncl, ll);
-		if (c->n_type == CONTINUE)
+		if (c->n_type != SKIP)
 			c->n_type = OR;
 		*ncl = cl;
 	}
 	else if (!strncmp(cl, "&& ", 3))/*  */
 	{
-TESTs(cl)
+//TESTs(cl)
 		cl += 2;
 		while (*cl == ' ')
 			cl++;
-TESTn(c->n_type)
 		r = cmdlist(c, "", ncl, ll);
-		if (c->n_type == CONTINUE)
+		if (c->n_type != SKIP)
 			c->n_type = AND;
 		*ncl = cl;
 	}
 	else//次のリストを増やしたい。
 	{
-TESTs(cl)
-		s = tk_std(cl, ncl, 0);
-//TESTs(s)
+//TESTs(cl)
+		s = tk_std(cl, 0);
+		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
-		r = cmdlist(c, *ncl, ncl, ll + 1);
+		r = cmdlist(c, cl, ncl, ll + 1);
 		if (!r)
 		{
 			free(s);
@@ -229,10 +199,9 @@ TESTs(cl)
 	return (r);
 }
 
-char	*tk_std(char *cl, char **ncl, size_t B)
+char	*tk_std(char *cl, size_t B)
 {
 	size_t	i;
-	size_t	ii;
 	char	*r;
 
 	i = 0;
@@ -243,10 +212,6 @@ char	*tk_std(char *cl, char **ncl, size_t B)
 	if (!cl[i] || cl[i] == ' ')
 	{
 //TESTn(B + i)
-		ii = 0;
-		while (cl[i + ii] == ' ')
-			ii++;
-		*ncl = cl + i + ii;
 		r = malloc(B + i + 1);
 		if (!r)
 		{
@@ -258,14 +223,14 @@ char	*tk_std(char *cl, char **ncl, size_t B)
 	else if (cl[i] == '$')
 	{
 //TEST
-		r = tk_ques(cl + i, ncl, B + i, tk_std);
+		r = tk_ques(cl + i, B + i, tk_std);
 		if (!r)
 			return (NULL);		
 	}
 	else if (cl[i] == '\\')
 	{
 //TEST
-		r = tk_std(cl + i + 2, ncl, B + i + 1);
+		r = tk_std(cl + i + 2, B + i + 1);
 		if (!r)
 			return (NULL);	
 		r[B + i] = 	cl [B + i + 1];
@@ -273,14 +238,14 @@ char	*tk_std(char *cl, char **ncl, size_t B)
 	else if (cl[i] == '"')
 	{
 //TEST
-		r = tk_dq(cl + i + 1, ncl, B + i);
+		r = tk_dq(cl + i + 1, B + i);
 		if (!r)
 			return (NULL);
 	}
 	else //(cl[i] == '\'')
 	{
 //TEST
-		r = tk_sq(cl + i + 1, ncl, B + i);
+		r = tk_sq(cl + i + 1, B + i);
 		if (!r)
 			return (NULL);
 	}
@@ -290,7 +255,7 @@ char	*tk_std(char *cl, char **ncl, size_t B)
 }
 
 
-char	*tk_dq(char *cl, char **ncl, size_t B)
+char	*tk_dq(char *cl, size_t B)
 {
 	size_t	i;
 	char	*r;
@@ -308,13 +273,13 @@ char	*tk_dq(char *cl, char **ncl, size_t B)
 	}
 	else if (cl[i] == '$')
 	{
-		r = tk_ques(cl + i, ncl, B + i, tk_dq);
+		r = tk_ques(cl + i, B + i, tk_dq);
 		if (!r)
 			return (NULL);
 	}
 	else //(cl[i] == '"')
 	{
-		r = tk_std(cl + i + 1, ncl, B + i);
+		r = tk_std(cl + i + 1, B + i);
 		if (!r)
 			return (NULL);
 	}
@@ -323,7 +288,7 @@ char	*tk_dq(char *cl, char **ncl, size_t B)
 	return (r);
 }
 
-char	*tk_sq(char *cl, char **ncl, size_t B)
+char	*tk_sq(char *cl, size_t B)
 {
 	size_t	i;
 	char	*r;
@@ -340,7 +305,7 @@ char	*tk_sq(char *cl, char **ncl, size_t B)
 	}
 	else //(cl[i] == '\'')
 	{
-		r = tk_std(cl + i + 1, ncl, B + i);
+		r = tk_std(cl + i + 1, B + i);
 		if (!r)
 			return (NULL);
 	}
@@ -349,7 +314,7 @@ char	*tk_sq(char *cl, char **ncl, size_t B)
 	return (r);
 }
 
-char	*tk_ques(char *cl, char **ncl, size_t B, char *(*f)(char *, char **, size_t))
+char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))
 {
 	char	s[32];
 	size_t	i;
@@ -357,9 +322,38 @@ char	*tk_ques(char *cl, char **ncl, size_t B, char *(*f)(char *, char **, size_t
 //TESTn(B)
 	itosd(s, exeret);
 	i = strlen(s);/*  */
-	r = (*f)(cl + 2, ncl, B + i);
+	r = (*f)(cl + 2, B + i);
 	if (r)
 		memcpy(r + B, s, i);/*  */
 	return (r);
 }
 
+char	*skip_tk(char *cl)
+{
+	while (*cl == ' ')
+		cl++;
+	while (*cl && *cl != ' ')
+	{
+		if ( *cl == '"')
+		{
+			cl++;
+			while (*cl != '"')
+				cl++;
+			cl++;			
+		}
+		else if ( *cl == '\'')
+		{
+			cl++;
+			while (*cl != '\'')
+				cl++;
+			cl++;			
+		}
+		else if ( *cl == '\\')
+			cl += 2;
+		else
+			cl++;
+	}
+	while (*cl == ' ')
+		cl++;
+	return (cl);
+}

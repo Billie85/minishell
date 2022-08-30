@@ -41,7 +41,7 @@ TESTs(cl)
 		if (c.pipe[W_PIPE])
 			close(c.pipe[W_PIPE]);
 		c.pipe[W_PIPE] = -1;
-		while (*cl || *cl == ' ')
+		while (*cl && *cl == ' ')
 			cl++;
 	}
 	return (0);

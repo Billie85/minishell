@@ -17,8 +17,8 @@ int exe_line(char *cl)
 		c.pipe[NEXT_PIPE] = -1;
 		cl = mkcmd(&c, cl);
 		exeret = exe_cmd(&c);
-		closefd(pipe);
-		while (*cl || *cl == ' ')
+		closefd(&c);
+		while (*cl && *cl == ' ')/* 不要 */
 			cl++;
 	}
 	return (0);

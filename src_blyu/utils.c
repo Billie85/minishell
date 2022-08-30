@@ -11,6 +11,8 @@ char	*full_file_neme(char	*s)
 		r = strdup(s);
 	else if (*s == '.')
 		r = ft_strjoin(pathname, s + 1);
+	else if (*s == '~')
+		r = ft_strjoin(getenv("HOME"), s + 1);
 	else
 	{
 		i = strlen(pathname);/*  */
