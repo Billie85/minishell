@@ -83,7 +83,7 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
-		c->pipe[W_PIPE] = open(s, O_RDONLY | O_CREAT, S_IREAD | S_IWRITE);
+		c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT, S_IREAD | S_IWRITE);
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
@@ -130,7 +130,7 @@ s = strdup("hello world\n");/* test */
 		}	
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
-		c->pipe[W_PIPE] = open(s, O_RDONLY | O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
+		c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
