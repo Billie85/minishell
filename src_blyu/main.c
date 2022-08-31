@@ -1,6 +1,7 @@
 #include "minishell.h"
 int g_;
 int exeret = 0;
+void preexe(void);
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,6 @@ void preexe(void)
     s.c_lflag &= ~(ECHOCTL);
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &s);
     signal(SIGINT, sigint_handler);
-    signal(SIGQUIT, sigint_handler);
+    //signal(SIGQUIT, sigint_handler);
     return ;
 }

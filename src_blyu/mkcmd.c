@@ -22,8 +22,7 @@ char    *mkcmd(t_cmd *c, char *cl)
 		return (NULL);
 	return (ncl);
 }
-//nclの設定は if (*cl) のときに任せず各自で/* 訂正 */
-//char	*skip_tk(char *cl)
+
 char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 {
 	char	**r;
@@ -42,6 +41,8 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 			return (NULL);
 		}
 		*ncl = cl;
+		if (c->n_type != SKIP)
+			c->n_type = CONTINUE;
 		r[0] = (char *)1;
 		r[ll] = NULL;
 	}
@@ -129,7 +130,6 @@ s = strdup("hello world\n");/* test */
 		}	
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
-
 		c->pipe[W_PIPE] = open(s, O_RDONLY | O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
@@ -137,9 +137,7 @@ s = strdup("hello world\n");/* test */
 	else if (!strncmp(cl, "| ", 2))/*  */
 	{
 //TESTs(cl)
-		cl++;
-		while (*cl == ' ')
-			cl++;
+		cl = skip_tk(cl);
 		int fd[2];
 		pipe(fd);
 		if (c->pipe[W_PIPE] >= 0)
@@ -147,14 +145,13 @@ s = strdup("hello world\n");/* test */
 		else
 			c->pipe[W_PIPE] = fd[W_PIPE];
 		c->pipe[NEXT_PIPE] = fd[R_PIPE];
-		r = cmdlist(c, cl, ncl, ll);
+		r = cmdlist(c, "", ncl, ll);
+		*ncl = cl;
 	}
 	else if (!strncmp(cl, "; ", 2))/*  */
 	{
 //TESTs(cl)
-		cl++;
-		while (*cl == ' ')
-			cl++;
+		cl = skip_tk(cl);
 		c->n_type = CONTINUE;
 		r = cmdlist(c, "", ncl, ll);
 		*ncl = cl;
@@ -162,9 +159,7 @@ s = strdup("hello world\n");/* test */
 	else if (!strncmp(cl, "|| ", 3))/*  */
 	{
 //TESTs(cl)
-		cl += 2;
-		while (*cl == ' ')
-			cl++;
+		cl = skip_tk(cl);
 		r = cmdlist(c, "", ncl, ll);
 		if (c->n_type != SKIP)
 			c->n_type = OR;
@@ -173,9 +168,7 @@ s = strdup("hello world\n");/* test */
 	else if (!strncmp(cl, "&& ", 3))/*  */
 	{
 //TESTs(cl)
-		cl += 2;
-		while (*cl == ' ')
-			cl++;
+		cl = skip_tk(cl);
 		r = cmdlist(c, "", ncl, ll);
 		if (c->n_type != SKIP)
 			c->n_type = AND;
@@ -218,6 +211,7 @@ char	*tk_std(char *cl, size_t B)
 			printf("malloc error\n");
 			return (NULL);
 		}
+		r[0] = (char)1;
 		r[B + i] = '\0';
 	}
 	else if (cl[i] == '$')

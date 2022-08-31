@@ -19,9 +19,10 @@
 //flag for t_cmd.n_type
 #define CONTINUE 0
 #define SKIP 1
+#define PIPE 2
 #define AND 3
 #define OR 4
-#define SYNTAXERROR 0
+#define SYNTAXERROR 5
 
 #define R_PIPE 0
 #define W_PIPE 1
@@ -37,12 +38,15 @@ typedef struct s_cmd
 	char			**cmd;
 	int				pipe[3];
 	int				n_type;
+	int				ps;
 }	t_cmd;
 
 //sig.c
 void sigint_handler(int sig);
 //envcl.c
 char *envcl(char *cl);
+//shell_loop.c
+void shell_loop(void);
 
 //tool.c
 void	itosd(char	*str, int	n);
@@ -50,9 +54,13 @@ void	itosd(char	*str, int	n);
 char    *mkcmd(t_cmd *c, char *cl);
 //getcl.c
 char *getcl(void);
+//exe_line.c
+int exe_line(char *cl);
+
 
 //utils.c
 char	*full_file_neme(char	*s);
+char	*cm_name(char *s);
 
 //libft
 char	*ft_strjoin(char const	*s1, char const	*s2);
