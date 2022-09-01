@@ -9,7 +9,6 @@ char	*tk_dq(char *cl, size_t B);
 char	*tk_sq(char *cl, size_t B);
 char	*tk_ques(char *cl, size_t B, char *(*po)(char *, size_t));
 char	*extractenv(char *cl);
-char	*skip_tk(char *cl);
 
 extern int exeret;
 
@@ -103,8 +102,9 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		}	
 		int fd[2];
 		pipe(fd);
-		//s = get_txt(s);/* 必要 */
-s = strdup("hello world\n");/* test */
+		s = get_txt(s);
+		if (!s)
+			return(NULL);
 		write(fd[W_PIPE], s, sizeof(s));
 		close(fd[W_PIPE]);
 		free(s);
@@ -320,34 +320,4 @@ char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))
 	if (r)
 		memcpy(r + B, s, i);/*  */
 	return (r);
-}
-
-char	*skip_tk(char *cl)
-{
-	while (*cl == ' ')
-		cl++;
-	while (*cl && *cl != ' ')
-	{
-		if ( *cl == '"')
-		{
-			cl++;
-			while (*cl != '"')
-				cl++;
-			cl++;			
-		}
-		else if ( *cl == '\'')
-		{
-			cl++;
-			while (*cl != '\'')
-				cl++;
-			cl++;			
-		}
-		else if ( *cl == '\\')
-			cl += 2;
-		else
-			cl++;
-	}
-	while (*cl == ' ')
-		cl++;
-	return (cl);
 }

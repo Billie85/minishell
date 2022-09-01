@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <dirent.h>
+#include <stdlib.h>
 int main(int argc, char**argv) {
   char *path = "./";
   DIR *dir;
@@ -15,6 +16,7 @@ int main(int argc, char**argv) {
   while ((dent = readdir(dir)) != NULL) {
     printf("%s\n", dent->d_name);
   }
+  system("leaks a.out");
   closedir(dir);
   return 0;
 }

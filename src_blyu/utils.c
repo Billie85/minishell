@@ -46,7 +46,7 @@ char	*cm_name(char *s)
 	if (r && access(r, X_OK))
 	{
 		free(r);
-		printf("no such comand %s", s);
+		printf("no such comand %s\n", s);
 		r = strdup("");/*  */
 	}
 	if (!r)
@@ -110,4 +110,34 @@ char	*cm_name2(char *p, char *s)
 	}
 	r[i] = '\0';
 	return (r);
+}
+
+char	*skip_tk(char *cl)
+{
+	while (*cl == ' ')
+		cl++;
+	while (*cl && *cl != ' ')
+	{
+		if ( *cl == '"')
+		{
+			cl++;
+			while (*cl != '"')
+				cl++;
+			cl++;			
+		}
+		else if ( *cl == '\'')
+		{
+			cl++;
+			while (*cl != '\'')
+				cl++;
+			cl++;			
+		}
+		else if ( *cl == '\\')
+			cl += 2;
+		else
+			cl++;
+	}
+	while (*cl == ' ')
+		cl++;
+	return (cl);
 }
