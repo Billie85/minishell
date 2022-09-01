@@ -51,6 +51,8 @@ void shell_loop(void);
 
 //tool.c
 void	itosd(char	*str, int	n);
+void	free_list(char	**p);
+
 //mkcmd.c
 char    *mkcmd(t_cmd *c, char *cl);
 //getcl.c

@@ -1,7 +1,9 @@
 #include "minishell.h"
-//void	free_list(char **);を作成/* 未完 */
+#include "debug.h"
 
 char	*as_std(char *cl, size_t B);
+char	*as_as_std(char *cl, size_t B);
+char	*as_as_q(char *cl, size_t B, char c);
 
 char	*asterisk(char *cl)
 {
@@ -79,14 +81,14 @@ char	*as_std(char *cl, size_t B)
 		xi = 0;
 		while (l[xi])
 		{
-			ii += strlen(l[xi]) + i + 1;/*  */
+			ii += i + strlen(l[xi]) + 1;/*  */
 			xi++;
 		}
 		r = as_std(skip_tk(cl), B + ii);
 		if (!r)
 		{
 			free(s);
-			free_list(l);/* 未完 */
+			free_list(l);
 			return (NULL);
 		}
 		ii = 0;
@@ -97,12 +99,12 @@ char	*as_std(char *cl, size_t B)
 			ii += i;
 			memcpy(r + B + ii, l[xi], strlen(l[xi]));/*  */
 			ii += strlen(l[xi]);/*  */
-			r[ii] = ' ';
+			r[B + ii] = ' ';
 			ii++;
-			i++;
+			xi++;
 		}
 		free(s);
-		free_list(l);/* 未完 */
+		free_list(l);
 		return(r);
 	}
 	return (r);
@@ -155,4 +157,5 @@ char	*as_as_q(char *cl, size_t B, char c)
 		return(NULL);
 	if (i)
 		memcpy(r + B, cl, i);/*  */
+	return (r);
 }

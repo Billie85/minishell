@@ -26,7 +26,7 @@ typedef struct s_dirs
 
 char    **fi_std(t_dirs *d, size_t dw);
 
-char    **find(char *search)
+char	**find(char *search)
 {
 	char	c;
 	size_t	i;
@@ -174,7 +174,7 @@ char    **fi_std(t_dirs *d, size_t dw)
 		return (r);
 	}
 }
-
+/* 
 int main(int argc, char *argv[]) {
 
 	if (argc <= 1)
@@ -186,3 +186,4 @@ int main(int argc, char *argv[]) {
 	}
 	return 0;
 }
+ */

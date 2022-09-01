@@ -46,15 +46,7 @@ void	cleanc(t_cmd	*c)
 	size_t	i;
 
 	i = 0;
-	if (c->cmd)
-	{
-		while (c->cmd[i])
-		{
-			free(c->cmd[i]);
-			i++;
-		}
-		free(c->cmd);
-	}
+	free_list(c->cmd);
 	c->cmd = NULL;
 	if (c->pipe[R_PIPE] >= 0)
 		close(c->pipe[R_PIPE]);
