@@ -64,7 +64,7 @@ int exe_line(char *cl);
 char	*get_txt(char *end);
 
 //find.c
-char    **find(char *search);
+char	**find(char **lst);
 
 //asterisk.c
 char   	*asterisk(char *cl);
@@ -73,6 +73,9 @@ char   	*asterisk(char *cl);
 char	*full_file_neme(char	*s);
 char	*cm_name(char *s);
 char	*skip_tk(char *cl);
+
+//libft_plus.c
+char *ft_strstr(const char *s1, const char *s2);
 
 //libft
 char	*ft_strjoin(char const	*s1, char const	*s2);

@@ -1,19 +1,3 @@
-// '/' './' '~/' から始まるものを識別
-
-//それ以外はカレントディレクトリのものを調べる
-
-//引数で指定した先を返す
-//ex)引数:"/abc/hello"
-//見つかったもの:/abc/hello_world.txt, /abc/hello_d/text.txt, /abc/hello
-//return_value[0] = "_world.txt\0"
-//return_value[1] = "_d/text.txt\0"
-//return_value[2] = "\0"
-//return_value[3] = NULL
-
-//存在しない場合は最初の最初の要素にmallocで確保した場所にNULLを入れる(つまり、mallocエラーのときのみNULLを返す)
-//return_value[0] = NULL<-存在しない場合
-//retuen(return_value);
-//retuen(NULL); <-mallocエラーの場合
 #include "minishell.h"
 #include "debug.h"
 
@@ -24,9 +8,38 @@ typedef struct s_dirs
 	struct s_dirs	*befor;
 }	t_dirs;
 
+char	**fi_list(char *search);
 char    **fi_std(t_dirs *d, size_t dw);
+void	fi_dir(char **r);
+int		fi_ok(char *str, char **l);
 
-char	**find(char *search)
+char	**find(char **lst)
+{
+	char	**l;
+	size_t	i;
+	size_t	ii;
+
+	l = fi_list(lst[0]);
+	if (!l)
+		return (NULL);
+	i = 0;
+	ii = 0;
+	while (l[i])
+	{
+		if (fi_ok(l[i], lst))
+		{
+			l[ii] = l[i];
+			ii++;
+		}
+		else
+			free(l[i]);
+		i++;
+	}
+	l[ii] = NULL;
+	return (l);
+}
+
+char	**fi_list(char *search)
 {
 	char	c;
 	size_t	i;
@@ -59,6 +72,7 @@ TESTp(d.dir)
 		search[i + 1] = c;
 		if (!r)
 			return (NULL);
+		fi_dir(r);
 	}
 	else
 	{
@@ -79,6 +93,7 @@ TESTp(d.dir)
 		r = fi_std(&d, 0);
 		if (!r)
 			return (NULL);
+		fi_dir(r);
 		size_t	ii = 0;
 		while (r[ii])
 		{
@@ -86,22 +101,6 @@ TESTp(d.dir)
 			ii++;
 		}
 	}
-	i = 0;
-	size_t	ii = 0;
-	size_t	l = strlen(search);
-	while (r[i])
-	{
-		if (strncmp(r[i], search, l))
-			free(r[i]);
-		else
-		{
-			r[ii] = r[i];
-			memmove(r[ii], r[ii] + l, strlen(r[ii]) + 1);
-			ii++;
-		}
-		i++;
-	}
-	r[ii] = NULL;
 	return (r);
 }
 
@@ -121,6 +120,7 @@ char    **fi_std(t_dirs *d, size_t dw)
 			printf("malloc error\n");
 			return (NULL);
 		}
+		*r = NULL;
 		return (r);
 	}
 	dent = readdir(d->dir);
@@ -145,11 +145,7 @@ char    **fi_std(t_dirs *d, size_t dw)
 		r[dw] = s;
 		return (r);
 	}
-	if (!strcmp(dent->d_name, ".."))
-{
-		return (fi_std(d, dw));
-}
-	else
+	else if (strcmp(dent->d_name, "..") && dent->d_type == DT_DIR)
 	{
 		size_t	i;
 		size_t	ii;
@@ -173,13 +169,84 @@ char    **fi_std(t_dirs *d, size_t dw)
 		free(nd.str);
 		return (r);
 	}
+	else
+{
+		return (fi_std(d, dw));
 }
+}
+
+void	fi_dir(char **r)
+{
+	size_t	i = 0;
+	size_t	ii = 0;
+	size_t	l;
+
+	while (r[i])
+	{
+		l = strlen(r[i]);
+		if ((l >= 2 && r[i][l - 2] == '/' && r[i][l - 1] == '.') || (l == 1 && r[i][0] == '.'))
+		{
+TEST
+			r[i][l - 2] = '\0';
+			if (r[i + 1] && !strncmp(r[i + 1], r[i], strlen(r[i])))
+				free(r[i]);
+			else
+			{
+				r[ii] = r[i];
+				ii++;
+			}
+		}
+		else
+		{
+			r[ii] = r[i];
+			ii++;
+		}
+		i++;
+	}
+	r[ii] = NULL;
+}
+
+int	fi_ok(char *str, char **l)
+{
+	size_t	i;
+	size_t	ii;
+
+	if(l[0][0] != '\0' && strncmp(str, l[0], strlen(l[0])))/*  */
+		return (0);
+	l++;
+	if (!l[0])
+		return (1);
+	while (l[1])
+	{
+		str = strstr(str, *l);/*  */
+		if (!str)
+			return (0);	
+		str += strlen(*l);/*  */
+		l++;
+	}
+	if (**l == '\0')
+		return (1);
+	i = strlen(str);
+	ii = strlen(*l);
+	if (i < ii)
+		return (0);
+	if (strncmp(str + i - ii, *l, ii))/*  */
+		return (0);
+	return (1);
+}
+
+
 /* 
 int main(int argc, char *argv[]) {
 
 	if (argc <= 1)
 		return (0);
-	char	**t = find(argv[1]);	
+	for (size_t i = 1; argv[i]; i++)
+	{
+		printf("%zu\t:%s[\\n]\n", i, argv[i]);
+	}
+TEST_
+	char	**t = find(argv + 1);	
 	for (size_t i = 0; t[i]; i++)
 	{
 		printf("%zu\t:%s[\\n]\n", i, t[i]);
