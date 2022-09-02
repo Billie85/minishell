@@ -8,7 +8,7 @@ char	*as_as_q(char *cl, char **cln, size_t B, char c);
 
 char	*asterisk(char *cl)
 {
-	char *r;
+	char	*r;
 
 	r = as_std(cl, 0);
 	free(cl);
@@ -23,26 +23,26 @@ char	*as_std(char *cl, size_t B)
 	i = 0;
 	while (cl[i] && cl[i] != '*' && cl[i] != ' ')
 	{
-		if ( cl[i] == '"')
+		if (cl[i] == '"')
 		{
 			i++;
 			while (cl[i] != '"')
 				i++;
-			i++;			
+			i++;
 		}
-		else if ( cl[i] == '\'')
+		else if (cl[i] == '\'')
 		{
 			i++;
 			while (cl[i] != '\'')
 				i++;
-			i++;			
+			i++;
 		}
-		else if ( cl[i] == '\\')
+		else if (cl[i] == '\\')
 			i += 2;
 		else
 			i++;
 	}
-	if(!cl[i])
+	if (!cl[i])
 	{
 		r = malloc(B + i + 1);
 		if (!r)
@@ -64,9 +64,9 @@ char	*as_std(char *cl, size_t B)
 	}
 	else //(cl[i] == '*')
 	{
-		char	**s;
-		char	**l;
-		size_t	ii;
+	char	**s;
+	char	**l;
+	size_t	ii;
 
 		s = as_as_list(cl, 0);
 		if (!s)
@@ -101,7 +101,7 @@ char	*as_std(char *cl, size_t B)
 			i++;
 		}
 		free_list(l);
-		return(r);
+		return (r);
 	}
 	return (r);
 }
@@ -110,6 +110,7 @@ char	**as_as_list(char *cl, size_t dw)
 {
 	char	**r;
 	char	*s;
+
 	if (*cl == '\0' || *cl == ' ')
 	{
 		r = malloc((dw + 1) * sizeof(char *));
@@ -162,7 +163,7 @@ char	**as_as_list(char *cl, size_t dw)
 			return (r);
 		}
 		else
-			return(as_as_list(cl, dw));
+			return (as_as_list(cl, dw));
 	}
 	else
 	{
@@ -181,7 +182,6 @@ char	**as_as_list(char *cl, size_t dw)
 		r[dw] = s;
 		return (r);
 	}
-	
 }
 
 char	*as_as_std(char *cl, char **cln, size_t B)
@@ -197,25 +197,25 @@ char	*as_as_std(char *cl, char **cln, size_t B)
 		*cln = cl + i;
 		r = malloc(B + i +1);
 		if (!r)
-			return(NULL);
+			return (NULL);
 		r[B + i] = '\0';
 	}
 	else if (cl[i] == '\\')
 	{
 		r = as_as_std(cl + i + 2, cln, B + i + 1);
 		if (!r)
-			return(NULL);
+			return (NULL);
 		r[B + i] = cl[i + 1];
 	}
 	else //	(cl[i] == '"' && cl[i] == '\'')
 	{
 		r = as_as_q(cl + i + 1, cln, B + i, cl[i]);
 		if (!r)
-			return(NULL);
+			return (NULL);
 	}
 	if (i)
 		memcpy(r + B, cl, i);/*  */
-	return (r);		
+	return (r);
 }
 
 char	*as_as_q(char *cl, char **cln, size_t B, char c)
@@ -228,7 +228,7 @@ char	*as_as_q(char *cl, char **cln, size_t B, char c)
 		i++;
 	r = as_as_std(cl + i + 1, cln, B + i);
 	if (!r)
-		return(NULL);
+		return (NULL);
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
