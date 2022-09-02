@@ -9,16 +9,14 @@ char	*ecl_env_std(char *cl, size_t B);
 char	*ecl_env_dq(char *cl, size_t B);
 char	*extractenv(char *cl);
 
-
-char *envcl(char *cl)
+char	*envcl(char *cl)
 {
-	char *r;
+	char	*r;
 
 	r = ecl_std(cl, 0);
 	free(cl);
 	return (r);
 }
-
 
 char	*ecl_std(char	*cl, size_t	B)
 {
@@ -97,6 +95,7 @@ char	*ecl_sp(char *cl, size_t B)
 		r = ecl_std(cl, B);
 		if (!r || !*r)
 			return (r);
+
 	}
 	else if (!strncmp(cl, ">>", 2) || !strncmp(cl, "<<", 2) || !strncmp(cl, "||", 2) || !strncmp(cl, "&&", 2))/*  */
 	{
@@ -104,6 +103,7 @@ char	*ecl_sp(char *cl, size_t B)
 		r = ecl_std(cl + i, B + i + 1);
 		if (!r || !*r)
 			return (r);
+
 		r[B + i] = ' ';
 	}
 	else //(*cl == '>' || *cl == '<' || *cl == '|' || *cl == ';')

@@ -1,11 +1,11 @@
 #include "minishell.h"
 #include "debug.h"
+
 extern int exeret;
+
 int	exe_cmd(t_cmd *c);
-
 void	cleanc(t_cmd	*c);
-
-int exe_line(char *cl)
+int	exe_line(char *cl)
 {
 	t_cmd	c;
 	int		i;

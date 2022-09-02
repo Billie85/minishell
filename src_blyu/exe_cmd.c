@@ -1,6 +1,7 @@
 #include "minishell.h"
 #include "debug.h"
-extern int exeret;
+
+extern int	exeret;
 
 int	exe_cmd1(t_cmd *c);
 void exe_start(t_cmd *c, char *cm);
@@ -13,7 +14,7 @@ int	exe_cmd(t_cmd *c)
 	if(c->n_type == SYNTAXERROR)
 		return (1);
 	else if (c->n_type == SKIP)
-		return (0);	
+		return (0);
 	cm = cm_name(c->cmd[0]);
 //TESTs(cm)
 	if(!cm)
@@ -32,7 +33,7 @@ int	exe_cmd(t_cmd *c)
 	if (i == 0)
 		exe_start(c, cm);
 	free(cm);
-	return(exe_cmd1(c));
+	return (exe_cmd1(c));
 }
 
 int	exe_cmd1(t_cmd *c)
@@ -51,12 +52,12 @@ TESTn(exeret)
 	return (0);
 }
 
-void exe_start(t_cmd *c, char *cm)
+void	exe_start(t_cmd *c, char *cm)
 {
 //TESTn(c->pipe[R_PIPE])
 //TESTn(c->pipe[W_PIPE])
 	if (c->pipe[NEXT_PIPE])
-		close(c->pipe[NEXT_PIPE]);
+	close(c->pipe[NEXT_PIPE]);
 	if (c->pipe[R_PIPE] >= 0)
 	{
 		dup2(c->pipe[R_PIPE], STDIN_FILENO);
