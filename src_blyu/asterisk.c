@@ -2,8 +2,9 @@
 #include "debug.h"
 
 char	*as_std(char *cl, size_t B);
-char	*as_as_std(char *cl, size_t B);
-char	*as_as_q(char *cl, size_t B, char c);
+char	**as_as_list(char *cl, size_t dw);
+char	*as_as_std(char *cl, char **cln, size_t B);
+char	*as_as_q(char *cl, char **cln, size_t B, char c);
 
 char	*asterisk(char *cl)
 {
@@ -63,64 +64,137 @@ char	*as_std(char *cl, size_t B)
 	}
 	else //(cl[i] == '*')
 	{
-		char	*s;
+		char	**s;
 		char	**l;
 		size_t	ii;
-		size_t	xi;
 
-		s = as_as_std(cl, 0);
+		s = as_as_list(cl, 0);
 		if (!s)
 			return (NULL);
 		l = find(s);
+		free_list(s);
 		if (!l)
-		{
-			free(s);
 			return (NULL);
-		}
+		i = 0;
 		ii = 0;
-		xi = 0;
-		while (l[xi])
+		while (l[i])
 		{
-			ii += i + strlen(l[xi]) + 1;/*  */
-			xi++;
+			ii += strlen(l[i]) + 3;/*  */
+			i++;
 		}
 		r = as_std(skip_tk(cl), B + ii);
 		if (!r)
 		{
-			free(s);
 			free_list(l);
 			return (NULL);
 		}
+		i = 0;
 		ii = 0;
-		xi = 0;
-		while (l[xi])
+		while (l[i])
 		{
-			memcpy(r + B + ii, cl, i);/*  */
-			ii += i;
-			memcpy(r + B + ii, l[xi], strlen(l[xi]));/*  */
-			ii += strlen(l[xi]);/*  */
-			r[B + ii] = ' ';
+			r[B + ii] = '\'';
 			ii++;
-			xi++;
+			memcpy(r + B + ii, l[i], strlen(l[i]));/*  */
+			ii += strlen(l[i]);
+			memcpy(r + B + ii, "\' ", 2);/*  */
+			ii += 2;
+			i++;
 		}
-		free(s);
 		free_list(l);
 		return(r);
 	}
 	return (r);
 }
 
+char	**as_as_list(char *cl, size_t dw)
+{
+	char	**r;
+	char	*s;
+	if (*cl == '\0' || *cl == ' ')
+	{
+		r = malloc((dw + 1) * sizeof(char *));
+		if (!r)
+		{
+			printf("malloc error\n");
+			return (NULL);
+		}
+		r[dw] = NULL;
+		return (r);
+	}
+	else if (*cl == '*' && !dw)
+	{
+		s = strdup("");/*  */
+		if (!s)
+		{
+			printf("malloc error\n");
+			return (NULL);
+		}
+		while (*cl == '*')
+			cl++;
+		r = as_as_list(cl, 1);
+		if (!r)
+		{
+			free(s);
+			return (NULL);
+		}
+		r[dw] = s;
+		return (r);
+	}
+	else if (*cl == '*')
+	{
+		while (*cl == '*')
+			cl++;
+		if (*cl == '\0')
+		{
+			s = strdup("");
+			if (!s)
+			{
+				printf("malloc error\n");
+				return (NULL);
+			}
+			r = as_as_list(cl, dw + 1);
+			if (!r)
+			{
+				free(s);
+				return (NULL);
+			}
+			r[dw] = s;
+			return (r);
+		}
+		else
+			return(as_as_list(cl, dw));
+	}
+	else
+	{
+		s = as_as_std(cl, &cl, 0);
+		if (!s)
+		{
+			printf("malloc error\n");
+			return (NULL);
+		}
+		r = as_as_list(cl, dw + 1);
+		if (!r)
+		{
+			free(s);
+			return (NULL);
+		}
+		r[dw] = s;
+		return (r);
+	}
+	
+}
 
-char	*as_as_std(char *cl, size_t B)
+char	*as_as_std(char *cl, char **cln, size_t B)
 {
 	size_t	i;
 	char	*r;
 
 	i = 0;
-	while (cl[i] != '*' && cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'')
+	while (cl[i] && cl[i] != '*' && cl[i] != ' ' && cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'')
 		i++;
-	if (cl[i] == '*')
+	if (!cl[i] || cl[i] == '*' || cl[i] == ' ')
 	{
+		*cln = cl + i;
 		r = malloc(B + i +1);
 		if (!r)
 			return(NULL);
@@ -128,14 +202,14 @@ char	*as_as_std(char *cl, size_t B)
 	}
 	else if (cl[i] == '\\')
 	{
-		r = as_as_std(cl + i + 2, B + i + 1);
+		r = as_as_std(cl + i + 2, cln, B + i + 1);
 		if (!r)
 			return(NULL);
 		r[B + i] = cl[i + 1];
 	}
 	else //	(cl[i] == '"' && cl[i] == '\'')
 	{
-		r = as_as_q(cl + i + 1, B + i, cl[i]);
+		r = as_as_q(cl + i + 1, cln, B + i, cl[i]);
 		if (!r)
 			return(NULL);
 	}
@@ -144,7 +218,7 @@ char	*as_as_std(char *cl, size_t B)
 	return (r);		
 }
 
-char	*as_as_q(char *cl, size_t B, char c)
+char	*as_as_q(char *cl, char **cln, size_t B, char c)
 {
 	size_t	i;
 	char	*r;
@@ -152,10 +226,23 @@ char	*as_as_q(char *cl, size_t B, char c)
 	i = 0;
 	while (cl[i] != c)
 		i++;
-	r = as_as_std(cl + i + 1, B + i);
+	r = as_as_std(cl + i + 1, cln, B + i);
 	if (!r)
 		return(NULL);
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
 }
+
+/* 
+int	main(int argc, char *argv[])
+{
+	char **s;
+	TESTs(argv[1])
+	s = as_as_list(argv[1], 0);
+	for (size_t i = 0; s[i]; i++)
+	{
+		printf("%zu\t %s\n", i, s[i]);
+	}
+	return (0);
+} */
