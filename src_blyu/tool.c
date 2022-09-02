@@ -1,3 +1,5 @@
+#include <unistd.h>
+#include <stdlib.h>
 void	itosd1(char	*str, int	n);
 
 void	itosd(char	*str, int	n)
@@ -34,5 +36,19 @@ void	itosd1(char	*str, int	n)
 		nn /= 10;
 	}
 	*str = '\0';
+	return ;
+}
+
+void	free_list(char	**p)
+{
+	size_t	i;
+
+	i = 0;
+	while (p[i])
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
 	return ;
 }

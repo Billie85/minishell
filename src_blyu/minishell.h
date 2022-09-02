@@ -9,6 +9,7 @@
 #include <readline/history.h>
 #include <termios.h>
 #include <fcntl.h>
+#include <dirent.h>
 #define PATHNAME_SIZE 512
 #define PROMPT "minishell>"
 #define PROMPT_ ">"
@@ -50,6 +51,8 @@ void shell_loop(void);
 
 //tool.c
 void	itosd(char	*str, int	n);
+void	free_list(char	**p);
+
 //mkcmd.c
 char    *mkcmd(t_cmd *c, char *cl);
 //getcl.c
@@ -57,10 +60,19 @@ char *getcl(void);
 //exe_line.c
 int exe_line(char *cl);
 
+//get_txt.c
+char	*get_txt(char *end);
+
+//find.c
+char    **find(char *search);
+
+//asterisk.c
+char   	*asterisk(char *cl);
 
 //utils.c
 char	*full_file_neme(char	*s);
 char	*cm_name(char *s);
+char	*skip_tk(char *cl);
 
 //libft
 char	*ft_strjoin(char const	*s1, char const	*s2);

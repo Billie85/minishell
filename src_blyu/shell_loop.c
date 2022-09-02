@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "debug.h"
 
 void shell_loop(void)
 {
@@ -13,10 +14,11 @@ void shell_loop(void)
 		cl = envcl(cl);
 		if (!cl)
 			break;
-		/* cl = asterisk(cl);
+		cl = asterisk(cl);
 		if (!cl)
-			break; */
-		i = exe_line(cl);
+			break;
+TESTs(cl)
+		//i = exe_line(cl);
 		free(cl);
 		if (i)
 			break;
