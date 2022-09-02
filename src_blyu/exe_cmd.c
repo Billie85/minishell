@@ -9,13 +9,13 @@ int	exe_cmd(t_cmd *c)
 {
 	char	*cm;
 	pid_t	i;
-TESTn(c->n_type)
+//TESTn(c->n_type)
 	if(c->n_type == SYNTAXERROR)
 		return (1);
 	else if (c->n_type == SKIP)
 		return (0);	
 	cm = cm_name(c->cmd[0]);
-TESTs(cm)
+//TESTs(cm)
 	if(!cm)
 		return (1);
 	else if (!*cm)
@@ -43,6 +43,7 @@ int	exe_cmd1(t_cmd *c)
 		wait(&exeret);
 		c->ps--;
 	}
+TESTn(exeret)
 	if (c->n_type == AND && exeret)
 		c->n_type = SKIP;
 	else if (c->n_type == OR && !exeret)
@@ -52,8 +53,8 @@ int	exe_cmd1(t_cmd *c)
 
 void exe_start(t_cmd *c, char *cm)
 {
-TESTn(c->pipe[R_PIPE])
-TESTn(c->pipe[W_PIPE])
+//TESTn(c->pipe[R_PIPE])
+//TESTn(c->pipe[W_PIPE])
 	if (c->pipe[NEXT_PIPE])
 		close(c->pipe[NEXT_PIPE]);
 	if (c->pipe[R_PIPE] >= 0)

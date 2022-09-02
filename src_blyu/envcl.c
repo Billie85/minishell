@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "debug.h"
-//構文に問題がある場合は"\0"返す/* 未完 */
-//空白を書き込むのはstdのみ/* 訂正 */
+
 char	*ecl_std(char *cl, size_t B);
 char	*ecl_dq(char *cl, size_t B);
 char	*ecl_sq(char *cl, size_t B);
@@ -43,40 +42,41 @@ char	*ecl_std(char	*cl, size_t	B)
 			printf("malloc error\n");
 			return (NULL);
 		}
+		r[0] = (char)1;
 		r[B + i] = '\0';
 	}
 	else if (cl[i] == ' ' || cl[i] == '<' || cl[i] == '>' || cl[i] == '|' || cl[i] == ';' || cl[i] == '&')
 	{
 		r = ecl_sp(cl + i, B + i + 1);
-		if (!r)
-			return (NULL);
+		if (!r || !*r)
+			return (r);
 		r[B + i] = ' ';
 	}
 	else if (cl[i] == '$')
 	{
 		r = ecl_env_std(cl + i, B + i);
-		if (!r)
-			return (NULL);		
+		if (!r || !*r)
+			return (r);
 	}
 	else if (cl[i] == '\\')
 	{
 		i += 2;
 		r = ecl_std(cl + i, B + i);
-		if (!r)
-			return (NULL);		
+		if (!r || !*r)
+			return (r);
 	}
 	else if (cl[i] == '"')
 	{
 		r = ecl_dq(cl + i + 1, B + i + 1);
-		if (!r)
-			return (NULL);
+		if (!r || !*r)
+			return (r);
 		r[B + i] = '"';
 	}
 	else //(cl[i] == '\'')
 	{
 		r = ecl_sq(cl + i + 1, B + i + 1);
-		if (!r)
-			return (NULL);
+		if (!r || !*r)
+			return (r);
 		r[B + i] = '\'';
 	}
 	if (i)
@@ -95,23 +95,23 @@ char	*ecl_sp(char *cl, size_t B)
 		while (*cl == ' ' && *cl)
 			cl++;
 		r = ecl_std(cl, B);
-		if (!r)
-			return(NULL);
+		if (!r || !*r)
+			return (r);
 	}
 	else if (!strncmp(cl, ">>", 2) || !strncmp(cl, "<<", 2) || !strncmp(cl, "||", 2) || !strncmp(cl, "&&", 2))/*  */
 	{
 		i = 2;
 		r = ecl_std(cl + i, B + i + 1);
-		if (!r)
-			return(NULL);
+		if (!r || !*r)
+			return (r);
 		r[B + i] = ' ';
 	}
 	else //(*cl == '>' || *cl == '<' || *cl == '|' || *cl == ';')
 	{
 		i = 1;
 		r = ecl_std(cl + i, B + i + 1);
-		if (!r)
-			return(NULL);
+		if (!r || !*r)
+			return (r);
 		r[B + i] = ' ';
 	}
 	if (i)
@@ -131,6 +131,7 @@ char	*ecl_dq(char	*cl, size_t	B)
 		i++;
 	if (!cl[i])
 	{//構文エラー
+		printf("syntax error\n");
 		r = malloc(1);
 		if (r)
 			*r = '\0';
@@ -139,14 +140,14 @@ char	*ecl_dq(char	*cl, size_t	B)
 	else if (cl[i] == '$')
 	{
 		r = ecl_env_dq(cl + i, B + i);
-		if (!r)
-			return (NULL);
+		if (!r || !*r)
+			return (r);
 	}
 	else //(cl[i] == '"')
 	{
 		r = ecl_std(cl + i + 1, B + i + 1);
-		if (!r)
-			return (NULL);
+		if (!r || !*r)
+			return (r);
 		r[B + i] = '"';
 	}
 	if (i)
@@ -173,8 +174,8 @@ char	*ecl_sq(char	*cl, size_t	B)
 	else //(cl[i] == '\'')
 	{
 		r = ecl_std(cl + i + 1, B + i + 1);
-		if (!r)
-			return (NULL);
+		if (!r || !*r)
+			return (r);
 		r[B + i] = '\'';
 	}
 	if (i)
@@ -189,7 +190,7 @@ char	*ecl_env_std(char *cl, size_t B)
 	size_t	i;
 	size_t	ii;
 	char	*r;
-TESTs(cl)
+
 	envname = extractenv(cl);
 	if (!envname)
 		return (NULL);
@@ -214,20 +215,20 @@ TESTs(cl)
 	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' || cl[ii] == '|' || cl[ii] == ';' || !strncmp(cl + ii, "&&", 2))
 	{
 		r = ecl_sp(cl + ii, B + i + 1);/*  */
-		if (!r)
+		if (!r || !*r)
 		{
 			free(envname);
-			return (NULL);
+			return (r);
 		}
 		r[B + i] = ' ';
 	}
 	else
 	{
 		r = ecl_std(cl + ii, B + i);/*  */
-		if (!r)
+		if (!r || !*r)
 		{
 			free(envname);
-			return (NULL);
+			return (r);
 		}
 	}
 	if (i)
@@ -265,8 +266,8 @@ char	*ecl_env_dq(char *cl, size_t B)
 	else
 		i = 0;
 	r = ecl_dq(cl + ii, B + i);/*  */
-TESTs(env)
-TESTn(i)
+	if (!r || !*r)
+		return (r);
 	if (i)
 		memcpy(r + B, env, i);/*  */
 	free(envname);

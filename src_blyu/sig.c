@@ -1,13 +1,18 @@
 #include "minishell.h"
+extern int g_;
 
 void sigint_handler(int sig)
 {
     (void)sig;
-    if (0/* もし、コマンドの実行中に発生した場合、その関数にSIGINTを送る*/)
+    if (g_ & SIGCOME)
+        g_ &= ~SIGCOME;
+    else if (g_ == EXEING)
     {
+        g_ |= SIGCOME;
+        kill(0, SIGINT);
         printf("^C\n");
     }
-    else
+    else //(g_ == READING)
     {
         printf ("\n");
         rl_on_new_line();
@@ -21,8 +26,12 @@ void sigint_handler(int sig)
 void sigquit_handler(int sig)
 {
     (void)sig;
-    if (0/* もし、コマンドの実行中に発生した場合、その関数にSIGQUITを送る*/)
+    if (g_ & SIGCOME)
+        g_ &= ~SIGCOME;
+    else if (g_ == EXEING)
     {
+        g_ |= SIGCOME;
+        kill(0, SIGQUIT);
         printf("^\\\n");
     }
     return ;

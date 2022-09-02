@@ -14,8 +14,9 @@
 #define PROMPT "minishell>"
 #define PROMPT_ ">"
 //sigmal use them
-#define NEXE 0
-#define EXE 1
+#define READING 0X00
+#define EXEING 0X01
+#define SIGCOME 0X10
 
 //flag for t_cmd.n_type
 #define CONTINUE 0

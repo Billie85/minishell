@@ -59,12 +59,11 @@ char	*cm_name1(char *s)
 	char	*path;
 	char	*r;
 	size_t	f;
-TEST	
+
 	path = getenv("PATH");
 	f = strlen(path);
 	while (f)
 	{
-TEST
 		while (f && path[f] != ':')
 			f--;
 		if (path[f] == ':')
