@@ -4,6 +4,7 @@
 # include <stddef.h>
 # include <ctype.h>
 
+//-nが連続で来た場合の処理の対応。while必要かも
 //オプション付き -n -> 最後の改行を出力しない
 
 void	ft_putchar_fd(char c, int fd)
