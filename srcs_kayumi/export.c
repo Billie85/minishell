@@ -26,7 +26,7 @@ char	*strlcpy__(char *dst, const char *src, char equal)
 	return (dst);
 }
 
-int	main(int argc, char **argv, char *envp[])
+int	export(int argc, char **argv, char *envp[])
 {
 	char	*after_equal;
 	int		i;
@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char *envp[])
 	char	*copy_str;
 	size_t	len;
 
+	//ft_strcmpでやる
 	if (ft_memcmp(argv[1], "export", 6) != 0)//exporttttとか通っちゃう。
 	{
 		printf("It's wrong.");
@@ -50,14 +51,8 @@ int	main(int argc, char **argv, char *envp[])
 			j++;
 		len = ft_strlen(copy_str);
 		after_equal = ft_substr (copy_str, j + 1, len - j - 1);
-		free(copy_str);
 		get_envp(up_to_equal, envp, after_equal);
 		i++;
 	}
-	printf("export ");
-	printf("%s", up_to_equal);
-	printf("=");
-	printf("%s ", after_equal);
-	printf("\n");
 	return (0);
 }

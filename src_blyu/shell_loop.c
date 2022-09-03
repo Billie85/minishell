@@ -8,7 +8,6 @@ void shell_loop(void)
 	size_t	cn;
 	int		i;
 
-	
 	g_ = READING;
 	cl = getcl();
 	g_ = EXEING;

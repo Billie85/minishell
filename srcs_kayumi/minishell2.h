@@ -13,3 +13,4 @@ typedef struct s_envp
 }			t_envp;
 
 int	get_envp(char *up_to_equal, char *envp[], char *after_equal);
+t_envp	*new_lstnew(char *name_envp, char *after_equal);
