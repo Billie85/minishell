@@ -2,10 +2,15 @@
 #include <stdio.h>
 #include <string.h>
 
+//文字列s1と文字列s2を比較します
+/* s1 > s2 で正の値、
+s1 < s2 で負の値、
+s1 = s2で 0 を返す。この大小関係は一般に文字コード順による。 */
+
  int	ft_strcmp(const char *s1, const char *s2)
 {
 	if (s1 == NULL || s2 == NULL)
-	return (1);
+	return (0);
 	while(*s1 != '\0' && *s2 != '\0' && *s1 == *s2)
 	{
 		s1++;
@@ -13,9 +18,6 @@
 	}
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
-
-	//同じだったらreturn ->0
-	//異なってたらreturn ->-1
 
 int main(void)
 {
