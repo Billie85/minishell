@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include "debug.h"
 void	itosd1(char	*str, int	n);
 
 void	itosd(char	*str, int	n)
@@ -26,7 +27,7 @@ void	itosd1(char	*str, int	n)
 	int	nn;
 
 	nn = 1;
-	while (n / nn < 10)
+	while (n / nn < -10)
 		nn *= 10;
 	while (nn > 0)
 	{

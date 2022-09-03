@@ -1,8 +1,6 @@
 #include "minishell.h"
 #include "debug.h"
 
-//readlineが最初NULLのときと途中でNULLのときそれぞれの処理未完
-
 char	*gcl_std(char	*cl, size_t	B);
 char	*gcl_dq(char	*cl, size_t	B);
 char	*gcl_sq(char	*cl, size_t	B);

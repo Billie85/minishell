@@ -17,8 +17,10 @@ char    *mkcmd(t_cmd *c, char *cl)
 	char	*ncl;
 
 	c->cmd = cmdlist(c, cl, &ncl, 0);
-	if(!(c->cmd))
+	if(!(c->cmd) && c->n_type != SYNTAXERROR)
 		return (NULL);
+	if (c->n_type == SYNTAXERROR)
+		ncl = cl + strlen(cl);
 	return (ncl);
 }
 
@@ -55,9 +57,12 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
-		else if (!*s)
+		else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
 		{
-			//構文エラー
+			printf("syntax error\n");
+			free(s);
+			c->n_type = SYNTAXERROR;
+			return (NULL);
 		}
 		if (c->pipe[R_PIPE] >= 0)
 			close(c->pipe[R_PIPE]);
@@ -75,10 +80,13 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
-		else if (!*s)
+		else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
 		{
-			//構文エラー
-		}	
+			printf("syntax error\n");
+			free(s);
+			c->n_type = SYNTAXERROR;
+			return (NULL);
+		}
 
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
@@ -96,10 +104,13 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
-		else if (!*s)
+		else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
 		{
-			//構文エラー
-		}	
+			printf("syntax error\n");
+			free(s);
+			c->n_type = SYNTAXERROR;
+			return (NULL);
+		}
 		int fd[2];
 		pipe(fd);
 		s = get_txt(s);
@@ -124,10 +135,13 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		cl = skip_tk(cl);
 		if (!s)
 			return (NULL);
-		else if (!*s)
+		else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
 		{
-			//構文エラー
-		}	
+			printf("syntax error\n");
+			free(s);
+			c->n_type = SYNTAXERROR;
+			return (NULL);
+		}
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
 		c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
@@ -174,7 +188,7 @@ char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 			c->n_type = AND;
 		*ncl = cl;
 	}
-	else//次のリストを増やしたい。
+	else
 	{
 //TESTs(cl)
 		s = tk_std(cl, 0);
@@ -198,8 +212,6 @@ char	*tk_std(char *cl, size_t B)
 	char	*r;
 
 	i = 0;
-	while (*cl == ' ' && *cl)
-		cl++;
 	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && strncmp(cl + i, "$?", 2) && cl[i] != ' ' && cl[i])
 		i++;
 	if (!cl[i] || cl[i] == ' ')
@@ -258,14 +270,7 @@ char	*tk_dq(char *cl, size_t B)
 	i = 0;
 	while (cl[i] != '"' && strncmp(cl + i, "$?", 2))
 		i++;
-	if (!cl[i])
-	{//構文エラー
-		r = malloc(1);
-		if (r)
-			*r = '\0';
-		return (r);
-	}
-	else if (cl[i] == '$')
+if (cl[i] == '$')
 	{
 		r = tk_ques(cl + i, B + i, tk_dq);
 		if (!r)
@@ -290,19 +295,9 @@ char	*tk_sq(char *cl, size_t B)
 	i = 0;
 	while (cl[i] != '\'')
 		i++;
-	if (!cl[i])
-	{//構文エラー
-		r = malloc(1);
-		if (r)
-			*r = '\0';
-		return (r);
-	}
-	else //(cl[i] == '\'')
-	{
-		r = tk_std(cl + i + 1, B + i);
-		if (!r)
-			return (NULL);
-	}
+	r = tk_std(cl + i + 1, B + i);
+	if (!r)
+		return (NULL);
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
@@ -314,7 +309,9 @@ char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))
 	size_t	i;
 	char	*r;
 
+TEST
 	itosd(s, exeret);
+TEST
 	i = strlen(s);/*  */
 	r = (*f)(cl + 2, B + i);
 	if (r)

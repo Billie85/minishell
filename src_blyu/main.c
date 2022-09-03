@@ -15,7 +15,6 @@ void preexe(void)
 {
     struct termios s;
 
-    g_ = NEXE;
     tcgetattr(STDIN_FILENO, &s);
     s.c_lflag &= ~(ECHOCTL);
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &s);

@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "debug.h"
+extern int g_;
 
 void shell_loop(void)
 {
@@ -7,7 +8,10 @@ void shell_loop(void)
 	size_t	cn;
 	int		i;
 
+	
+	g_ = READING;
 	cl = getcl();
+	g_ = EXEING;
 	while (cl)
 	{
 		add_history(cl);
@@ -18,11 +22,13 @@ void shell_loop(void)
 		if (!cl)
 			break;
 TESTs(cl)
-		//i = exe_line(cl);
+		i = exe_line(cl);
 		free(cl);
 		if (i)
 			break;
+		g_ = READING;
 		cl = getcl();
+		g_ = EXEING;
 	}
 	return ;
 }
