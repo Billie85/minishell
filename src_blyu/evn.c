@@ -51,7 +51,7 @@ int    set_env(char *name, char *arg)
 	memcpy(s + l, arg, strlen(arg));
 	s[l + strlen(arg)] = '\0';
 	env = env_space(name);
-//TESTp(env)
+TESTp(env)
 	if (!env)
 		return (1);
 	*env = s;
@@ -68,12 +68,9 @@ char	**env_space(char *s)
 	env = ev(NULL);
 	i = 0;
 	l = strlen(s);/*  */
-//TESTp(env[i])
-//TESTs(env[i])
 	while (env[i] && !(!strncmp(env[i], s, l) && env[i][l] == '='))/*  */
 		i++;
-//TESTn(!strncmp(env[i], s, l))
-	if (!strncmp(env[i], s, l))/*  */
+	if (env[i])/*  */
 	{
 		free(env[i]);
 		return(env + i);
@@ -84,6 +81,7 @@ char	**env_space(char *s)
 		printf("malloc error\n");
 		return (NULL);
 	}
+//TEST
 	i = 0;
 	while (env[i])
 	{
