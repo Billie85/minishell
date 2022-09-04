@@ -2,7 +2,7 @@
 #include "debug.h"
 //tk_stdはデフォルト、ファイル名取得のときのみ使う/* 訂正 */
 //構文のエラーのときは c->type = SYNTAXERROR を設定/* 訂正 */
-char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll);
+char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll);
 
 char	*tk_std(char *cl, size_t B);
 char	*tk_dq(char *cl, size_t B);
@@ -10,21 +10,21 @@ char	*tk_sq(char *cl, size_t B);
 char	*tk_ques(char *cl, size_t B, char *(*po)(char *, size_t));
 char	*extractenv(char *cl);
 
-extern int	exeret;//global g
+extern int exeret;
 
-char	*mkcmd(t_cmd *c, char *cl)
+char    *mkcmd(t_cmd *c, char *cl)
 {
 	char	*ncl;
 
 	c->cmd = cmdlist(c, cl, &ncl, 0);
-	if (!(c->cmd) && c->n_type != SYNTAXERROR)
+	if(!(c->cmd) && c->n_type != SYNTAXERROR)
 		return (NULL);
 	if (c->n_type == SYNTAXERROR)
 		ncl = cl + strlen(cl);
 	return (ncl);
 }
 
-char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
+char **cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 {
 	char	**r;
 	char	*s;
@@ -34,9 +34,13 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 	if (!*cl)
 	{
 //TESTs(cl)
-		r = malloc(sizeof(char **) * ll + 1);
+		r = malloc(sizeof(char	**) * ll + 1);
 		if (!r)
-			return(free_return(s, m_error()));
+		{
+			free(s);
+			printf("malloc error\n");
+			return (NULL);
+		}
 		*ncl = cl;
 		if (c->n_type != SKIP)
 			c->n_type = CONTINUE;
@@ -62,11 +66,11 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		}
 		if (c->pipe[R_PIPE] >= 0)
 			close(c->pipe[R_PIPE]);
-		c->pipe[R_PIPE] = open(s, O_RDONLY | O_CREAT, S_IREAD | S_IWRITE);//S_IERITEが定義されていません。
+		c->pipe[R_PIPE] = open(s, O_RDONLY | O_CREAT, S_IREAD | S_IWRITE);
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
-	else if (!strncmp(cl, " > ", 2))/*  */
+	else if (!strncmp(cl, "> ", 2))/*  */
 	{
 //TESTs(cl)
 		cl++;
@@ -83,13 +87,14 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 			c->n_type = SYNTAXERROR;
 			return (NULL);
 		}
+
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
-		c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT, S_IREAD | S_IWRITE);//S_IREADが定義されていません。
+		c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT, S_IREAD | S_IWRITE);
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
-	else if (!strncmp(cl, " << ", 3))/*  */
+	else if (!strncmp(cl, "<< ", 3))/*  */
 	{
 //TESTs(cl)
 		cl += 2;
@@ -106,11 +111,11 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 			c->n_type = SYNTAXERROR;
 			return (NULL);
 		}
-		int	fd[2];//
+		int fd[2];
 		pipe(fd);
 		s = get_txt(s);
 		if (!s)
-			return (NULL);
+			return(NULL);
 		write(fd[W_PIPE], s, sizeof(s));
 		close(fd[W_PIPE]);
 		free(s);
@@ -118,6 +123,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 			close(c->pipe[R_PIPE]);
 		c->pipe[R_PIPE] = fd[R_PIPE];
 		r = cmdlist(c, cl, ncl, ll);
+
 	}
 	else if (!strncmp(cl, ">> ", 3))/*  */
 	{
@@ -138,15 +144,15 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		}
 		if (c->pipe[W_PIPE] >= 0)
 			close(c->pipe[W_PIPE]);
-		c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT | O_APPEND, S_IREAD | S_IWRITE);//line too long
+		c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT | O_APPEND, S_IREAD | S_IWRITE);
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
-	else if (!strncmp(cl, " | ", 2))/*  */
+	else if (!strncmp(cl, "| ", 2))/*  */
 	{
 //TESTs(cl)
 		cl = skip_tk(cl);
-		int fd[2];//
+		int fd[2];
 		pipe(fd);
 		if (c->pipe[W_PIPE] >= 0)
 			close(fd[W_PIPE]);
@@ -198,7 +204,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		r[ll] = s;
 	}
 	return (r);
-}//25
+}
 
 char	*tk_std(char *cl, size_t B)
 {
@@ -213,7 +219,10 @@ char	*tk_std(char *cl, size_t B)
 //TESTn(B + i)
 		r = malloc(B + i + 1);
 		if (!r)
-			return(m_error());
+		{
+			printf("malloc error\n");
+			return (NULL);
+		}
 		r[0] = (char)1;
 		r[B + i] = '\0';
 	}
@@ -222,15 +231,15 @@ char	*tk_std(char *cl, size_t B)
 //TEST
 		r = tk_ques(cl + i, B + i, tk_std);
 		if (!r)
-			return (NULL);
+			return (NULL);		
 	}
 	else if (cl[i] == '\\')
 	{
 //TEST
 		r = tk_std(cl + i + 2, B + i + 1);
 		if (!r)
-			return (NULL);
-		r[B + i] = cl[B + i + 1];
+			return (NULL);	
+		r[B + i] = 	cl [B + i + 1];
 	}
 	else if (cl[i] == '"')
 	{
@@ -249,7 +258,8 @@ char	*tk_std(char *cl, size_t B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}//25
+}
+
 
 char	*tk_dq(char *cl, size_t B)
 {
@@ -260,7 +270,7 @@ char	*tk_dq(char *cl, size_t B)
 	i = 0;
 	while (cl[i] != '"' && strncmp(cl + i, "$?", 2))
 		i++;
-	if (cl[i] == '$')
+if (cl[i] == '$')
 	{
 		r = tk_ques(cl + i, B + i, tk_dq);
 		if (!r)
@@ -293,7 +303,7 @@ char	*tk_sq(char *cl, size_t B)
 	return (r);
 }
 
-char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))//too manyu funcyions
+char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))
 {
 	char	s[32];
 	size_t	i;

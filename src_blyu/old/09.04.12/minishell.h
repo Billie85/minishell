@@ -1,8 +1,6 @@
-# ifndef MINISHELL_H
+
+#ifndef MINISHELL_H
 #define MINISHELL_H
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -45,28 +43,26 @@ typedef struct s_cmd
 	int				ps;
 }	t_cmd;
 //bulitin
-int	bul_cd(int argc, char *argv[]);
-int	bul_echo(int argc, char *argv[]);
-int	bul_env(int argc, char *argv[]);
-int	bul_export(int argc, char *argv[]);
-int	bul_pwd(int argc, char *argv[]);
-int	bul_unset(int argc, char *argv[]);
+int bul_cd(int argc, char *argv[]);
+int bul_echo(int argc, char *argv[]);
+int bul_env(int argc, char *argv[]);
+int bul_export(int argc, char *argv[]);
+int bul_pwd(int argc, char *argv[]);
+int bul_unset(int argc, char *argv[]);
+
 
 //sig.c
-void	sigint_handler(int sig);
+void sigint_handler(int sig);
 //envcl.c
-char		*envcl(char *cl);
+char *envcl(char *cl);
 //shell_loop.c
-void	shell_loop(void);
+void shell_loop(void);
 
 //tool.c
 void	itosd(char	*str, int	n);
 void	free_list(char	**p);
 char	**cpy_list(char	**p);
 size_t	list_len(char **l);
-void	*m_error(void);
-void	*free_return(void *p, void *r);
-void	*free_list_return(void *l, void *r);
 
 //evn.c
 char **ev(char **set);
@@ -114,4 +110,4 @@ char	*ft_strjoin(char const	*s1, char const	*s2);
 
 #include "minishell.h"
 
-*/
+ */

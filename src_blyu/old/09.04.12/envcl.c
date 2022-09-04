@@ -23,7 +23,7 @@ char	*ecl_std(char	*cl, size_t	B)
 	size_t	i;
 	char	*ncl;
 	char	*r;
-
+//TEST
 	i = 0;
 	while (*cl == ' ' && *cl)
 		cl++;
@@ -36,7 +36,10 @@ char	*ecl_std(char	*cl, size_t	B)
 	{
 		r = malloc(B + i + 1);
 		if (!r)
-			return(m_error());
+		{
+			printf("malloc error\n");
+			return (NULL);
+		}
 		r[0] = (char)1;
 		r[B + i] = '\0';
 	}
@@ -77,13 +80,13 @@ char	*ecl_std(char	*cl, size_t	B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}//25
+}
 
 char	*ecl_sp(char *cl, size_t B)
 {
 	size_t	i;
 	char	*r;
-
+//TEST
 	i = 0;
 	if (*cl == ' ')
 	{
@@ -196,7 +199,7 @@ char	*ecl_env_std(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = get_env(envname);
+		env = getenv(envname);
 		ii = strlen(envname);/*  */
 	}
 	else
@@ -232,7 +235,7 @@ char	*ecl_env_std(char *cl, size_t B)
 		memcpy(r + B, env, i);/*  */
 	free(envname);
 	return (r);
-}//25
+}
 
 char	*ecl_env_dq(char *cl, size_t B)
 {
@@ -248,7 +251,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = get_env(envname);
+		env = getenv(envname);
 		ii = strlen(envname);/*  */
 	}
 	else
@@ -271,7 +274,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	return (r);
 }
 
-char	*extractenv(char *cl)//too many functions in file
+char	*extractenv(char *cl)
 {
 	size_t	i;
 	char	*r;
@@ -283,7 +286,10 @@ char	*extractenv(char *cl)//too many functions in file
 //TESTn(i)
 	r = malloc(i + 1);
 	if (!r)
-		return(m_error());
+	{
+		printf("malloc error\n");
+		return (NULL);
+	}
 	if (i)
 		memcpy(r, cl, i);
 	r[i] = '\0';

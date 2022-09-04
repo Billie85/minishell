@@ -1,13 +1,11 @@
 #include "minishell.h"
-
-char	*gt_std(char *end, size_t B);
+char	*gt_std(char *end, size_t   B);
 
 char	*get_txt(char *end)
 {
 	return (gt_std(end, 0));
 }
-
-char	*gt_std(char *end, size_t B)
+char	*gt_std(char *end, size_t   B)
 {
 	char	*s;
 	char	*r;
@@ -15,13 +13,16 @@ char	*gt_std(char *end, size_t B)
 
 	s = readline(PROMPT_);
 	if (!s)
-		return (strdup(""));
+		return(strdup(""));
 	if (!strcmp(s, end))/*  */
 	{
 		free(s);
 		r = malloc(B + 1);
 		if (!r)
-			return(m_error());
+		{
+			printf("malloc error\n");
+			return (NULL);
+		}
 		r[0] = (char)1;
 		r[B] = '\0';
 		return (r);
@@ -43,4 +44,4 @@ char	*gt_std(char *end, size_t B)
 	}
 	memcpy(r, s, i);/*  */
 	return (r);
-}//25
+}

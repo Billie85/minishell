@@ -1,6 +1,8 @@
 #include "../minishell.h"
 #include "../debug.h"
 
+int is_opn(char *s);
+
 int bul_echo(int argc, char *argv[])
 {
 	size_t	i;
@@ -10,7 +12,7 @@ int bul_echo(int argc, char *argv[])
         return (printf("\n") * 0);
     i = 1;
     nop = 0;
-	while(!strcmp(argv[i], "-n"))/*  */
+	while(is_opn(argv[i]))
     {
         nop = 1;
 		i++;
@@ -24,5 +26,17 @@ int bul_echo(int argc, char *argv[])
 	}
     if (!nop)
 	    printf("\n");
+	return (0);
+}
+
+int is_opn(char *s)
+{
+	if (*s != '-' && s[1] != 'n')
+		return(0);
+	s++;
+	while (*s == 'n')
+		s++;
+	if (!(*s))
+		return (1);
 	return (0);
 }

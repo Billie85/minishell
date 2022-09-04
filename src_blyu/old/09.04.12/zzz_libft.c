@@ -1,26 +1,8 @@
+
+
 #include <stddef.h>
 #include <stdlib.h>
-# include <unistd.h>
-# include <ctype.h>
-#include <stdio.h>
-
 size_t	count_long(char const *s);
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write (fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s == NULL)
-		return ;
-	while (*s)
-	{
-		write (fd, s, 1);
-		s++;
-	}
-}
 
 char	*ft_strjoin(char const	*s1, char const	*s2)
 {

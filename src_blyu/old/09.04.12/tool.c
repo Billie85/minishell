@@ -2,10 +2,9 @@
 #include <stdlib.h>
 #include "minishell.h"
 #include "debug.h"
+void	itosd1(char	*str, int	n);
 
-void	itosd1(char	*str, int n);
-
-void	itosd(char *str, int n)
+void	itosd(char	*str, int	n)
 {
 	if (n == 0)
 	{
@@ -24,7 +23,7 @@ void	itosd(char *str, int n)
 	return ;
 }
 
-void	itosd1(char	*str, int n)
+void	itosd1(char	*str, int	n)
 {
 	int	nn;
 
@@ -69,15 +68,22 @@ char	**cpy_list_std(char	**p, size_t dw)
 
 	if (!(*p))
 	{
+
 		r = malloc((dw + 1) * sizeof(char **));
 		if (!r)
-			return(m_error());
+		{
+			printf("malloc error\n");
+			return (NULL);
+		}
 		r[dw] = NULL;
 		return (r);
 	}
 	s = strdup(*p);
 	if (!s)
-		return(m_error());
+	{
+		printf("malloc error\n");
+		return (NULL);
+	}
 	r = cpy_list_std(p + 1, dw + 1);
 	if (!r)
 	{
@@ -87,10 +93,8 @@ char	**cpy_list_std(char	**p, size_t dw)
 	r[dw] = s;
 	return (r);
 }
-//25
-//too manyu functions
 
-size_t	list_len(char **l)//too many function in file
+size_t	list_len(char **l)
 {
 	size_t	i;
 
@@ -100,24 +104,4 @@ size_t	list_len(char **l)//too many function in file
 	while (l[i])
 		i++;
 	return (i);
-}
-
-void	*m_error(void)
-{
-	printf("malloc error\n");
-	return (NULL);
-}
-
-void	*free_return(void *p, void *r)
-{
-	if (!p)
-		free(p);
-	return (r);
-}
-
-void	*free_list_return(void *l, void *r)
-{
-	if (!l)
-		free_list(l);
-	return (r);
 }

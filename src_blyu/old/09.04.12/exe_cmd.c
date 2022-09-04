@@ -10,20 +10,20 @@ int	exe_cmd(t_cmd *c)
 {
 	char	*cm;
 	pid_t	i;
-
-	if (c->n_type == SYNTAXERROR)
+//TESTn(c->n_type)
+	if(c->n_type == SYNTAXERROR)
 		return (1);
 	else if (c->n_type == SKIP)
 		return (0);
-	if (isbulitin(c->cmd[0]))
-		return (exe_bulitin (c));
+ 	if (isbulitin(c->cmd[0]))
+		return(exe_bulitin(c));
 	cm = cm_name(c->cmd[0]);
-	if (!cm)
+//TESTs(cm)
+	if(!cm)
 		return (1);
 	else if (!*cm)
 	{
 		free(cm);
-		exeret = 127;
 		return (0);
 	}
 	i = fork();
@@ -36,7 +36,7 @@ int	exe_cmd(t_cmd *c)
 		exe_start(c, cm);
 	free(cm);
 	return (exe_cmd1(c));
-}//25
+}
 
 int	exe_cmd1(t_cmd *c)
 {	
@@ -56,6 +56,8 @@ int	exe_cmd1(t_cmd *c)
 
 void	exe_start(t_cmd *c, char *cm)
 {
+//TESTn(c->pipe[R_PIPE])
+//TESTn(c->pipe[W_PIPE])
 	if (c->pipe[NEXT_PIPE])
 	close(c->pipe[NEXT_PIPE]);
 	if (c->pipe[R_PIPE] >= 0)

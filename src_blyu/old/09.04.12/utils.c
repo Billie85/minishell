@@ -3,8 +3,8 @@
 
 char	*full_file_neme(char	*s)
 {
-	char	pathname[PATHNAME_SIZE];
-	char	*r;
+	char pathname[PATHNAME_SIZE];
+	char *r;
 	size_t	i;
 
 	getcwd(pathname, PATHNAME_SIZE);
@@ -13,12 +13,12 @@ char	*full_file_neme(char	*s)
 	else if (*s == '.')
 		r = ft_strjoin(pathname, s + 1);
 	else if (*s == '~')
-		r = ft_strjoin(get_env("HOME"), s + 1);
+		r = ft_strjoin(getenv("HOME"), s + 1);
 	else
 	{
 		i = strlen(pathname);/*  */
 		pathname[i] = '/';
-		pathname[i + 1] = '\0';
+		pathname[i + 1] = '\0';		
 		r = ft_strjoin(pathname, s);
 	}
 	if (!r)
@@ -31,8 +31,8 @@ char	*cm_name2(char *p, char *s);
 
 char	*cm_name(char *s)
 {
-	char	pathname[PATHNAME_SIZE];
-	char	*r;
+	char pathname[PATHNAME_SIZE];
+	char *r;
 
 	getcwd(pathname, PATHNAME_SIZE);
 	if (*s == '/')
@@ -40,7 +40,7 @@ char	*cm_name(char *s)
 	else if (*s == '.')
 		r = ft_strjoin(pathname, s + 1);
 	else if (*s == '~')
-		r = ft_strjoin(get_env("HOME"), s + 1);
+		r = ft_strjoin(getenv("HOME"), s + 1);
 	else
 		r = cm_name1(s);
 	if (r && access(r, X_OK))
@@ -60,7 +60,7 @@ char	*cm_name1(char *s)
 	char	*r;
 	size_t	f;
 
-	path = get_env("PATH");
+	path = getenv("PATH");
 	f = strlen(path);
 	while (f)
 	{
@@ -91,7 +91,7 @@ char	*cm_name2(char *p, char *s)
 		i++;
 	r = malloc(i + strlen(s) + 2);
 	if (!r)
-		return(m_error());
+		return (NULL);
 	i = 0;
 	while (p[i] && p[i] != ':')
 	{
@@ -109,7 +109,7 @@ char	*cm_name2(char *p, char *s)
 	}
 	r[i] = '\0';
 	return (r);
-}//25
+}
 
 char	*skip_tk(char *cl)
 {
@@ -117,21 +117,21 @@ char	*skip_tk(char *cl)
 		cl++;
 	while (*cl && *cl != ' ')
 	{
-		if (*cl == '"')
+		if ( *cl == '"')
 		{
 			cl++;
 			while (*cl != '"')
 				cl++;
-			cl++;
+			cl++;			
 		}
-		else if (*cl == '\'')
+		else if ( *cl == '\'')
 		{
 			cl++;
 			while (*cl != '\'')
 				cl++;
-			cl++;
+			cl++;			
 		}
-		else if (*cl == '\\')
+		else if ( *cl == '\\')
 			cl += 2;
 		else
 			cl++;
@@ -140,4 +140,3 @@ char	*skip_tk(char *cl)
 		cl++;
 	return (cl);
 }
-//25
