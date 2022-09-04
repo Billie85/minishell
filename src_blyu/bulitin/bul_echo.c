@@ -1,6 +1,8 @@
 #include "../minishell.h"
 #include "../debug.h"
 
+int is_opn(char *s);
+
 int bul_echo(int argc, char *argv[])
 {
 	size_t	i;
