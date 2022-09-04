@@ -21,7 +21,7 @@ void shell_loop(void)
 		cl = asterisk(cl);
 		if (!cl)
 			break;
-TESTs(cl)
+//TESTs(cl)
 		i = exe_line(cl);
 		free(cl);
 		if (i)

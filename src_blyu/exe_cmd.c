@@ -15,6 +15,8 @@ int	exe_cmd(t_cmd *c)
 		return (1);
 	else if (c->n_type == SKIP)
 		return (0);
+ 	if (isbulitin(c->cmd[0]))
+		return(exe_bulitin(c));
 	cm = cm_name(c->cmd[0]);
 //TESTs(cm)
 	if(!cm)
@@ -44,7 +46,7 @@ int	exe_cmd1(t_cmd *c)
 		wait(&exeret);
 		c->ps--;
 	}
-TESTn(exeret)
+//TESTn(exeret)
 	if (c->n_type == AND && exeret)
 		c->n_type = SKIP;
 	else if (c->n_type == OR && !exeret)

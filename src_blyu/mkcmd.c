@@ -309,9 +309,7 @@ char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))
 	size_t	i;
 	char	*r;
 
-TEST
 	itosd(s, exeret);
-TEST
 	i = strlen(s);/*  */
 	r = (*f)(cl + 2, B + i);
 	if (r)

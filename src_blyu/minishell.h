@@ -42,6 +42,14 @@ typedef struct s_cmd
 	int				n_type;
 	int				ps;
 }	t_cmd;
+//bulitin
+int bul_cd(int argc, char *argv[]);
+int bul_echo(int argc, char *argv[]);
+int bul_env(int argc, char *argv[]);
+int bul_export(int argc, char *argv[]);
+int bul_pwd(int argc, char *argv[]);
+int bul_unset(int argc, char *argv[]);
+
 
 //sig.c
 void sigint_handler(int sig);
@@ -53,6 +61,18 @@ void shell_loop(void);
 //tool.c
 void	itosd(char	*str, int	n);
 void	free_list(char	**p);
+char	**cpy_list(char	**p);
+size_t	list_len(char **l);
+
+//evn.c
+char **ev(char **set);
+char *get_env(char *s);
+int    set_env(char *name, char *arg);
+int    rm_env(char *s);
+
+//exe_bulitin.c
+int	isbulitin(char *s);
+int	exe_bulitin(t_cmd *c);
 
 //mkcmd.c
 char    *mkcmd(t_cmd *c, char *cl);

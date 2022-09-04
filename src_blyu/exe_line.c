@@ -23,18 +23,18 @@ int	exe_line(char *cl)
 		c.pipe[R_PIPE] = c.pipe[NEXT_PIPE];
 		c.pipe[NEXT_PIPE] = -1;
 		cl = mkcmd(&c, cl);
-		if (!cl)
-			return (1);
-		if (c.n_type == SYNTAXERROR)
+		if (c.n_type == SYNTAXERROR || !c.cmd[0])
 			return (0);
-for (size_t i = 0; c.cmd[i]; i++)
-{
-TESTs(c.cmd[i])
-}
-TESTn(c.pipe[R_PIPE])
-TESTn(c.pipe[W_PIPE])
-TESTn(c.pipe[NEXT_PIPE])
-TESTn(c.n_type)
+		if (!cl || !strcmp(c.cmd[0], "exit"))
+			return (1);
+//for (size_t i = 0; c.cmd[i]; i++)
+//{
+//TESTs(c.cmd[i])
+//}
+//TESTn(c.pipe[R_PIPE])
+//TESTn(c.pipe[W_PIPE])
+//TESTn(c.pipe[NEXT_PIPE])
+//TESTn(c.n_type)
 		i = exe_cmd(&c);
 		cleanc(&c);
 		if (i)

@@ -54,7 +54,7 @@ char	**fi_list(char *search)
 		c = search[i + 1];
 		search[i + 1] = '\0';
 		d.dir = opendir(search);
-TESTp(d.dir)
+//TESTp(d.dir)
 		if (!(d.dir))
 		{
 			r = malloc(sizeof(char **));
@@ -186,7 +186,7 @@ void	fi_dir(char **r)
 		l = strlen(r[i]);
 		if ((l >= 2 && r[i][l - 2] == '/' && r[i][l - 1] == '.') || (l == 1 && r[i][0] == '.'))
 		{
-TEST
+//TEST
 			r[i][l - 2] = '\0';
 			if (r[i + 1] && !strncmp(r[i + 1], r[i], strlen(r[i])))
 				free(r[i]);
@@ -245,7 +245,7 @@ int main(int argc, char *argv[]) {
 	{
 		printf("%zu\t:%s[\\n]\n", i, argv[i]);
 	}
-TEST_
+//TEST_
 	char	**t = find(argv + 1);	
 	for (size_t i = 0; t[i]; i++)
 	{
