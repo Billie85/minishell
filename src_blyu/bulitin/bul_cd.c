@@ -20,8 +20,10 @@ int bul_cd(int argc, char *argv[])
 		}
 		if (chdir(argv[1]))
 		{
-
-			printf("cd: not a directory: %s\n", argv[1]);
+			ft_putchar("cd: not a directory:", 2);
+			ft_putchar(argv[1], 2);
+			ft_putchar("\n", 2);
+			//printf("cd: not a directory: %s\n", argv[1]);
 			return (1);
 		}
 		getcwd(pathname, PATHNAME_SIZE);

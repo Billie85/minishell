@@ -21,7 +21,10 @@ int bul_unset(int argc, char *argv[])
         }
         else
         {
-            printf("minishell: unset: `%s': not a valid identifier\n", argv[i]);
+            ft_putchar("minishell: unset: ", 2);
+            ft_putchar(argv[i], 2);
+            ft_putchar(": not a valid identifier\n", 2);
+           //printf("minishell: unset: `%s': not a valid identifier\n", argv[i]);
             r = 1;
         }
         i++;

@@ -3,6 +3,11 @@
 
 size_t	count_long(char const *s);
 
+/* void	ft_putchar_fd(char c, int fd)
+{
+	write (fd, &c, 1);
+}
+ */
 char	*ft_strjoin(char const	*s1, char const	*s2)
 {
 	size_t	i1;

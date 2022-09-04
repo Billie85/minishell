@@ -24,7 +24,10 @@ int bul_export(int argc, char *argv[])
         }
         else
         {
-            printf("minishell: export: `%s': not a valid identifier\n", argv[i]);
+            ft_putchar("minishell: export: ", 2);
+            ft_putchar(argv[i], 2);
+            ft_putchar(": not a valid identifier\n", 2);
+            //printf("minishell: export: `%s': not a valid identifier\n", argv[i]);
             r = 1;
         }
         i++;
