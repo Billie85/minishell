@@ -11,9 +11,6 @@ int main()
         while ( i < 10 )
         {
                 inpt = readline("Enter text: ");
-                add_history(inpt);
-                printf("%s", inpt);
-                printf("\n");
                 ++i;
         }
         return 0;
