@@ -1,6 +1,7 @@
 #include "minishell.h"
 #include "debug.h"
-extern int exeret;
+
+extern int	exeret;//g
 
 int	isbulitin(char *s)
 {
@@ -9,7 +10,7 @@ int	isbulitin(char *s)
 
 int	exe_bulitin(t_cmd *c)
 {
-	int fd_buf;
+	int		fd_buf;
 
 	if (c->pipe[R_PIPE] >= 0)
 	{
@@ -25,18 +26,18 @@ int	exe_bulitin(t_cmd *c)
 		close(c->pipe[W_PIPE]);
 		c->pipe[W_PIPE] = fd_buf;
 	}
-	int i = list_len(c->cmd);
+	int i = list_len(c->cmd);//
 	if (!strcmp(c->cmd[0], "echo"))
 		exeret = bul_echo(i, c->cmd);
-	else if( !strcmp(c->cmd[0], "cd"))
+	else if (!strcmp(c->cmd[0], "cd"))
 		exeret = bul_cd(i, c->cmd);
-	else if( !strcmp(c->cmd[0], "pwd"))
+	else if (!strcmp(c->cmd[0], "pwd"))
 		exeret = bul_pwd(i, c->cmd);
-	else if(!strcmp(c->cmd[0], "export"))
+	else if (!strcmp(c->cmd[0], "export"))
 		exeret = bul_export(i, c->cmd);
-	else if(!strcmp(c->cmd[0], "unset"))
+	else if (!strcmp(c->cmd[0], "unset"))
 		exeret = bul_unset(i, c->cmd);
-	else if(!strcmp(c->cmd[0], "env") )
+	else if (!strcmp(c->cmd[0], "env"))
 		exeret = bul_env(i, c->cmd);
 	if (c->pipe[R_PIPE] >= 0)
 	{
@@ -50,3 +51,4 @@ int	exe_bulitin(t_cmd *c)
 	}
 	return (0);
 }
+//25

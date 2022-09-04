@@ -14,9 +14,9 @@
 //return_value[0] = NULL<-存在しない場合
 //retuen(return_value);
 //retuen(NULL); <-mallocエラーの場合
-char    **find(const char *search)
+char  **find(const char *search)
 {
-    
+  
 }
 
 int main(int argc, char**argv) {

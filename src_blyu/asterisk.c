@@ -64,9 +64,9 @@ char	*as_std(char *cl, size_t B)
 	}
 	else //(cl[i] == '*')
 	{
-	char	**s;
-	char	**l;
-	size_t	ii;
+		char	**s;//?
+		char	**l;//?
+		size_t	ii;//?
 
 		s = as_as_list(cl, 0);
 		if (!s)
@@ -104,7 +104,7 @@ char	*as_std(char *cl, size_t B)
 		return (r);
 	}
 	return (r);
-}
+}//25
 
 char	**as_as_list(char *cl, size_t dw)
 {
@@ -182,7 +182,7 @@ char	**as_as_list(char *cl, size_t dw)
 		r[dw] = s;
 		return (r);
 	}
-}
+}//25
 
 char	*as_as_std(char *cl, char **cln, size_t B)
 {
@@ -190,7 +190,7 @@ char	*as_as_std(char *cl, char **cln, size_t B)
 	char	*r;
 
 	i = 0;
-	while (cl[i] && cl[i] != '*' && cl[i] != ' ' && cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'')
+	while (cl[i] && cl[i] != '*' && cl[i] != ' ' && cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'')//line long
 		i++;
 	if (!cl[i] || cl[i] == '*' || cl[i] == ' ')
 	{
@@ -216,7 +216,7 @@ char	*as_as_std(char *cl, char **cln, size_t B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}
+}//25
 
 char	*as_as_q(char *cl, char **cln, size_t B, char c)
 {
