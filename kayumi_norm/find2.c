@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "../debug.h"
+#include "minishell2.h"
+//#include "debug.h"
 
 typedef struct s_dirs
 {
@@ -55,12 +55,11 @@ char	**fi_list(char *search)
 		c = search[i + 1];
 		search[i + 1] = '\0';
 		d.dir = opendir(search);
-//TESTp(d.dir)
 		if (!(d.dir))
 		{
 			r = malloc(sizeof(char **));
 			if (!r)
-				return(m_error());
+				return (m_error());
 			*r = NULL;
 			return (r);
 		}
@@ -79,7 +78,7 @@ char	**fi_list(char *search)
 		{
 			r = malloc(sizeof(char **));
 			if (!r)
-				return(m_error());
+				return (m_error());
 			*r = NULL;
 			return (r);
 		}
@@ -92,12 +91,12 @@ char	**fi_list(char *search)
 		ii = 0;
 		while (r[ii])
 		{
-			memmove(r[ii], r[ii] + 2, strlen(r[ii] + 2) + 1);/*  */
+			memmove(r[ii], r[ii] + 2, strlen(r[ii] + 2) + 1);
 			ii++;
 		}
 	}
 	return (r);
-}//25
+}
 
 char	**fi_std(t_dirs *d, size_t dw)
 {
@@ -105,12 +104,14 @@ char	**fi_std(t_dirs *d, size_t dw)
 	t_dirs			nd;
 	char			**r;
 	char			*s;
+	size_t			i;
+	size_t			ii;
 
 	if (!d)
 	{
 		r = malloc((dw + 1) * sizeof(char **));
 		if (!r)
-			return(m_error());
+			return (m_error());
 		*r = NULL;
 		return (r);
 	}
@@ -122,11 +123,11 @@ char	**fi_std(t_dirs *d, size_t dw)
 	}
 	if (!strcmp(dent->d_name, ".."))
 		return (fi_std(d, dw));
-	else if (dent->d_type != DT_DIR || !strcmp(dent->d_name, "."))//DI_DIRが定義されていません。
+	else if (dent->d_type != DT_DIR || !strcmp(dent->d_name, "."))
 	{
 		s = ft_strjoin(d->str, dent->d_name);
 		if (!s)
-			return(m_error());
+			return (m_error());
 		r = fi_std(d, dw + 1);
 		if (!r)
 			return (NULL);
@@ -135,14 +136,11 @@ char	**fi_std(t_dirs *d, size_t dw)
 	}
 	else if (strcmp(dent->d_name, "..") && dent->d_type == DT_DIR)
 	{
-		size_t	i;//?
-		size_t	ii;//?
-
 		i = strlen(d->str);
 		ii = strlen(dent->d_name);
 		s = malloc(i + ii + 2);
 		if (!s)
-			return(m_error());
+			return (m_error());
 		memcpy(s, d->str, i);
 		memcpy(s + i, dent->d_name, ii);
 		s[i + ii] = '/';
@@ -158,7 +156,7 @@ char	**fi_std(t_dirs *d, size_t dw)
 	{
 		return (fi_std(d, dw));
 	}
-}//25
+}
 
 void	fi_dir(char **r)
 {
@@ -173,7 +171,6 @@ void	fi_dir(char **r)
 		l = strlen(r[i]);
 		if ((l >= 2 && r[i][l - 2] == '/' && r[i][l - 1] == '.') || (l == 1 && r[i][0] == '.'))//line long
 		{
-//TEST
 			r[i][l - 2] = '\0';
 			if (r[i + 1] && !strncmp(r[i + 1], r[i], strlen(r[i])))
 				free(r[i]);
@@ -191,24 +188,24 @@ void	fi_dir(char **r)
 		i++;
 	}
 	r[ii] = NULL;
-}//25
+}
 
 int	fi_ok(char *str, char **l)
 {
 	size_t	i;
 	size_t	ii;
 
-	if (l[0][0] != '\0' && strncmp(str, l[0], strlen(l[0])))/*  */
+	if (l[0][0] != '\0' && strncmp(str, l [0], strlen(l[0])))
 		return (0);
 	l++;
 	if (!l[0])
 		return (1);
 	while (l[1])
 	{
-		str = strstr(str, *l);/*  */
+		str = strstr(str, *l);
 		if (!str)
-		return (0);
-		str += strlen(*l);/*  */
+			return (0);
+		str += strlen(*l);
 		l++;
 	}
 	if (**l == '\0')
@@ -217,7 +214,7 @@ int	fi_ok(char *str, char **l)
 	ii = strlen(*l);
 	if (i < ii)
 		return (0);
-	if (strncmp(str + i - ii, *l, ii))/* */
+	if (strncmp(str + i - ii, *l, ii))
 		return (0);
 	return (1);
 }

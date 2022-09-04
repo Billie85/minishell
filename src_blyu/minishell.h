@@ -44,6 +44,7 @@ typedef struct s_cmd
 	int				n_type;
 	int				ps;
 }	t_cmd;
+
 //bulitin
 int	bul_cd(int argc, char *argv[]);
 int	bul_echo(int argc, char *argv[]);
@@ -107,13 +108,4 @@ char	*ft_strjoin(char const	*s1, char const	*s2);
 void	ft_putstr_fd(char	*s, int	fd);
 void	ft_putchar_fd(char	c, int	fd);
 
-
 #endif
-
-
-
-/* 
-
-#include "minishell.h"
-
-*/
