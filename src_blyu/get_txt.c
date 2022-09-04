@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "debug.h"
 
 char	*gt_std(char *end, size_t B);
 char	*gt_mkmem(char *f, size_t B);
