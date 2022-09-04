@@ -16,16 +16,14 @@ int bul_export(int argc, char *argv[])
     while(i < argc)
     {
         ii = 0;
-        while (isalpha(argv[i][ii]))
+        while (isalpha(argv[i][ii]))/*  */
             ii++;
-        if (argv[i][ii] == '\0')
-        {}
-        else if (argv[i][ii] == '=')
+        if (argv[i][ii] == '=')
         {
             argv[i][ii] = '\0';
             set_env(argv[i], argv[i] + ii + 1);
         }
-        else
+        else if (argv[i][ii] != '\0')
         {
             ft_putstr_fd("minishell: export: ", 2);
             ft_putstr_fd(argv[i], 2);
