@@ -23,7 +23,7 @@ char	*ecl_std(char	*cl, size_t	B)
 	size_t	i;
 	char	*ncl;
 	char	*r;
-
+//TEST
 	i = 0;
 	while (*cl == ' ' && *cl)
 		cl++;
@@ -86,7 +86,7 @@ char	*ecl_sp(char *cl, size_t B)
 {
 	size_t	i;
 	char	*r;
-
+//TEST
 	i = 0;
 	if (*cl == ' ')
 	{
