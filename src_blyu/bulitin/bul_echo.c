@@ -12,7 +12,7 @@ int bul_echo(int argc, char *argv[])
         return (printf("\n") * 0);
     i = 1;
     nop = 0;
-	while(is_opn( argv[i]))
+	while(is_opn(argv[i]))
     {
         nop = 1;
 		i++;
@@ -31,7 +31,7 @@ int bul_echo(int argc, char *argv[])
 
 int is_opn(char *s)
 {
-	if (*s != '-' && s[1] != 'n');
+	if (*s != '-' && s[1] != 'n')
 		return(0);
 	s++;
 	while (*s == 'n')

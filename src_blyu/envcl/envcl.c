@@ -199,7 +199,7 @@ char	*ecl_env_std(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = getenv(envname);
+		env = get_env(envname);
 		ii = strlen(envname);/*  */
 	}
 	else
@@ -235,7 +235,7 @@ char	*ecl_env_std(char *cl, size_t B)
 		memcpy(r + B, env, i);/*  */
 	free(envname);
 	return (r);
-}
+}//25
 
 char	*ecl_env_dq(char *cl, size_t B)
 {
@@ -251,7 +251,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = getenv(envname);
+		env = get_env(envname);
 		ii = strlen(envname);/*  */
 	}
 	else
@@ -274,7 +274,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	return (r);
 }
 
-char	*extractenv(char *cl)
+char	*extractenv(char *cl)//too many functions in file
 {
 	size_t	i;
 	char	*r;
