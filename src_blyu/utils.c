@@ -115,21 +115,17 @@ char	*cm_name2(char *p, char *s)
 
 char	*skip_tk(char *cl)
 {
+	char	c;
+
 	while (*cl == ' ')
 		cl++;
 	while (*cl && *cl != ' ')
 	{
-		if (*cl == '"')
+		if (*cl == '"' || *cl == '\'')
 		{
+			c = *cl;
 			cl++;
-			while (*cl != '"')
-				cl++;
-			cl++;
-		}
-		else if (*cl == '\'')
-		{
-			cl++;
-			while (*cl != '\'')
+			while (*cl != c)
 				cl++;
 			cl++;
 		}
@@ -142,4 +138,3 @@ char	*skip_tk(char *cl)
 		cl++;
 	return (cl);
 }
-//25

@@ -1,5 +1,5 @@
-#include "minishell.h"
-#include "debug.h"
+#include "../minishell.h"
+#include "../debug.h"
 //tk_stdはデフォルト、ファイル名取得のときのみ使う/* 訂正 */
 //構文のエラーのときは c->type = SYNTAXERROR を設定/* 訂正 */
 char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll);
@@ -16,7 +16,7 @@ char	*mkcmd(t_cmd *c, char *cl)
 {
 	char	*ncl;
 
-TESTs(cl)
+//TESTs(cl)
 	c->cmd = cmdlist(c, cl, &ncl, 0);
 	if (!(c->cmd) && c->n_type != SYNTAXERROR)
 		return (NULL);
@@ -52,7 +52,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 			cl++;
 		s = tk_std(cl, 0);
 		cl = skip_tk(cl);
-TESTs(cl)
+//TESTs(cl)
 		if (!s)
 			return (NULL);
 		else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
