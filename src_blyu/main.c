@@ -11,6 +11,7 @@ int	main(int argc, char *argv[], char *envp[])
 //TEST
 	if (argc == 1)
 		shell_loop();
+	free_list(ev(NULL));
 	return (0);
 }
 
@@ -23,7 +24,6 @@ void	preexe(char **envp)
 	{
 		printf("%zu\t:%s\n", i, envp[i]);
 	}
-//TESTp(envp)
 	if (!envp)
 		exit(1);
 	ev(envp);
@@ -31,6 +31,6 @@ void	preexe(char **envp)
 	s.c_lflag &= ~(ECHOCTL);//ECHOCTILが定義されていません。
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &s);
 	signal(SIGINT, sigint_handler);
-//signal(SIGQUIT, sigint_handler);
+	//signal(SIGQUIT, sigint_handler);
 	return ;
 }

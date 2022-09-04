@@ -74,6 +74,8 @@ char	*cm_name1(char *s)
 			return (NULL);
 		else if (!access(r, X_OK))
 			return (r);
+		else
+			free(r);
 		if (path[f] == ':')
 			f--;
 	}

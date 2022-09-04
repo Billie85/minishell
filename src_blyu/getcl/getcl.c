@@ -1,21 +1,27 @@
-#include "minishell.h"
-#include "debug.h"
+#include "../minishell.h"
+#include "../debug.h"
 
 char	*gcl_std(char	*cl, size_t	B);
 char	*gcl_dq(char	*cl, size_t	B);
 char	*gcl_sq(char	*cl, size_t	B);
 char	*gcl_nc(char	*cl, size_t	B);
+extern int	g_;
 
 char	*getcl(void)
 {
 	char	*cl;
 	char	*r;
 
+	g_ = READING;
 	cl = readline(PROMPT);
 	if (!cl)
+	{
+		g_ = EXEING;
 		return (NULL);
+	}
 	r = gcl_std(cl, 0);
 	free(cl);
+	g_ = EXEING;
 	return (r);
 }
 

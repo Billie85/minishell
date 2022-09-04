@@ -9,9 +9,7 @@ void	shell_loop(void)
 	size_t	cn;
 	int		i;
 
-	g_ = READING;
 	cl = getcl();
-	g_ = EXEING;
 	while (cl)
 	{
 		add_history(cl);
@@ -26,9 +24,7 @@ void	shell_loop(void)
 		free(cl);
 		if (i)
 			break ;
-		g_ = READING;
 		cl = getcl();
-		g_ = EXEING;
 	}
 	return ;
-}//25
+}

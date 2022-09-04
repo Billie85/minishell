@@ -1,5 +1,5 @@
-#include "minishell.h"
-#include "debug.h"
+#include "../minishell.h"
+#include "../debug.h"
 
 char	*as_std(char *cl, size_t B);
 char	**as_as_list(char *cl, size_t dw);

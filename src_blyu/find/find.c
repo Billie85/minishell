@@ -1,5 +1,5 @@
-#include "minishell.h"
-#include "debug.h"
+#include "../minishell.h"
+#include "../debug.h"
 
 typedef struct s_dirs
 {

@@ -28,14 +28,14 @@ int	exe_line(char *cl)
 			return (0);
 		if (!cl || !strcmp(c.cmd[0], "exit"))
 			return (1);
-//for (size_t i = 0; c.cmd[i]; i++)
-//{
-//TESTs(c.cmd[i])
-//}
-//TESTn(c.pipe[R_PIPE])
-//TESTn(c.pipe[W_PIPE])
-//TESTn(c.pipe[NEXT_PIPE])
-//TESTn(c.n_type)
+for (size_t i = 0; c.cmd[i]; i++)
+{
+TESTs(c.cmd[i])
+}
+TESTn(c.pipe[R_PIPE])
+TESTn(c.pipe[W_PIPE])
+TESTn(c.pipe[NEXT_PIPE])
+TESTn(c.n_type)
 		i = exe_cmd(&c);
 		cleanc(&c);
 		if (i)
