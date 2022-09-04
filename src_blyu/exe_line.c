@@ -1,10 +1,11 @@
 #include "minishell.h"
 #include "debug.h"
 
-extern int exeret;
+extern int	exeret;//glbal variable start with g
 
-int	exe_cmd(t_cmd *c);
+int		exe_cmd(t_cmd *c);
 void	cleanc(t_cmd	*c);
+
 int	exe_line(char *cl)
 {
 	t_cmd	c;
@@ -43,7 +44,7 @@ int	exe_line(char *cl)
 			cl++;
 	}
 	return (0);
-}
+}//25
 
 void	cleanc(t_cmd	*c)
 {

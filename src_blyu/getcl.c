@@ -6,7 +6,7 @@ char	*gcl_dq(char	*cl, size_t	B);
 char	*gcl_sq(char	*cl, size_t	B);
 char	*gcl_nc(char	*cl, size_t	B);
 
-char *getcl(void)
+char	*getcl(void)
 {
 	char	*cl;
 	char	*r;
@@ -30,7 +30,7 @@ char	*gcl_std(char	*cl, size_t	B)
 	&& cl[i] != '"' \
 	&& cl[i] != '\'' \
 	&& cl[i] != '|' && strncmp(cl + i, "&&", 2)/*  */ \
-	&& cl[i])
+		&& cl[i])
 		i++;
 	if (!cl[i])
 	{
@@ -61,7 +61,7 @@ char	*gcl_std(char	*cl, size_t	B)
 			r = gcl_std(ncl, B + i);
 			free(ncl);
 			if (!r)
-				return(NULL);
+				return (NULL);
 		}
 	}
 	else if (cl[i] == '"')
@@ -83,7 +83,7 @@ char	*gcl_std(char	*cl, size_t	B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}
+}//25
 
 char	*gcl_dq(char	*cl, size_t	B)
 {
@@ -119,10 +119,9 @@ char	*gcl_dq(char	*cl, size_t	B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}
+}//25
 
-
-char	*gcl_sq(char	*cl, size_t	B)
+char	*gcl_sq(char *cl, size_t B)
 {
 	size_t	i;
 	char	*ncl;
@@ -135,7 +134,6 @@ char	*gcl_sq(char	*cl, size_t	B)
 	{
 //TEST
 		ncl = readline(PROMPT_);
-
 		if (!ncl)
 			r = gcl_std("", B + i);
 		else
@@ -157,7 +155,7 @@ char	*gcl_sq(char	*cl, size_t	B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}
+}//25
 
 char	*gcl_nc(char	*cl, size_t	B)
 {
@@ -185,7 +183,6 @@ char	*gcl_nc(char	*cl, size_t	B)
 	{
 //TEST
 		ncl = readline(PROMPT_);
-
 		if (!ncl)
 			r = gcl_std("", B + i);
 		else
@@ -204,8 +201,7 @@ char	*gcl_nc(char	*cl, size_t	B)
 	}
 	memcpy(r + B, cl, i);/*  */
 	return (r);
-}
-
+}//25
 
 /* 
 int main(void)

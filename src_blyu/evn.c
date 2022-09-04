@@ -1,20 +1,21 @@
 #include "minishell.h"
 #include "debug.h"
+
 char	**env_space(char *s);
 
-char **ev(char **set)
+char	**ev(char **set)
 {
-	static char **env = NULL;
+	static char	**env = NULL;
 
 	if (set)
 		env = set;
 	return (env);
 }
 
-char *get_env(char *s)
+char	*get_env(char *s)
 {
-	char    **env;
-	size_t    l;
+	char	**env;
+	size_t	l;
 
 	l = 0;
 	while (s[l])
@@ -29,10 +30,9 @@ char *get_env(char *s)
 	if (!(*env))
 		return ("");
 	return ((*env) + l + 1);
-	
 }
 
-int    set_env(char *name, char *arg)
+int	set_env(char *name, char *arg)
 {
 	char		**env;
 	char		*s;
@@ -60,8 +60,8 @@ TESTp(env)
 
 char	**env_space(char *s)
 {
-	char    **env;
-	char    **r;
+	char	**env;
+	char	**r;
 	size_t	i;
 	size_t	l;
 
@@ -73,7 +73,7 @@ char	**env_space(char *s)
 	if (env[i])/*  */
 	{
 		free(env[i]);
-		return(env + i);
+		return (env + i);
 	}
 	r = malloc((i + 2) * sizeof(char **));
 	if (!r)
@@ -91,19 +91,19 @@ char	**env_space(char *s)
 	free(env);
 	r[i + 1] = NULL;
 	return (ev(r) + i);
-}
+}//25
 
-int    rm_env(char *s)
+int	rm_env(char *s)
 {
-	char    **env;
-	char    **r;
+	char	**env;
+	char	**r;
 	size_t	i;
 	size_t	l;
 
 	env = ev(NULL);
 	i = 0;
 	l = strlen(s);/*  */
-	while (env[i] && !(!strncmp(env[i], s, l) && env[i][l] == '='))/*  */
+	while (env[i] && ! (!strncmp(env[i], s, l) && env[i][l] == '='))/*  */
 		i++;
 	if (!env[i])
 		return (1);

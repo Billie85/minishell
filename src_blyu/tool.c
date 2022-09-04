@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include "minishell.h"
 #include "debug.h"
-void	itosd1(char	*str, int	n);
 
-void	itosd(char	*str, int	n)
+void	itosd1(char	*str, int n);
+
+void	itosd(char *str, int n)
 {
 	if (n == 0)
 	{
@@ -23,7 +24,7 @@ void	itosd(char	*str, int	n)
 	return ;
 }
 
-void	itosd1(char	*str, int	n)
+void	itosd1(char	*str, int n)
 {
 	int	nn;
 
@@ -68,7 +69,6 @@ char	**cpy_list_std(char	**p, size_t dw)
 
 	if (!(*p))
 	{
-
 		r = malloc((dw + 1) * sizeof(char **));
 		if (!r)
 		{
@@ -93,8 +93,10 @@ char	**cpy_list_std(char	**p, size_t dw)
 	r[dw] = s;
 	return (r);
 }
+//25
+//too manyu functions
 
-size_t	list_len(char **l)
+size_t	list_len(char **l)//too many function in file
 {
 	size_t	i;
 

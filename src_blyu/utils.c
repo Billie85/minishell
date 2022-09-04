@@ -3,8 +3,8 @@
 
 char	*full_file_neme(char	*s)
 {
-	char pathname[PATHNAME_SIZE];
-	char *r;
+	char	pathname[PATHNAME_SIZE];
+	char	*r;
 	size_t	i;
 
 	getcwd(pathname, PATHNAME_SIZE);
@@ -18,7 +18,7 @@ char	*full_file_neme(char	*s)
 	{
 		i = strlen(pathname);/*  */
 		pathname[i] = '/';
-		pathname[i + 1] = '\0';		
+		pathname[i + 1] = '\0';
 		r = ft_strjoin(pathname, s);
 	}
 	if (!r)
@@ -31,8 +31,8 @@ char	*cm_name2(char *p, char *s);
 
 char	*cm_name(char *s)
 {
-	char pathname[PATHNAME_SIZE];
-	char *r;
+	char	pathname[PATHNAME_SIZE];
+	char	*r;
 
 	getcwd(pathname, PATHNAME_SIZE);
 	if (*s == '/')
@@ -109,7 +109,7 @@ char	*cm_name2(char *p, char *s)
 	}
 	r[i] = '\0';
 	return (r);
-}
+}//25
 
 char	*skip_tk(char *cl)
 {
@@ -117,21 +117,21 @@ char	*skip_tk(char *cl)
 		cl++;
 	while (*cl && *cl != ' ')
 	{
-		if ( *cl == '"')
+		if (*cl == '"')
 		{
 			cl++;
 			while (*cl != '"')
 				cl++;
-			cl++;			
+			cl++;
 		}
-		else if ( *cl == '\'')
+		else if (*cl == '\'')
 		{
 			cl++;
 			while (*cl != '\'')
 				cl++;
-			cl++;			
+			cl++;
 		}
-		else if ( *cl == '\\')
+		else if (*cl == '\\')
 			cl += 2;
 		else
 			cl++;
@@ -140,3 +140,4 @@ char	*skip_tk(char *cl)
 		cl++;
 	return (cl);
 }
+//25

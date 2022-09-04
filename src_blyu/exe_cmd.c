@@ -11,15 +11,15 @@ int	exe_cmd(t_cmd *c)
 	char	*cm;
 	pid_t	i;
 //TESTn(c->n_type)
-	if(c->n_type == SYNTAXERROR)
+	if (c->n_type == SYNTAXERROR)
 		return (1);
 	else if (c->n_type == SKIP)
 		return (0);
- 	if (isbulitin(c->cmd[0]))
-		return(exe_bulitin(c));
+	if (isbulitin(c->cmd[0]))
+		return (exe_bulitin (c));
 	cm = cm_name(c->cmd[0]);
 //TESTs(cm)
-	if(!cm)
+	if (!cm)
 		return (1);
 	else if (!*cm)
 	{
@@ -36,7 +36,7 @@ int	exe_cmd(t_cmd *c)
 		exe_start(c, cm);
 	free(cm);
 	return (exe_cmd1(c));
-}
+}//25
 
 int	exe_cmd1(t_cmd *c)
 {	
