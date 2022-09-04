@@ -21,10 +21,7 @@ char	*gt_std(char *end, size_t B)
 		free(s);
 		r = malloc(B + 1);
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[0] = (char)1;
 		r[B] = '\0';
 		return (r);

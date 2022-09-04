@@ -36,11 +36,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 //TESTs(cl)
 		r = malloc(sizeof(char **) * ll + 1);
 		if (!r)
-		{
-			free(s);
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(free_return(s, m_error()));
 		*ncl = cl;
 		if (c->n_type != SKIP)
 			c->n_type = CONTINUE;
@@ -217,10 +213,7 @@ char	*tk_std(char *cl, size_t B)
 //TESTn(B + i)
 		r = malloc(B + i + 1);
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[0] = (char)1;
 		r[B + i] = '\0';
 	}

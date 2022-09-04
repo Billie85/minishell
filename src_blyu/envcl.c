@@ -36,10 +36,7 @@ char	*ecl_std(char	*cl, size_t	B)
 	{
 		r = malloc(B + i + 1);
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[0] = (char)1;
 		r[B + i] = '\0';
 	}
@@ -80,7 +77,7 @@ char	*ecl_std(char	*cl, size_t	B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}
+}//25
 
 char	*ecl_sp(char *cl, size_t B)
 {
@@ -286,10 +283,7 @@ char	*extractenv(char *cl)//too many functions in file
 //TESTn(i)
 	r = malloc(i + 1);
 	if (!r)
-	{
-		printf("malloc error\n");
-		return (NULL);
-	}
+		return(m_error());
 	if (i)
 		memcpy(r, cl, i);
 	r[i] = '\0';

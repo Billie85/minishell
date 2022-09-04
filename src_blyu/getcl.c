@@ -37,10 +37,7 @@ char	*gcl_std(char	*cl, size_t	B)
 //TEST
 		r = malloc(B + i + 1);
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[B + i] = '\0';
 	}
 	else if (cl[i] == '|' || cl[i] == '&')

@@ -51,7 +51,6 @@ int	set_env(char *name, char *arg)
 	memcpy(s + l, arg, strlen(arg));
 	s[l + strlen(arg)] = '\0';
 	env = env_space(name);
-TESTp(env)
 	if (!env)
 		return (1);
 	*env = s;
@@ -77,10 +76,7 @@ char	**env_space(char *s)
 	}
 	r = malloc((i + 2) * sizeof(char **));
 	if (!r)
-	{
-		printf("malloc error\n");
-		return (NULL);
-	}
+		return(m_error());
 //TEST
 	i = 0;
 	while (env[i])

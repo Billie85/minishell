@@ -91,7 +91,7 @@ char	*cm_name2(char *p, char *s)
 		i++;
 	r = malloc(i + strlen(s) + 2);
 	if (!r)
-		return (NULL);
+		return(m_error());
 	i = 0;
 	while (p[i] && p[i] != ':')
 	{

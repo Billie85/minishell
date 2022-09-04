@@ -60,10 +60,7 @@ char	**fi_list(char *search)
 		{
 			r = malloc(sizeof(char **));
 			if (!r)
-			{
-				printf("malloc error\n");
-				return (NULL);
-			}
+				return(m_error());
 			*r = NULL;
 			return (r);
 		}
@@ -82,10 +79,7 @@ char	**fi_list(char *search)
 		{
 			r = malloc(sizeof(char **));
 			if (!r)
-			{
-				printf("malloc error\n");
-				return (NULL);
-			}
+				return(m_error());
 			*r = NULL;
 			return (r);
 		}
@@ -116,10 +110,7 @@ char	**fi_std(t_dirs *d, size_t dw)
 	{
 		r = malloc((dw + 1) * sizeof(char **));
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		*r = NULL;
 		return (r);
 	}
@@ -135,10 +126,7 @@ char	**fi_std(t_dirs *d, size_t dw)
 	{
 		s = ft_strjoin(d->str, dent->d_name);
 		if (!s)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r = fi_std(d, dw + 1);
 		if (!r)
 			return (NULL);
@@ -154,10 +142,7 @@ char	**fi_std(t_dirs *d, size_t dw)
 		ii = strlen(dent->d_name);
 		s = malloc(i + ii + 2);
 		if (!s)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		memcpy(s, d->str, i);
 		memcpy(s + i, dent->d_name, ii);
 		s[i + ii] = '/';

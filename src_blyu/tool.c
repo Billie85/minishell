@@ -71,19 +71,13 @@ char	**cpy_list_std(char	**p, size_t dw)
 	{
 		r = malloc((dw + 1) * sizeof(char **));
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[dw] = NULL;
 		return (r);
 	}
 	s = strdup(*p);
 	if (!s)
-	{
-		printf("malloc error\n");
-		return (NULL);
-	}
+		return(m_error());
 	r = cpy_list_std(p + 1, dw + 1);
 	if (!r)
 	{
@@ -106,4 +100,24 @@ size_t	list_len(char **l)//too many function in file
 	while (l[i])
 		i++;
 	return (i);
+}
+
+void	*m_error(void)
+{
+	printf("malloc error\n");
+	return (NULL);
+}
+
+void	*free_return(void *p, void *r)
+{
+	if (!p)
+		free(p);
+	return (r);
+}
+
+void	*free_list_return(void *l, void *r)
+{
+	if (!l)
+		free_list(l);
+	return (r);
 }

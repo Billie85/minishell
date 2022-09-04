@@ -46,10 +46,7 @@ char	*as_std(char *cl, size_t B)
 	{
 		r = malloc(B + i + 1);
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[B + i] = '\0';
 		memcpy(r + B, cl, i);/*  */
 	}
@@ -115,10 +112,7 @@ char	**as_as_list(char *cl, size_t dw)
 	{
 		r = malloc((dw + 1) * sizeof(char *));
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[dw] = NULL;
 		return (r);
 	}
@@ -126,10 +120,7 @@ char	**as_as_list(char *cl, size_t dw)
 	{
 		s = strdup("");/*  */
 		if (!s)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		while (*cl == '*')
 			cl++;
 		r = as_as_list(cl, 1);
@@ -149,10 +140,7 @@ char	**as_as_list(char *cl, size_t dw)
 		{
 			s = strdup("");
 			if (!s)
-			{
-				printf("malloc error\n");
-				return (NULL);
-			}
+				return(m_error());
 			r = as_as_list(cl, dw + 1);
 			if (!r)
 			{
@@ -169,10 +157,7 @@ char	**as_as_list(char *cl, size_t dw)
 	{
 		s = as_as_std(cl, &cl, 0);
 		if (!s)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r = as_as_list(cl, dw + 1);
 		if (!r)
 		{

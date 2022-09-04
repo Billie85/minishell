@@ -64,6 +64,9 @@ void	itosd(char	*str, int	n);
 void	free_list(char	**p);
 char	**cpy_list(char	**p);
 size_t	list_len(char **l);
+void	*m_error(void);
+void	*free_return(void *p, void *r);
+void	*free_list_return(void *l, void *r);
 
 //evn.c
 char **ev(char **set);
