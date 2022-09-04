@@ -199,7 +199,7 @@ char	*ecl_env_std(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = getenv(envname);
+		env = get_env(envname);
 		ii = strlen(envname);/*  */
 	}
 	else
@@ -251,7 +251,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = getenv(envname);
+		env = get_env(envname);
 		ii = strlen(envname);/*  */
 	}
 	else

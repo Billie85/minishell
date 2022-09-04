@@ -10,7 +10,7 @@ int	exe_cmd(t_cmd *c)
 {
 	char	*cm;
 	pid_t	i;
-//TESTn(c->n_type)
+
 	if (c->n_type == SYNTAXERROR)
 		return (1);
 	else if (c->n_type == SKIP)
@@ -18,12 +18,12 @@ int	exe_cmd(t_cmd *c)
 	if (isbulitin(c->cmd[0]))
 		return (exe_bulitin (c));
 	cm = cm_name(c->cmd[0]);
-//TESTs(cm)
 	if (!cm)
 		return (1);
 	else if (!*cm)
 	{
 		free(cm);
+		exeret = 127;
 		return (0);
 	}
 	i = fork();

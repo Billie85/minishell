@@ -13,7 +13,7 @@ char	*full_file_neme(char	*s)
 	else if (*s == '.')
 		r = ft_strjoin(pathname, s + 1);
 	else if (*s == '~')
-		r = ft_strjoin(getenv("HOME"), s + 1);
+		r = ft_strjoin(get_env("HOME"), s + 1);
 	else
 	{
 		i = strlen(pathname);/*  */
@@ -40,7 +40,7 @@ char	*cm_name(char *s)
 	else if (*s == '.')
 		r = ft_strjoin(pathname, s + 1);
 	else if (*s == '~')
-		r = ft_strjoin(getenv("HOME"), s + 1);
+		r = ft_strjoin(get_env("HOME"), s + 1);
 	else
 		r = cm_name1(s);
 	if (r && access(r, X_OK))
@@ -60,7 +60,7 @@ char	*cm_name1(char *s)
 	char	*r;
 	size_t	f;
 
-	path = getenv("PATH");
+	path = get_env("PATH");
 	f = strlen(path);
 	while (f)
 	{
