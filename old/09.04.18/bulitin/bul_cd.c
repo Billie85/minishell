@@ -2,10 +2,6 @@
 #include "../debug.h"
 
 //fd=2
-
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
-
 int bul_cd(int argc, char *argv[])
 {
 	char pathname[PATHNAME_SIZE];
@@ -24,11 +20,8 @@ int bul_cd(int argc, char *argv[])
 		}
 		if (chdir(argv[1]))
 		{
-			ft_putstr_fd("cd: not a directory:", 2);
-			ft_putchar_fd(' ', 2);
-			ft_putstr_fd(argv[1] , 2);
-			ft_putchar_fd('\n', 2);
-			//printf("cd: not a directory: %s\n", argv[1]);
+
+			printf("cd: not a directory: %s\n", argv[1]);
 			return (1);
 		}
 		getcwd(pathname, PATHNAME_SIZE);

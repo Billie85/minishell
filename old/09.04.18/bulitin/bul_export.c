@@ -2,9 +2,6 @@
 #include "../debug.h"
 //fd=2
 
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
-
 int bul_export(int argc, char *argv[])
 {
     size_t i;
@@ -27,11 +24,7 @@ int bul_export(int argc, char *argv[])
         }
         else
         {
-            ft_putstr_fd("minishell: export: ", 2);
-            ft_putstr_fd(argv[i], 2);
-            ft_putchar_fd(' ', 2);
-            ft_putstr_fd(": not a valid identifier\n", 2);
-            //printf("minishell: export: `%s': not a valid identifier\n", argv[i]);
+            printf("minishell: export: `%s': not a valid identifier\n", argv[i]);
             r = 1;
         }
         i++;
