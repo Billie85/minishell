@@ -1,5 +1,5 @@
-#include "minishell.h"
-#include "debug.h"
+#include "../minishell.h"
+#include "../debug.h"
 
 char	*gcl_std(char	*cl, size_t	B);
 char	*gcl_dq(char	*cl, size_t	B);

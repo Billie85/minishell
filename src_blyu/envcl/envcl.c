@@ -1,5 +1,5 @@
-#include "minishell.h"
-#include "debug.h"
+#include "../minishell.h"
+#include "../debug.h"
 
 char	*ecl_std(char *cl, size_t B);
 char	*ecl_dq(char *cl, size_t B);
@@ -11,9 +11,13 @@ char	*extractenv(char *cl);
 
 char	*envcl(char *cl)
 {
+	size_t	i;
 	char	*r;
 
-	r = ecl_std(cl, 0);
+	i = 0;
+	while (cl[i] == ' ' && cl[i])
+		i++;
+	r = ecl_std(cl + i, 0);
 	free(cl);
 	return (r);
 }
@@ -23,10 +27,8 @@ char	*ecl_std(char	*cl, size_t	B)
 	size_t	i;
 	char	*ncl;
 	char	*r;
-//TEST
+
 	i = 0;
-	while (*cl == ' ' && *cl)
-		cl++;
 	while (cl[i] != ' ' && cl[i] != '<' && cl[i] != '>' && cl[i] != '|' && cl[i] != ';' && strncmp(cl + i, "&&", 2)/*  */ \
 	&& cl[i] != '$' \
 	&& cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' \
@@ -36,10 +38,7 @@ char	*ecl_std(char	*cl, size_t	B)
 	{
 		r = malloc(B + i + 1);
 		if (!r)
-		{
-			printf("malloc error\n");
-			return (NULL);
-		}
+			return(m_error());
 		r[0] = (char)1;
 		r[B + i] = '\0';
 	}
@@ -80,22 +79,20 @@ char	*ecl_std(char	*cl, size_t	B)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-}
+}//25
 
 char	*ecl_sp(char *cl, size_t B)
 {
 	size_t	i;
 	char	*r;
-//TEST
+
 	i = 0;
 	if (*cl == ' ')
 	{
 		while (*cl == ' ' && *cl)
 			cl++;
 		r = ecl_std(cl, B);
-		if (!r || !*r)
-			return (r);
-
+		return (r);
 	}
 	else if (!strncmp(cl, ">>", 2) || !strncmp(cl, "<<", 2) || !strncmp(cl, "||", 2) || !strncmp(cl, "&&", 2))/*  */
 	{
@@ -103,7 +100,6 @@ char	*ecl_sp(char *cl, size_t B)
 		r = ecl_std(cl + i, B + i + 1);
 		if (!r || !*r)
 			return (r);
-
 		r[B + i] = ' ';
 	}
 	else //(*cl == '>' || *cl == '<' || *cl == '|' || *cl == ';')
@@ -132,9 +128,7 @@ char	*ecl_dq(char	*cl, size_t	B)
 	if (!cl[i])
 	{//構文エラー
 		printf("syntax error\n");
-		r = malloc(1);
-		if (r)
-			*r = '\0';
+		r = strdup("");
 		return (r);
 	}
 	else if (cl[i] == '$')
@@ -166,9 +160,8 @@ char	*ecl_sq(char	*cl, size_t	B)
 		i++;
 	if (!cl[i])
 	{//構文エラー
-		r = malloc(1);
-		if (r)
-			*r = '\0';
+		printf("syntax error\n");
+		r = strdup("");
 		return (r);
 	}
 	else //(cl[i] == '\'')
@@ -199,7 +192,7 @@ char	*ecl_env_std(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = getenv(envname);
+		env = get_env(envname);
 		ii = strlen(envname);/*  */
 	}
 	else
@@ -235,7 +228,7 @@ char	*ecl_env_std(char *cl, size_t B)
 		memcpy(r + B, env, i);/*  */
 	free(envname);
 	return (r);
-}
+}//25
 
 char	*ecl_env_dq(char *cl, size_t B)
 {
@@ -251,7 +244,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	if (*envname)
 	{
 		cl++;
-		env = getenv(envname);
+		env = get_env(envname);
 		ii = strlen(envname);/*  */
 	}
 	else
@@ -274,7 +267,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	return (r);
 }
 
-char	*extractenv(char *cl)
+char	*extractenv(char *cl)//too many functions in file
 {
 	size_t	i;
 	char	*r;
@@ -286,10 +279,7 @@ char	*extractenv(char *cl)
 //TESTn(i)
 	r = malloc(i + 1);
 	if (!r)
-	{
-		printf("malloc error\n");
-		return (NULL);
-	}
+		return(m_error());
 	if (i)
 		memcpy(r, cl, i);
 	r[i] = '\0';

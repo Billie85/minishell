@@ -37,7 +37,7 @@ char	*gt_std(char *end, size_t B)
 	}
 	memcpy(r, s, i);/*  */
 	return (r);
-}
+}//25
 
 char	*gt_mkmem(char *f, size_t B)
 {

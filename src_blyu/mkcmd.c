@@ -16,6 +16,7 @@ char	*mkcmd(t_cmd *c, char *cl)
 {
 	char	*ncl;
 
+TESTs(cl)
 	c->cmd = cmdlist(c, cl, &ncl, 0);
 	if (!(c->cmd) && c->n_type != SYNTAXERROR)
 		return (NULL);
@@ -51,6 +52,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 			cl++;
 		s = tk_std(cl, 0);
 		cl = skip_tk(cl);
+TESTs(cl)
 		if (!s)
 			return (NULL);
 		else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
@@ -205,6 +207,7 @@ char	*tk_std(char *cl, size_t B)
 	size_t	i;
 	char	*r;
 
+//TESTs(cl)
 	i = 0;
 	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && strncmp(cl + i, "$?", 2) && cl[i] != ' ' && cl[i])
 		i++;
@@ -230,7 +233,7 @@ char	*tk_std(char *cl, size_t B)
 		r = tk_std(cl + i + 2, B + i + 1);
 		if (!r)
 			return (NULL);
-		r[B + i] = cl[B + i + 1];
+		r[B + i] = cl[i + 1];
 	}
 	else if (cl[i] == '"')
 	{
