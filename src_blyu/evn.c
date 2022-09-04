@@ -69,15 +69,11 @@ char	**env_space(char *s)
 	l = strlen(s);/*  */
 	while (env[i] && !(!strncmp(env[i], s, l) && env[i][l] == '='))/*  */
 		i++;
-	if (env[i])/*  */
-	{
-		free(env[i]);
-		return (env + i);
-	}
+	if (env[i])
+		return (free_return(env[i], env + i));
 	r = malloc((i + 2) * sizeof(char **));
 	if (!r)
 		return(m_error());
-//TEST
 	i = 0;
 	while (env[i])
 	{
@@ -87,7 +83,7 @@ char	**env_space(char *s)
 	free(env);
 	r[i + 1] = NULL;
 	return (ev(r) + i);
-}//25
+}
 
 int	rm_env(char *s)
 {

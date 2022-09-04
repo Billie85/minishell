@@ -31,6 +31,6 @@ void	preexe(char **envp)
 	s.c_lflag &= ~(ECHOCTL);//ECHOCTILが定義されていません。
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &s);
 	signal(SIGINT, sigint_handler);
-//signal(SIGQUIT, sigint_handler);
+	//signal(SIGQUIT, sigint_handler);
 	return ;
 }

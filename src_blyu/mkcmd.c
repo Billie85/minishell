@@ -66,7 +66,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
-	else if (!strncmp(cl, " > ", 2))/*  */
+	else if (!strncmp(cl, "> ", 2))/*  */
 	{
 //TESTs(cl)
 		cl++;
@@ -89,7 +89,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
-	else if (!strncmp(cl, " << ", 3))/*  */
+	else if (!strncmp(cl, "<< ", 3))/*  */
 	{
 //TESTs(cl)
 		cl += 2;
@@ -142,7 +142,7 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		free(s);
 		r = cmdlist(c, cl, ncl, ll);
 	}
-	else if (!strncmp(cl, " | ", 2))/*  */
+	else if (!strncmp(cl, "| ", 2))/*  */
 	{
 //TESTs(cl)
 		cl = skip_tk(cl);
