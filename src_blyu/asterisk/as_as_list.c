@@ -63,7 +63,7 @@ char	**as_as_list3(char *cl, size_t dw)
 		cl++;
 	if (*cl == '\0')
 	{
-		s = strdup("");
+		s = strdup("");/*  */
 		if (!s)
 			return(m_error());
 		r = as_as_list(cl, dw + 1);

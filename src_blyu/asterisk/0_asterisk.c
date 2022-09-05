@@ -9,7 +9,6 @@ char	*asterisk(char *cl)
 
 	r = as_std(cl, 0);
 	free(cl);
-TEST
 	return (r);
 }
 
