@@ -1,5 +1,7 @@
 #include "minishell.h"
-#include "debug.h"
+//#include "debug.h"
+
+extern int	g_;
 
 void	shell_loop(void)
 {
@@ -17,7 +19,7 @@ void	shell_loop(void)
 		cl = asterisk(cl);
 		if (!cl)
 			break ;
-		i = exe_line(cl);
+			i = exe_line(cl);
 		free(cl);
 		if (i)
 			break ;

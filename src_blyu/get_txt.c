@@ -3,6 +3,8 @@
 
 char	*gt_std(char *end, size_t B);
 char	*gt_mkmem(char *f, size_t B);
+char	*gt_std1(char *end, size_t B, char *s, size_t i);
+char	*gt_std2(char *end, size_t B, char *s, size_t i);
 
 char	*get_txt(char *end)
 {
@@ -12,7 +14,6 @@ char	*get_txt(char *end)
 char	*gt_std(char *end, size_t B)
 {
 	char	*s;
-	char	*r;
 	size_t	i;
 
 	s = readline(PROMPT_);
@@ -22,22 +23,34 @@ char	*gt_std(char *end, size_t B)
 		return(gt_mkmem(s, B));
 	i = strlen(s);
 	if (i >= 2 && s[i - 1] != '\\' && s[i] == '\\')
-	{
-		i--;
-		r = gt_std(end, B + i);
-		if (!r || !(*r))
-			return (r);
-	}
+		gt_std1(end, B, s, i);
 	else
-	{
-		r = gt_std(end, B + i + 1);
-		if (!r || !(*r))
-			return (r);
-		r[B + i] = '\n';
-	}
+		gt_std2(end, B, s, i);
+	return (NULL);
+}
+
+char	*gt_std1(char *end, size_t B, char *s, size_t i)
+{
+	char	*r;
+
+	i--;
+	r = gt_std(end, B + i);
+	if (!r || !(*r))
+		return (r);
 	memcpy(r, s, i);/*  */
 	return (r);
-}//25
+}
+char	*gt_std2(char *end, size_t B, char *s, size_t i)
+{
+	char	*r;
+
+	r = gt_std(end, B + i + 1);
+	if (!r || !(*r))
+		return (r);
+	r[B + i] = '\n';
+	memcpy(r, s, i);/*  */
+	return (r);
+}
 
 char	*gt_mkmem(char *f, size_t B)
 {

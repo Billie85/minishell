@@ -1,4 +1,5 @@
 #include "minishell.h"
+//#include "debug.h"
 
 extern int	g_;
 
@@ -13,7 +14,7 @@ void	sigint_handler(int sig)
 		kill(0, SIGINT);
 		printf("^C\n");
 	}
-	else //(g_ == READING)
+	else
 	{
 		printf ("\n");
 		rl_on_new_line();

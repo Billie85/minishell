@@ -1,9 +1,8 @@
 #include "minishell.h"
-#include "debug.h"
+//#include "debug.h"
 
 int		exe_cmd(t_cmd *c);
 void	cleanc(t_cmd	*c);
-void	initializec(t_cmd	*c);
 
 int	exe_line(char *cl)
 {
@@ -12,7 +11,12 @@ int	exe_line(char *cl)
 
 	while (*cl && *cl == ' ')
 		cl++;
-	initializec(&c);
+	c.cmd = NULL;
+	c.n_type = CONTINUE;
+	c.pipe[R_PIPE] = -1;
+	c.pipe[W_PIPE] = -1;
+	c.pipe[NEXT_PIPE] = -1;
+	c.ps = 0;
 	while (*cl)
 	{
 		c.pipe[R_PIPE] = c.pipe[NEXT_PIPE];
@@ -26,24 +30,13 @@ int	exe_line(char *cl)
 		cleanc(&c);
 		if (i)
 			return (1);
-		while (*cl && *cl == ' ')/* 不要 */
+		while (*cl && *cl == ' ')
 			cl++;
 	}
 	return (0);
-}//25
-
-void	initializec(t_cmd	*c)
-{
-	c->cmd = NULL;
-	c->n_type = CONTINUE;
-	c->pipe[R_PIPE] = -1;
-	c->pipe[W_PIPE] = -1;
-	c->pipe[NEXT_PIPE] = -1;
-	c->ps = 0;
-	return ;
 }
 
-void	cleanc(t_cmd	*c)
+void	cleanc(t_cmd *c)
 {
 	size_t	i;
 
@@ -58,14 +51,3 @@ void	cleanc(t_cmd	*c)
 	c->pipe[W_PIPE] = -1;
 	return ;
 }
-/* 
-for (size_t i = 0; c.cmd[i]; i++)
-{
-TESTs(c.cmd[i])
-}
-TESTn(c.pipe[R_PIPE])
-TESTn(c.pipe[W_PIPE])
-TESTn(c.pipe[NEXT_PIPE])
-TESTn(c.n_type)
-
- */

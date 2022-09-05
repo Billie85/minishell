@@ -3,23 +3,23 @@
 
 #include "../debug.h"
 
-extern t_g g_;
+extern int	g_;
 
 char	*getcl(void)
 {
 	char	*cl;
 	char	*r;
 
-	g_.status = READING;
+	g_ = READING;
 	cl = readline(PROMPT);
 	if (!cl)
 	{
-		g_.status = EXEING;
+		g_ = EXEING;
 		return (NULL);
 	}
 	r = gcl_std(cl, 0);
 	free(cl);
-	g_.status = EXEING;
+	g_ = EXEING;
 	return (r);
 }
 

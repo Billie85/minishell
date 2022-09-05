@@ -32,17 +32,18 @@
 #define W_PIPE 1
 #define NEXT_PIPE 2
 
-typedef struct s_info
+typedef struct s_g
 {
-
-}	t_info;
+	int	status;
+	int	exeret;
+}	t_g;
 
 typedef struct s_cmd
 {
-	char			**cmd;
-	int				pipe[3];
-	int				n_type;
-	int				ps;
+	char	**cmd;
+	int		pipe[3];
+	int		n_type;
+	int		ps;
 }	t_cmd;
 
 //bulitin
@@ -55,6 +56,7 @@ int	bul_unset(int argc, char *argv[]);
 
 //sig.c
 void	sigint_handler(int sig);
+void	sigquit_handler(int sig);
 //envcl.c
 char		*envcl(char *cl);
 //shell_loop.c
@@ -96,7 +98,6 @@ char	**find(char **lst);
 char   	*asterisk(char *cl);
 
 //utils.c
-char	*full_file_neme(char	*s);
 char	*cm_name(char *s);
 char	*skip_tk(char *cl);
 

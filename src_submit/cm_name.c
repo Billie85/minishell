@@ -1,7 +1,9 @@
 #include "minishell.h"
-#include "debug.h"
+//#include "debug.h"
+
 char	*cm_name1(char *s);
 char	*cm_name2(char *p, char *s);
+char	*cm_name3(char *p, char *s, char *r);
 
 char	*cm_name(char *s)
 {
@@ -10,7 +12,7 @@ char	*cm_name(char *s)
 
 	getcwd(pathname, PATHNAME_SIZE);
 	if (*s == '/')
-		r = strdup(s);/*  */
+		r = strdup(s);
 	else if (*s == '.')
 		r = ft_strjoin(pathname, s + 1);
 	else if (*s == '~')
@@ -21,7 +23,7 @@ char	*cm_name(char *s)
 	{
 		free(r);
 		printf("no such comand %s\n", s);
-		r = strdup("");/*  */
+		r = strdup("");
 	}
 	if (!r)
 		printf("malloc error\n");
@@ -53,14 +55,13 @@ char	*cm_name1(char *s)
 		if (path[f] == ':')
 			f--;
 	}
-	return (strdup(""));/*  */
+	return (strdup(""));
 }
 
 char	*cm_name2(char *p, char *s)
 {
 	char	*r;
 	size_t	i;
-	size_t	ii;
 
 	i = 0;
 	while (p[i] && p[i] != ':')
@@ -68,6 +69,14 @@ char	*cm_name2(char *p, char *s)
 	r = malloc(i + strlen(s) + 2);
 	if (!r)
 		return (m_error());
+	return (cm_name3(p, s, r));
+}
+
+char	*cm_name3(char *p, char *s, char *r)
+{
+	size_t	i;
+	size_t	ii;
+
 	i = 0;
 	while (p[i] && p[i] != ':')
 	{
@@ -78,33 +87,11 @@ char	*cm_name2(char *p, char *s)
 	i++;
 	ii = 0;
 	while (s[ii] && s[ii] != ':')
-		r[i++] = s[ii++];
+	{
+		r[i] = s[ii];
+		i++;
+		ii++;
+	}
 	r[i] = '\0';
 	return (r);
-}
-
-char	*skip_tk(char *cl)
-{
-	char	c;
-
-	while (*cl == ' ')
-		cl++;
-	while (*cl && *cl != ' ')
-	{
-		if (*cl == '"' || *cl == '\'')
-		{
-			c = *cl;
-			cl++;
-			while (*cl != c)
-				cl++;
-			cl++;
-		}
-		else if (*cl == '\\')
-			cl += 2;
-		else
-			cl++;
-	}
-	while (*cl == ' ')
-		cl++;
-	return (cl);
 }

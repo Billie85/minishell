@@ -4,6 +4,7 @@
 #include "debug.h"
 
 void	itosd1(char	*str, int n);
+char	**cpy_list_std(char	**p, size_t dw);
 
 void	itosd(char *str, int n)
 {
@@ -42,21 +43,6 @@ void	itosd1(char	*str, int n)
 	return ;
 }
 
-void	free_list(char	**p)
-{
-	size_t	i;
-
-	i = 0;
-	while (p[i])
-	{
-		free(p[i]);
-		i++;
-	}
-	free(p);
-	return ;
-}
-char	**cpy_list_std(char	**p, size_t dw);
-
 char	**cpy_list(char	**p)
 {
 	return (cpy_list_std(p, 0));
@@ -75,7 +61,7 @@ char	**cpy_list_std(char	**p, size_t dw)
 		r[dw] = NULL;
 		return (r);
 	}
-	s = strdup(*p);
+	s = strdup(*p);/*  */
 	if (!s)
 		return(m_error());
 	r = cpy_list_std(p + 1, dw + 1);
@@ -87,37 +73,9 @@ char	**cpy_list_std(char	**p, size_t dw)
 	r[dw] = s;
 	return (r);
 }
-//25
-//too manyu functions
-
-size_t	list_len(char **l)//too many function in file
-{
-	size_t	i;
-
-	if (!l)
-		return (0);
-	i = 0;
-	while (l[i])
-		i++;
-	return (i);
-}
 
 void	*m_error(void)
 {
 	printf("malloc error\n");
 	return (NULL);
-}
-
-void	*free_return(void *p, void *r)
-{
-	if (!p)
-		free(p);
-	return (r);
-}
-
-void	*free_list_return(void *l, void *r)
-{
-	if (!l)
-		free_list(l);
-	return (r);
 }
