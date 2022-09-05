@@ -31,14 +31,14 @@ void	free_list(char	**p)
 
 void	*free_return(void *p, void *r)
 {
-	if (!p)
+	if (p)
 		free(p);
 	return (r);
 }
 
 void	*free_list_return(void *l, void *r)
 {
-	if (!l)
+	if (l)
 		free_list(l);
 	return (r);
 }
