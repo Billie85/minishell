@@ -3,19 +3,17 @@
 
 #include "../debug.h"
 
+char	*ecl_env_std1(char *cl, size_t B, char *env, size_t ii);
+
 char	*ecl_env_std(char *cl, size_t B)
 {
 	char	*envname;
 	char	*env;
-	size_t	i;
 	size_t	ii;
-	char	*r;
 
 	envname = extractenv(cl);
 	if (!envname)
 		return (NULL);
-//TESTs(envname)
-	i = 0;
 	if (*envname)
 	{
 		cl++;
@@ -27,32 +25,31 @@ char	*ecl_env_std(char *cl, size_t B)
 		env = "$";
 		ii = 1;
 	}
-//TESTs(env)
+	free(envname);
+	return (ecl_env_std1(cl, B, env, ii));
+}
+
+char	*ecl_env_std1(char *cl, size_t B, char *env, size_t ii)
+{
+	size_t	i;
+	char	*r;
+
 	if (env)
-		i += strlen(env);/*  */
-//TESTs(cl)
-//TESTn(i)
+		i = strlen(env);/*  */
 	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' || cl[ii] == '|' || cl[ii] == ';' || !strncmp(cl + ii, "&&", 2))
 	{
 		r = ecl_sp(cl + ii, B + i + 1);/*  */
 		if (!r || !*r)
-		{
-			free(envname);
 			return (r);
-		}
 		r[B + i] = ' ';
 	}
 	else
 	{
 		r = ecl_std(cl + ii, B + i);/*  */
 		if (!r || !*r)
-		{
-			free(envname);
 			return (r);
-		}
 	}
 	if (i)
 		memcpy(r + B, env, i);/*  */
-	free(envname);
 	return (r);
-}//25
+}

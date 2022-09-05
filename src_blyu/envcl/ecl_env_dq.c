@@ -3,14 +3,14 @@
 
 #include "../debug.h"
 
+char	*ecl_env_dq1(char *cl, size_t B, char *env, size_t ii);
+
 char	*ecl_env_dq(char *cl, size_t B)
 {
 	char	*envname;
 	char	*env;
-	size_t	i;
 	size_t	ii;
-	char	*r;
-//TEST
+
 	envname = extractenv(cl);
 	if (!envname)
 		return (NULL);
@@ -25,8 +25,15 @@ char	*ecl_env_dq(char *cl, size_t B)
 		env = "$";
 		ii = 1;
 	}
-//TESTs(envname)
-//TESTs(env)
+	free(envname);
+	return (ecl_env_dq1(cl, B, env, ii));
+}
+
+char	*ecl_env_dq1(char *cl, size_t B, char *env, size_t ii)
+{
+	size_t	i;
+	char	*r;
+
 	if (env)
 		i = strlen(env);/*  */
 	else
@@ -36,6 +43,5 @@ char	*ecl_env_dq(char *cl, size_t B)
 		return (r);
 	if (i)
 		memcpy(r + B, env, i);/*  */
-	free(envname);
 	return (r);
 }
