@@ -20,7 +20,7 @@ char	*gcl_sq(char *cl, size_t B)
 	else //(cl[i] == '\'')
 		return (gcl_sq2(cl, B, i));
 	return (NULL);
-}
+}//25
 
 char	*gcl_sq1(char *cl, size_t B, size_t i)
 {

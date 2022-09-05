@@ -1,17 +1,17 @@
 #include "../minishell.h"
-#include "mkcmd.h"
+#include "asterisk.h"
 
 #include "../debug.h"
 
-char	*tk_sq(char *cl, size_t B)
+char	*as_as_q(char *cl, char **cln, size_t B, char c)
 {
 	size_t	i;
 	char	*r;
 
 	i = 0;
-	while (cl[i] != '\'')
+	while (cl[i] != c)
 		i++;
-	r = tk_std(cl + i + 1, B + i);
+	r = as_as_std(cl + i + 1, cln, B + i);
 	if (!r)
 		return (NULL);
 	if (i)

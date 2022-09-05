@@ -1,19 +1,16 @@
 #include "../minishell.h"
-#include "mkcmd.h"
+#include "getcl.h"
 
 #include "../debug.h"
 
-char	*tk_sq(char *cl, size_t B)
+char	*gcl_std5(char	*cl, size_t	B, size_t i)
 {
-	size_t	i;
 	char	*r;
 
-	i = 0;
-	while (cl[i] != '\'')
-		i++;
-	r = tk_std(cl + i + 1, B + i);
+	r = gcl_sq(cl + i + 1, B + i + 1);
 	if (!r)
 		return (NULL);
+	r[B + i] = '\'';
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);

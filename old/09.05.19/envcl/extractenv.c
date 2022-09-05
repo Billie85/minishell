@@ -10,7 +10,7 @@ char	*extractenv(char *cl)
 
 	i = 0;
 	cl++;
-	while (cl[i] && isalnum(cl[i]))/*  */
+	while (cl[i] && isalnum(cl[i]))
 		i++;
 	r = malloc(i + 1);
 	if (!r)
