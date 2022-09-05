@@ -20,7 +20,7 @@ char	*gt_std(char *end, size_t B)
 	if (!s)
 		return (strdup(""));/*  */
 	if (!strcmp(s, end))/*  */
-		return(gt_mkmem(s, B));
+		return (gt_mkmem(s, B));
 	i = strlen(s);
 	if (i >= 2 && s[i - 1] != '\\' && s[i] == '\\')
 		gt_std1(end, B, s, i);
@@ -40,6 +40,7 @@ char	*gt_std1(char *end, size_t B, char *s, size_t i)
 	memcpy(r, s, i);/*  */
 	return (r);
 }
+
 char	*gt_std2(char *end, size_t B, char *s, size_t i)
 {
 	char	*r;

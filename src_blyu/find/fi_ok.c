@@ -17,7 +17,7 @@ int	fi_ok(char *str, char **l)
 	{
 		str = strstr(str, *l);/*  */
 		if (!str)
-		return (0);
+			return (0);
 		str += strlen(*l);/*  */
 		l++;
 	}

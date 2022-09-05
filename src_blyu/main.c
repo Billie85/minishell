@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "debug.h"
 
-t_g g_;
+t_g	g_;
 
 void	preexe(char **envp);
 

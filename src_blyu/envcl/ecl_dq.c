@@ -54,4 +54,3 @@ char	*ecl_dq3(char	*cl, size_t	B, size_t i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
 }
-

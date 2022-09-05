@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdlib.h>
-# include <unistd.h>
-# include <ctype.h>
+#include <unistd.h>
+#include <ctype.h>
 #include <stdio.h>
 
 size_t	count_long(char const *s);

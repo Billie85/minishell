@@ -1,7 +1,7 @@
 #include "../minishell.h"
 #include "find.h"
-
 #include "../debug.h"
+
 char	**fi_std1(size_t dw);
 char	**fi_std2(t_dirs *d, size_t dw);
 char	**fi_std3(t_dirs *d, size_t dw, struct dirent *dent);
@@ -18,7 +18,7 @@ char	**fi_std(t_dirs *d, size_t dw)
 		return (fi_std2(d, dw));
 	else if (!strcmp(dent->d_name, ".."))
 		return (fi_std(d, dw));
-	else if (dent->d_type != DT_DIR || !strcmp(dent->d_name, "."))//DI_DIRが定義されていません。
+	else if (dent->d_type != DT_DIR || ! strcmp(dent->d_name, "."))
 		return (fi_std3(d, dw, dent));
 	else if (strcmp(dent->d_name, "..") && dent->d_type == DT_DIR)
 		return (fi_std4(d, dw, dent));
@@ -32,7 +32,7 @@ char	**fi_std1(size_t dw)
 
 	r = malloc((dw + 1) * sizeof(char **));
 	if (!r)
-		return(m_error());
+		return (m_error());
 	r[dw] = NULL;
 	return (r);
 }
@@ -50,7 +50,7 @@ char	**fi_std3(t_dirs *d, size_t dw, struct dirent *dent)
 
 	s = ft_strjoin(d->str, dent->d_name);
 	if (!s)
-		return(m_error());
+		return (m_error());
 	r = fi_std(d, dw + 1);
 	if (!r)
 		return (NULL);
@@ -70,7 +70,7 @@ char	**fi_std4(t_dirs *d, size_t dw, struct dirent *dent)
 	ii = strlen(dent->d_name);
 	s = malloc(i + ii + 2);
 	if (!s)
-		return(m_error());
+		return (m_error());
 	memcpy(s, d->str, i);
 	memcpy(s + i, dent->d_name, ii);
 	s[i + ii] = '/';

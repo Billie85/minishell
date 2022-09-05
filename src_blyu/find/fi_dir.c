@@ -13,11 +13,11 @@ void	fi_dir(char **r)
 	ii = 0;
 	while (r[i])
 	{
-		l = strlen(r[i]);/*  */
+		l = strlen(r[i]); /*  */
 		if ((l >= 2 && r[i][l - 2] == '/' && r[i][l - 1] == '.') || (l == 1 && r[i][0] == '.'))//line long
 		{
 			r[i][l - 2] = '\0';
-			if (r[i + 1] && !strncmp(r[i + 1], r[i], strlen(r[i])))/*  */
+			if (r[i + 1] && ! strncmp (r[i + 1], r[i], strlen(r[i]))) /*  */
 				free(r[i]);
 			else
 			{

@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "debug.h"
+
 char	*cm_name1(char *s);
 char	*cm_name2(char *p, char *s);
 

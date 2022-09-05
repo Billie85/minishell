@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-extern t_g g_;
+extern t_g	g_;
 
 void	sigint_handler(int sig)
 {

@@ -1,6 +1,7 @@
 #ifndef MKCMD_H
-#define MKCMD_H
-#include "../minishell.h"
+# define MKCMD_H
+# include "../minishell.h"
+
 char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll);
 char	*tk_std(char *cl, size_t B);
 char	*tk_dq(char *cl, size_t B);

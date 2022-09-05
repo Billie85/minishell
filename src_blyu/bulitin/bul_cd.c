@@ -6,9 +6,9 @@
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 
-int bul_cd(int argc, char *argv[])
+int	bul_cd(int argc, char *argv[])
 {
-	char pathname[PATHNAME_SIZE];
+	char	pathname[PATHNAME_SIZE];
 
 	if (argc == 2)
 	{
@@ -26,13 +26,13 @@ int bul_cd(int argc, char *argv[])
 		{
 			ft_putstr_fd("cd: not a directory:", 2);
 			ft_putchar_fd(' ', 2);
-			ft_putstr_fd(argv[1] , 2);
+			ft_putstr_fd(argv[1], 2);
 			ft_putchar_fd('\n', 2);
 			//printf("cd: not a directory: %s\n", argv[1]);
 			return (1);
 		}
 		getcwd(pathname, PATHNAME_SIZE);
-		return(set_env("PWD", pathname));	
+		return (set_env("PWD", pathname));
 	}
 	else
 	{
@@ -40,3 +40,4 @@ int bul_cd(int argc, char *argv[])
 		return (0);
 	}
 }
+//25

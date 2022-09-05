@@ -57,13 +57,13 @@ char	**cpy_list_std(char	**p, size_t dw)
 	{
 		r = malloc((dw + 1) * sizeof(char **));
 		if (!r)
-			return(m_error());
+			return (m_error());
 		r[dw] = NULL;
 		return (r);
 	}
 	s = strdup(*p);/*  */
 	if (!s)
-		return(m_error());
+		return (m_error());
 	r = cpy_list_std(p + 1, dw + 1);
 	if (!r)
 	{

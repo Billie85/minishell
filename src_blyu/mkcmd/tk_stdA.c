@@ -35,7 +35,7 @@ char	*tk_std1(char *cl, size_t B, size_t i)
 
 	r = malloc(B + i + 1);
 	if (!r)
-		return(m_error());
+		return (m_error());
 	r[0] = (char)1;
 	r[B + i] = '\0';
 	if (i)

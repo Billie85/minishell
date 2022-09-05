@@ -1,36 +1,36 @@
-# ifndef MINISHELL_H
-#define MINISHELL_H
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <termios.h>
-#include <fcntl.h>
-#include <dirent.h>
-#define PATHNAME_SIZE 512
-#define PROMPT "minishell>"
-#define PROMPT_ ">"
+#ifndef MINISHELL_H
+# define MINISHELL_H
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <termios.h>
+# include <fcntl.h>
+# include <dirent.h>
+# define PATHNAME_SIZE 512
+# define PROMPT "minishell>"
+# define PROMPT_ ">"
 //sigmal use them
-#define READING 0X00
-#define EXEING 0X01
-#define SIGCOME 0X10
+# define READING 0X00
+# define EXEING 0X01
+# define SIGCOME 0X10
 
 //flag for t_cmd.n_type
-#define CONTINUE 0
-#define SKIP 1
-#define PIPE 2
-#define AND 3
-#define OR 4
-#define SYNTAXERROR 5
+# define CONTINUE 0
+# define SKIP 1
+# define PIPE 2
+# define AND 3
+# define OR 4
+# define SYNTAXERROR 5
 
-#define R_PIPE 0
-#define W_PIPE 1
-#define NEXT_PIPE 2
+# define R_PIPE 0
+# define W_PIPE 1
+# define NEXT_PIPE 2
 
 typedef struct s_g
 {
@@ -47,23 +47,23 @@ typedef struct s_cmd
 }	t_cmd;
 
 //bulitin
-int	bul_cd(int argc, char *argv[]);
-int	bul_echo(int argc, char *argv[]);
-int	bul_env(int argc, char *argv[]);
-int	bul_export(int argc, char *argv[]);
-int	bul_pwd(int argc, char *argv[]);
-int	bul_unset(int argc, char *argv[]);
+int		bul_cd(int argc, char *argv[]);
+int		bul_echo(int argc, char *argv[]);
+int		bul_env(int argc, char *argv[]);
+int		bul_export(int argc, char *argv[]);
+int		bul_pwd(int argc, char *argv[]);
+int		bul_unset(int argc, char *argv[]);
 
 //sig.c
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 //envcl.c
-char		*envcl(char *cl);
+char	*envcl(char *cl);
 //shell_loop.c
 void	shell_loop(void);
 
 //tool.c
-void	itosd(char	*str, int	n);
+void	itosd(char *str, int n);
 void	free_list(char	**p);
 char	**cpy_list(char	**p);
 size_t	list_len(char **l);
@@ -72,21 +72,21 @@ void	*free_return(void *p, void *r);
 void	*free_list_return(void *l, void *r);
 
 //evn.c
-char **ev(char **set);
-char *get_env(char *s);
-int    set_env(char *name, char *arg);
-int    rm_env(char *s);
+char	**ev(char **set);
+char	*get_env(char *s);
+int		set_env(char *name, char *arg);
+int		rm_env(char *s);
 
 //exe_bulitin.c
-int	isbulitin(char *s);
-int	exe_bulitin(t_cmd *c);
+int		isbulitin(char *s);
+int		exe_bulitin(t_cmd *c);
 
 //mkcmd.c
-char    *mkcmd(t_cmd *c, char *cl);
+char	*mkcmd(t_cmd *c, char *cl);
 //getcl.c
-char *getcl(void);
+char	*getcl(void);
 //exe_line.c
-int exe_line(char *cl);
+int		exe_line(char *cl);
 
 //get_txt.c
 char	*get_txt(char *end);
@@ -95,18 +95,18 @@ char	*get_txt(char *end);
 char	**find(char **lst);
 
 //asterisk.c
-char   	*asterisk(char *cl);
+char	*asterisk(char *cl);
 
 //utils.c
 char	*cm_name(char *s);
 char	*skip_tk(char *cl);
 
 //libft_plus.c
-char *ft_strstr(const char *s1, const char *s2);
+char	*ft_strstr(const char *s1, const char *s2);
 
 //libft
 char	*ft_strjoin(char const	*s1, char const	*s2);
-void	ft_putstr_fd(char	*s, int	fd);
-void	ft_putchar_fd(char	c, int	fd);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
 
 #endif

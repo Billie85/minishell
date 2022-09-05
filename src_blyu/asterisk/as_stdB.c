@@ -3,7 +3,7 @@
 
 #include "../debug.h"
 
-size_t as_std_aslen(char *cl)
+size_t	as_std_aslen(char *cl)
 {
 	size_t	i;
 

@@ -10,7 +10,6 @@ char	*ecl_std4(char	*cl, size_t	B, size_t i);
 char	*ecl_std5(char	*cl, size_t	B, size_t i);
 char	*ecl_std6(char	*cl, size_t	B, size_t i);
 
-
 char	*ecl_std(char	*cl, size_t	B)
 {
 	size_t	i;
@@ -18,9 +17,9 @@ char	*ecl_std(char	*cl, size_t	B)
 
 	i = 0;
 	while (cl[i] != ' ' && cl[i] != '<' && cl[i] != '>' && cl[i] != '|' && cl[i] != ';' && strncmp(cl + i, "&&", 2)/*  */ \
-	&& cl[i] != '$' \
-	&& cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' \
-	&& cl[i])
+			&& cl[i] != '$' \
+			&& cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' \
+			&& cl[i])
 		i++;
 	if (!cl[i])
 		return (ecl_std1(cl, B, i));
@@ -35,8 +34,7 @@ char	*ecl_std(char	*cl, size_t	B)
 	else //(cl[i] == '\'')
 		return (ecl_std6(cl, B, i));
 	return (NULL);
-}//25
-
+}
 
 char	*ecl_std1(char	*cl, size_t	B, size_t i)
 {
@@ -44,14 +42,15 @@ char	*ecl_std1(char	*cl, size_t	B, size_t i)
 
 	r = malloc(B + i + 1);
 	if (!r)
-		return(m_error());
+		return (m_error());
 	r[0] = (char)1;
 	r[B + i] = '\0';
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
 }
-char	*ecl_std2(char	*cl, size_t	B, size_t i)
+
+char	*ecl_std2(char *cl, size_t B, size_t i)
 {
 	char	*r;
 
@@ -62,9 +61,9 @@ char	*ecl_std2(char	*cl, size_t	B, size_t i)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-
 }
-char	*ecl_std3(char	*cl, size_t	B, size_t i)
+
+char	*ecl_std3(char *cl, size_t B, size_t i)
 {
 	char	*r;
 
@@ -74,9 +73,9 @@ char	*ecl_std3(char	*cl, size_t	B, size_t i)
 	if (i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
-
 }
-char	*ecl_std4(char	*cl, size_t	B, size_t i)
+
+char	*ecl_std4(char *cl, size_t B, size_t i)
 {
 	char	*r;
 

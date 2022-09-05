@@ -18,9 +18,9 @@ char	*as_as_std(char *cl, char **cln, size_t B)
 	if (!cl[i] || cl[i] == '*' || cl[i] == ' ')
 		return (as_as_std1(cl, cln, B, i));
 	else if (cl[i] == '\\')
-		return (as_as_std2(cl, cln, B, i));	
+		return (as_as_std2(cl, cln, B, i));
 	else //	(cl[i] == '"' && cl[i] == '\'')
-		return (as_as_std3(cl, cln, B, i));	
+		return (as_as_std3(cl, cln, B, i));
 }
 
 char	*as_as_std1(char *cl, char **cln, size_t B, size_t	i)

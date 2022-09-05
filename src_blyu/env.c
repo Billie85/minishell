@@ -73,7 +73,7 @@ char	**env_space(char *s)
 		return (free_return(env[i], env + i));
 	r = malloc((i + 2) * sizeof(char **));
 	if (!r)
-		return(m_error());
+		return (m_error());
 	i = 0;
 	while (env[i])
 	{

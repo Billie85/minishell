@@ -1,6 +1,6 @@
 #ifndef ASTERISK_H
-#define ASTERISK_H
-#include "../minishell.h"
+# define ASTERISK_H //bad prprocessor indentation
+# include "../minishell.h"
 
 char	*as_std(char *cl, size_t B);
 char	**as_as_list(char *cl, size_t dw);

@@ -38,7 +38,7 @@ char	*gcl_std1(char	*cl, size_t	B, size_t i)
 
 	r = malloc(B + i + 1);
 	if (!r)
-		return(m_error());
+		return (m_error());
 	r[B + i] = '\0';
 	if (i)
 		memcpy(r + B, cl, i);/*  */
@@ -56,7 +56,6 @@ char	*gcl_std2(char	*cl, size_t	B, size_t i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
 }
-
 
 char	*gcl_std3(char	*cl, size_t	B, size_t i)
 {
@@ -77,7 +76,6 @@ char	*gcl_std3(char	*cl, size_t	B, size_t i)
 		memcpy(r + B, cl, i);/*  */
 	return (r);
 }
-
 
 char	*gcl_std4(char	*cl, size_t	B, size_t i)
 {

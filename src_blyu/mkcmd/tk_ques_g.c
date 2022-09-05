@@ -3,9 +3,9 @@
 
 #include "../debug.h"
 
-extern t_g g_;
+extern t_g	g_;
 
-char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))//too manyu funcyions
+char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))
 {
 	char	s[32];
 	size_t	i;

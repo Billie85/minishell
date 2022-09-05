@@ -37,7 +37,7 @@ char	**fi_list1(char *search, size_t	i)
 	{
 		r = malloc(sizeof(char **));
 		if (!r)
-			return(m_error());
+			return (m_error());
 		*r = NULL;
 		return (r);
 	}
@@ -62,7 +62,7 @@ char	**fi_list2(char *search, size_t	i)
 	{
 		r = calloc(1, sizeof(char **));/*  */
 		if (!r)
-			return(m_error());
+			return (m_error());
 		return (r);
 	}
 	d.str = "./";

@@ -1,10 +1,10 @@
 #include "minishell.h"
 #include "debug.h"
 
-extern t_g g_;
+extern t_g	g_;
 
-int	exe_cmd1(t_cmd *c);
-void exe_start(t_cmd *c, char *cm);
+int		exe_cmd1(t_cmd *c);
+void	exe_start(t_cmd *c, char *cm);
 
 int	exe_cmd(t_cmd *c)
 {
@@ -53,7 +53,7 @@ int	exe_cmd1(t_cmd *c)
 void	exe_start(t_cmd *c, char *cm)
 {
 	if (c->pipe[NEXT_PIPE])
-	close(c->pipe[NEXT_PIPE]);
+		close(c->pipe[NEXT_PIPE]);
 	if (c->pipe[R_PIPE] >= 0)
 	{
 		dup2(c->pipe[R_PIPE], STDIN_FILENO);

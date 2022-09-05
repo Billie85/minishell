@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "debug.h"
 
-extern t_g g_;
+extern t_g	g_;
 void	exe_bulitin1(t_cmd *c);
 void	exe_bulitin2(t_cmd *c);
 void	exe_bulitin3(t_cmd *c);
@@ -42,7 +42,7 @@ void	exe_bulitin1(t_cmd *c)
 
 void	exe_bulitin2(t_cmd *c)
 {
-	int i;
+	int	i;
 
 	i = list_len(c->cmd);
 	if (!strcmp(c->cmd[0], "echo"))

@@ -1,6 +1,5 @@
 #include "../minishell.h"
 #include "getcl.h"
-
 #include "../debug.h"
 
 char	*gcl_nc1(char	*cl, size_t	B, size_t i);
@@ -55,6 +54,7 @@ char	*gcl_nc1(char	*cl, size_t	B, size_t i)
 char	*gcl_nc2(char	*cl, size_t	B, size_t i)
 {
 	char	*r;
+
 	r = gcl_std(cl + i, B + i);
 	if (!r)
 		return (NULL);

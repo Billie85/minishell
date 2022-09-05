@@ -47,7 +47,7 @@ char	**cmdlist1(t_cmd *c, char *cl, char **ncl, size_t ll)
 
 	r = malloc(sizeof(char **) * ll + 1);
 	if (!r)
-		return(NULL);
+		return (NULL);
 	*ncl = cl;
 	if (c->n_type != SKIP)
 		c->n_type = CONTINUE;

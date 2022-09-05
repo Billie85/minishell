@@ -1,6 +1,6 @@
 #ifndef FIND_H
-#define FIND_H
-#include "../minishell.h"
+# define FIND_H
+# include "../minishell.h"
 
 typedef struct s_dirs
 {

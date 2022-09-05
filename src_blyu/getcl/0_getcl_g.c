@@ -3,7 +3,7 @@
 
 #include "../debug.h"
 
-extern t_g g_;
+extern t_g	g_;
 
 char	*getcl(void)
 {

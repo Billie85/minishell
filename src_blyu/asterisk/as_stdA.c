@@ -29,7 +29,7 @@ char	*as_std1(char *cl, size_t B, size_t	i)
 
 	r = malloc(B + i + 1);
 	if (!r)
-		return(m_error());
+		return (m_error());
 	r[B + i] = '\0';
 	memcpy(r + B, cl, i);/*  */
 	return (r);
@@ -72,7 +72,7 @@ char	*as_std3(char *cl, size_t B)
 	}
 	r = as_std(skip_tk(cl), B + ii);
 	if (!r)
-		return(free_list_return(l, NULL));
+		return (free_list_return(l, NULL));
 	as_std3_cpy(r, B, l);
 	return (r);
 }

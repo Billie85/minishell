@@ -1,6 +1,6 @@
 #ifndef ENVCL_H
-#define ENVCL_H
-#include "../minishell.h"
+# define ENVCL_H
+# include "../minishell.h"
 
 char	*ecl_std(char *cl, size_t B);
 char	*ecl_dq(char *cl, size_t B);

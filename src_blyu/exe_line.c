@@ -30,7 +30,7 @@ int	exe_line(char *cl)
 			cl++;
 	}
 	return (0);
-}//25
+}
 
 void	initializec(t_cmd	*c)
 {
