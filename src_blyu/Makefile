@@ -61,7 +61,7 @@ $(NAME)	: $(OBJS) $(LIBFT_a)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_a) -o $(NAME) -L$(shell brew --prefix readline)/lib  -lreadline
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -L$(shell brew --prefix readline)/lib
+	$(CC) $(CFLAGS) -c $< -o $@
 
 main.o : main.c
 	$(CC) $(CFRAGS) -c main.c
