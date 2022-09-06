@@ -22,7 +22,7 @@ sig_g.c utils.c exe_line.c toolA.c
 LIBFT_d			= libft/
 LIBFT_a			= libft.a
 
-CC	= gcc
+CC	= cc
 RM	= rm -rf
 CFLAGS	= -Wall -Wextra -Werror -I includes
 
@@ -58,10 +58,10 @@ OBJS += main.o
 all : $(NAME)	
 
 $(NAME)	: $(OBJS) $(LIBFT_a)
-	gcc $(CFLAGS) $(OBJS) $(LIBFT_a) -o $(NAME) -L$(shell brew --prefix readline)/lib  -lreadline
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_a) -o $(NAME) -L$(shell brew --prefix readline)/lib  -lreadline
 
 %.o : %.c
-	gcc $(CFLAGS) -c $< -o $@ -L$(shell brew --prefix readline)/lib  -lreadline
+	$(CC) $(CFLAGS) -c $< -o $@ -L$(shell brew --prefix readline)/lib
 
 main.o : main.c
 	$(CC) $(CFRAGS) -c main.c
