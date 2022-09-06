@@ -19,7 +19,7 @@ sig_g.c utils.c exe_line.c toolA.c
 
 CC	= gcc
 RM	= rm -rf
-CFLAGS	= -Wall -Wextra -Werror -I includes
+CFLAGS	= -I includes
 
 ASTERISK_SRCS_PATH	= $(addprefix asterisk/,$(ASTERISK_SRCS))
 BULITIN_SRCS_PATH	= $(addprefix bulitin/,$(BULITIN_SRCS))
