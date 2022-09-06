@@ -64,7 +64,7 @@ $(NAME)	: $(OBJS) $(LIBFT_a)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 sig_g.o : sig_g.c
-	$(CC) $(CFLAGS) -std=c99 -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(shell brew --prefix readline)/include
 
 $(LIBFT_a) : 
 	cd "$(LIBFT_d)" && make bonus
