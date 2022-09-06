@@ -29,7 +29,7 @@ ENVCL_SRCS_PATH		= $(addprefix envcl/,$(ENVCL_SRCS))
 FIND_SRCS_PATH		= $(addprefix find/,$(FIND_SRCS))
 GETCl_SRCS_PATH		= $(addprefix getcl/,$(GETCl_SRCS))
 MKCMD_SRCS_PATH		= $(addprefix mkcmd/,$(MKCMD_SRCS))
-LIBFT_PULUS_PATH	= $(addprefix mkcmd/,$(LIBFT_PULUS))
+LIBFT_PULUS_PATH	= $(addprefix libft_plus/,$(LIBFT_PULUS))
 SRCS_PATH			= $(addprefix ./,$(SRCS))
 
 ASTERISK_SRCS_OBJS	= $(ASTERISK_SRCS_PATH:.c=.o)
