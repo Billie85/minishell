@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "debug.h"
 
 t_g	g_;
 

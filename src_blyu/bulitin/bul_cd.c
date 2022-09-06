@@ -1,10 +1,4 @@
 #include "../minishell.h"
-#include "../debug.h"
-
-//fd=2
-
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
 
 int	bul_cd(int argc, char *argv[])
 {

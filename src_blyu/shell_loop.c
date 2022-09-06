@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "debug.h"
 
 void	shell_loop(void)
 {

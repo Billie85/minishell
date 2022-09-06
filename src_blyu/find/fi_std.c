@@ -1,6 +1,5 @@
 #include "../minishell.h"
 #include "find.h"
-#include "../debug.h"
 
 char	**fi_std1(size_t dw);
 char	**fi_std2(t_dirs *d, size_t dw);
@@ -16,11 +15,11 @@ char	**fi_std(t_dirs *d, size_t dw)
 	dent = readdir(d->dir);
 	if (!dent)
 		return (fi_std2(d, dw));
-	else if (!strcmp(dent->d_name, ".."))
+	else if (!ft_strcmp(dent->d_name, ".."))
 		return (fi_std(d, dw));
-	else if (dent->d_type != DT_DIR || ! strcmp(dent->d_name, "."))
+	else if (dent->d_type != DT_DIR || !ft_strcmp(dent->d_name, "."))
 		return (fi_std3(d, dw, dent));
-	else if (strcmp(dent->d_name, "..") && dent->d_type == DT_DIR)
+	else if (ft_strcmp(dent->d_name, "..") && dent->d_type == DT_DIR)
 		return (fi_std4(d, dw, dent));
 	else
 		return (fi_std(d, dw));
@@ -66,13 +65,13 @@ char	**fi_std4(t_dirs *d, size_t dw, struct dirent *dent)
 	size_t	i;
 	size_t	ii;
 
-	i = strlen(d->str);
-	ii = strlen(dent->d_name);
+	i = ft_strlen(d->str);
+	ii = ft_strlen(dent->d_name);
 	s = malloc(i + ii + 2);
 	if (!s)
 		return (m_error());
-	memcpy(s, d->str, i);
-	memcpy(s + i, dent->d_name, ii);
+	ft_memcpy(s, d->str, i);
+	ft_memcpy(s + i, dent->d_name, ii);
 	s[i + ii] = '/';
 	s[i + ii + 1] = '\0';
 	nd.befor = d;

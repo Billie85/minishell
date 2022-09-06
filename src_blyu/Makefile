@@ -14,14 +14,17 @@ GETCl_SRCS		= 0_getcl_g.c gcl_dq.c gcl_nc.c gcl_sq.c gcl_stdA.c gcl_stdB.c
 MKCMD_SRCS		= 0_mkcmd.c cmdlistB.c tk_ques_g.c tk_stdA.c \
 cmdlistA.c cmdlistC.c tk_dq.c tk_sq.c tk_stdB.c
 
-LIBFT_PULUS		= zzz_libft.c
+LIBFT_PULUS		= ft_strcmp.c ft_strstr.c
 
 SRCS			= exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c \
 sig_g.c utils.c exe_line.c toolA.c
 
+LIBFT_d			= libft/
+LIBFT_a			= libft.a
+
 CC	= gcc
 RM	= rm -rf
-CFLAGS	= -I includes
+CFLAGS	= -Wall -Wextra -Werror -I includes
 
 ASTERISK_SRCS_PATH	= $(addprefix asterisk/,$(ASTERISK_SRCS))
 BULITIN_SRCS_PATH	= $(addprefix bulitin/,$(BULITIN_SRCS))
@@ -31,6 +34,7 @@ GETCl_SRCS_PATH		= $(addprefix getcl/,$(GETCl_SRCS))
 MKCMD_SRCS_PATH		= $(addprefix mkcmd/,$(MKCMD_SRCS))
 LIBFT_PULUS_PATH	= $(addprefix libft_plus/,$(LIBFT_PULUS))
 SRCS_PATH			= $(addprefix ./,$(SRCS))
+LIBFT_PATH			= $(LIBFT_d)$(LIBFT_a)
 
 ASTERISK_SRCS_OBJS	= $(ASTERISK_SRCS_PATH:.c=.o)
 BULITIN_SRCS_OBJS	= $(BULITIN_SRCS_PATH:.c=.o)
@@ -51,8 +55,10 @@ OBJS += $(LIBFT_PULUS_OBJS)
 OBJS += $(SRCS_OBJS)
 OBJS += main.o
 
-$(NAME)	: $(OBJS)
-	gcc $(CFLAGS) $(OBJS) -o $(NAME) -L$(shell brew --prefix readline)/lib -lreadline 
+all : $(NAME)	
+
+$(NAME)	: $(OBJS) $(LIBFT_a)
+	gcc $(CFLAGS) $(OBJS) $(LIBFT_a) -o $(NAME) -L$(shell brew --prefix readline)/lib  -lreadline 
 
 %.o : %.c
 	gcc $(CFLAGS) -c $< -o $@
@@ -60,12 +66,18 @@ $(NAME)	: $(OBJS)
 main.o : main.c
 	$(CC) $(CFRAGS) -c main.c
 
+$(LIBFT_a) : 
+	cd "$(LIBFT_d)" && make bonus
+	cp $(LIBFT_PATH) ./
+
 clean	: 
 	$(RM) $(OBJS)
+	$(RM) $(LIBFT_a)
+	cd "$(LIBFT_d)" && make fclean
 
 fclean	: clean
 	$(RM) $(NAME)
-
+	
 re	: fclean all
 
 .PHONY: all clean fclean re

@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "debug.h"
 
 extern t_g	g_;
 void	exe_bulitin1(t_cmd *c);
@@ -8,7 +7,7 @@ void	exe_bulitin3(t_cmd *c);
 
 int	isbulitin(char *s)
 {
-	return (!strcmp(s, "echo") || !strcmp(s, "cd") || !strcmp(s, "pwd") || !strcmp(s, "export") || !strcmp(s, "unset") || !strcmp(s, "env") || !strcmp(s, "exit"));
+	return (!ft_strcmp(s, "echo") || !ft_strcmp(s, "cd") || !ft_strcmp(s, "pwd") || !ft_strcmp(s, "export") || !ft_strcmp(s, "unset") || !ft_strcmp(s, "env") || !ft_strcmp(s, "exit"));
 }
 
 int	exe_bulitin(t_cmd *c)
@@ -45,17 +44,17 @@ void	exe_bulitin2(t_cmd *c)
 	int	i;
 
 	i = list_len(c->cmd);
-	if (!strcmp(c->cmd[0], "echo"))
+	if (!ft_strcmp(c->cmd[0], "echo"))
 		g_.exeret = bul_echo(i, c->cmd);
-	else if (!strcmp(c->cmd[0], "cd"))
+	else if (!ft_strcmp(c->cmd[0], "cd"))
 		g_.exeret = bul_cd(i, c->cmd);
-	else if (!strcmp(c->cmd[0], "pwd"))
+	else if (!ft_strcmp(c->cmd[0], "pwd"))
 		g_.exeret = bul_pwd(i, c->cmd);
-	else if (!strcmp(c->cmd[0], "export"))
+	else if (!ft_strcmp(c->cmd[0], "export"))
 		g_.exeret = bul_export(i, c->cmd);
-	else if (!strcmp(c->cmd[0], "unset"))
+	else if (!ft_strcmp(c->cmd[0], "unset"))
 		g_.exeret = bul_unset(i, c->cmd);
-	else if (!strcmp(c->cmd[0], "env"))
+	else if (!ft_strcmp(c->cmd[0], "env"))
 		g_.exeret = bul_env(i, c->cmd);
 	return ;
 }

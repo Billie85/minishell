@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "asterisk.h"
 
-#include "../debug.h"
-
 size_t	as_std_aslen(char *cl);
 char	*as_std1(char *cl, size_t B, size_t	i);
 char	*as_std2(char *cl, size_t B, size_t	i);
@@ -31,7 +29,7 @@ char	*as_std1(char *cl, size_t B, size_t	i)
 	if (!r)
 		return (m_error());
 	r[B + i] = '\0';
-	memcpy(r + B, cl, i);/*  */
+	ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -44,7 +42,7 @@ char	*as_std2(char *cl, size_t B, size_t	i)
 	r = as_std(cl + i, B + i);
 	if (!r)
 		return (NULL);
-	memcpy(r + B, cl, i);/*  */
+	ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -67,7 +65,7 @@ char	*as_std3(char *cl, size_t B)
 	ii = 0;
 	while (l[i])
 	{
-		ii += strlen(l[i]) + 3;/*  */
+		ii += ft_strlen(l[i]) + 3;
 		i++;
 	}
 	r = as_std(skip_tk(cl), B + ii);
@@ -88,9 +86,9 @@ void	as_std3_cpy(char *r, size_t B, char **l)
 	{
 		r[B + ii] = '\'';
 		ii++;
-		memcpy(r + B + ii, l[i], strlen(l[i]));/*  */
-		ii += strlen(l[i]);/*  */
-		memcpy(r + B + ii, "\' ", 2);/*  */
+		ft_memcpy(r + B + ii, l[i], ft_strlen(l[i]));
+		ii += ft_strlen(l[i]);
+		ft_memcpy(r + B + ii, "\' ", 2);
 		ii += 2;
 		i++;
 	}

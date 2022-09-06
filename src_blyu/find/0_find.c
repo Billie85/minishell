@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "find.h"
 
-#include "../debug.h"
-
 char	**find(char **lst)
 {
 	char	**l;
@@ -28,22 +26,3 @@ char	**find(char **lst)
 	l[ii] = NULL;
 	return (l);
 }
-
-/* 
-int main(int argc, char *argv[]) {
-
-	if (argc <= 1)
-		return (0);
-	for (size_t i = 1; argv[i]; i++)
-	{
-		printf("%zu\t:%s[\\n]\n", i, argv[i]);
-	}
-//TEST_
-	char	**t = find(argv + 1);	
-	for (size_t i = 0; t[i]; i++)
-	{
-		printf("%zu\t:%s[\\n]\n", i, t[i]);
-	}
-	return 0;
-}
- */

@@ -1,7 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
 #include "minishell.h"
-#include "debug.h"
 
 size_t	list_len(char **l)
 {

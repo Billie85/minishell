@@ -1,6 +1,5 @@
 #include "../minishell.h"
 #include "getcl.h"
-#include "../debug.h"
 
 char	*gcl_nc1(char	*cl, size_t	B, size_t i);
 char	*gcl_nc2(char	*cl, size_t	B, size_t i);
@@ -14,7 +13,7 @@ char	*gcl_nc(char	*cl, size_t	B)
 	e = 1;
 	while ((cl[i] == '|' || cl[i] == '&') && i < 2)
 		i++;
-	while (cl[i] && (cl[i] == ' ' || cl[i] == '|' || !strncmp(cl + i, "&&", 2)))
+	while (cl[i] && (cl[i] == ' ' || cl[i] == '|' || !ft_strncmp(cl + i, "&&", 2)))
 	{
 		if (cl[i] == '|' || cl[i] == '&')
 		{
@@ -47,7 +46,7 @@ char	*gcl_nc1(char	*cl, size_t	B, size_t i)
 		if (!r)
 			return (NULL);
 	}
-	memcpy(r + B, cl, i);/*  */
+	ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -58,6 +57,6 @@ char	*gcl_nc2(char	*cl, size_t	B, size_t i)
 	r = gcl_std(cl + i, B + i);
 	if (!r)
 		return (NULL);
-	memcpy(r + B, cl, i);/*  */
+	ft_memcpy(r + B, cl, i);
 	return (r);
 }

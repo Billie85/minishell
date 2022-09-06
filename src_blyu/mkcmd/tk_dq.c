@@ -1,15 +1,13 @@
 #include "../minishell.h"
 #include "mkcmd.h"
 
-#include "../debug.h"
-
 char	*tk_dq(char *cl, size_t B)
 {
 	size_t	i;
 	char	*r;
 
 	i = 0;
-	while (cl[i] != '"' && strncmp(cl + i, "$?", 2))
+	while (cl[i] != '"' && ft_strncmp(cl + i, "$?", 2))
 		i++;
 	if (cl[i] == '$')
 	{
@@ -24,6 +22,6 @@ char	*tk_dq(char *cl, size_t B)
 			return (NULL);
 	}
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

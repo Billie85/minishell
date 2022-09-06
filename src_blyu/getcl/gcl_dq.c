@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "getcl.h"
 
-#include "../debug.h"
-
 char	*gcl_dq1(char	*cl, size_t	B, size_t i);
 char	*gcl_dq2(char	*cl, size_t	B, size_t i);
 
@@ -37,7 +35,7 @@ char	*gcl_dq1(char	*cl, size_t	B, size_t i)
 		r[B + i] = '\n';
 	}
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -50,6 +48,6 @@ char	*gcl_dq2(char	*cl, size_t	B, size_t i)
 		return (NULL);
 	r[B + i] = '"';
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

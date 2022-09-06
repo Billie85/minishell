@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "envcl.h"
 
-#include "../debug.h"
-
 char	*ecl_sp1(char *cl, size_t B);
 char	*ecl_sp2(char *cl, size_t B);
 char	*ecl_sp3(char *cl, size_t B);
@@ -11,7 +9,7 @@ char	*ecl_sp(char *cl, size_t B)
 {
 	if (*cl == ' ')
 		return (ecl_sp1(cl, B));
-	else if (!strncmp(cl, ">>", 2) || !strncmp(cl, "<<", 2) || !strncmp(cl, "||", 2) || !strncmp(cl, "&&", 2))/*  */
+	else if (!ft_strncmp(cl, ">>", 2) || !ft_strncmp(cl, "<<", 2) || !ft_strncmp(cl, "||", 2) || !ft_strncmp(cl, "&&", 2))
 		return (ecl_sp2(cl, B));
 	else //(*cl == '>' || *cl == '<' || *cl == '|' || *cl == ';')
 		return (ecl_sp3(cl, B));
@@ -38,7 +36,7 @@ char	*ecl_sp2(char *cl, size_t B)
 		return (r);
 	r[B + i] = ' ';
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -53,6 +51,6 @@ char	*ecl_sp3(char *cl, size_t B)
 		return (r);
 	r[B + i] = ' ';
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

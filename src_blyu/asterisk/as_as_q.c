@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "asterisk.h"
 
-#include "../debug.h"
-
 char	*as_as_q(char *cl, char **cln, size_t B, char c)
 {
 	size_t	i;
@@ -15,6 +13,6 @@ char	*as_as_q(char *cl, char **cln, size_t B, char c)
 	if (!r)
 		return (NULL);
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

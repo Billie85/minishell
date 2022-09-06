@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "debug.h"
 
 int		exe_cmd(t_cmd *c);
 void	cleanc(t_cmd	*c);
@@ -20,7 +19,7 @@ int	exe_line(char *cl)
 		cl = mkcmd(&c, cl);
 		if (c.n_type == SYNTAXERROR || !c.cmd[0])
 			return (0);
-		if (!cl || !strcmp(c.cmd[0], "exit"))
+		if (!cl || !ft_strcmp(c.cmd[0], "exit"))
 			return (1);
 		i = exe_cmd(&c);
 		cleanc(&c);

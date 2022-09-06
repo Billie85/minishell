@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "mkcmd.h"
 
-#include "../debug.h"
-
 char	**cmdlist6(t_cmd *c, char *cl, char **ncl, size_t ll)
 {
 	char	**r;

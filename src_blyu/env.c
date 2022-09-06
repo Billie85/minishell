@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "debug.h"
 
 char	**env_space(char *s);
 
@@ -25,7 +24,7 @@ char	*get_env(char *s)
 		l++;
 	}
 	env = ev(NULL);
-	while (*env && !(!strncmp(*env, s, l) && env[0][l] == '='))
+	while (*env && !(!ft_strncmp(*env, s, l) && env[0][l] == '='))
 		env++;
 	if (!(*env))
 		return ("");
@@ -38,18 +37,18 @@ int	set_env(char *name, char *arg)
 	char		*s;
 	size_t		l;
 
-	s = malloc(strlen(name) + strlen(arg) + 2);
+	s = malloc(ft_strlen(name) + ft_strlen(arg) + 2);
 	if (!s)
 	{
 		printf("malloc error\n");
 		return (1);
 	}
-	l = strlen(name);
-	memcpy(s, name, l);
+	l = ft_strlen(name);
+	ft_memcpy(s, name, l);
 	s[l] = '=';
 	l++;
-	memcpy(s + l, arg, strlen(arg));
-	s[l + strlen(arg)] = '\0';
+	ft_memcpy(s + l, arg, ft_strlen(arg));
+	s[l + ft_strlen(arg)] = '\0';
 	env = env_space(name);
 	if (!env)
 		return (1);
@@ -66,8 +65,8 @@ char	**env_space(char *s)
 
 	env = ev(NULL);
 	i = 0;
-	l = strlen(s);/*  */
-	while (env[i] && !(!strncmp(env[i], s, l) && env[i][l] == '='))/*  */
+	l = ft_strlen(s);
+	while (env[i] && !(!ft_strncmp(env[i], s, l) && env[i][l] == '='))
 		i++;
 	if (env[i])
 		return (free_return(env[i], env + i));
@@ -93,8 +92,8 @@ int	rm_env(char *s)
 
 	env = ev(NULL);
 	i = 0;
-	l = strlen(s);/*  */
-	while (env[i] && ! (!strncmp(env[i], s, l) && env[i][l] == '='))/*  */
+	l = ft_strlen(s);
+	while (env[i] && ! (!ft_strncmp(env[i], s, l) && env[i][l] == '='))
 		i++;
 	if (!env[i])
 		return (1);

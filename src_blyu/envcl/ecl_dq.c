@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "envcl.h"
 
-#include "../debug.h"
-
 char	*ecl_dq1(void);
 char	*ecl_dq2(char	*cl, size_t	B, size_t i);
 char	*ecl_dq3(char	*cl, size_t	B, size_t i);
@@ -26,7 +24,7 @@ char	*ecl_dq(char	*cl, size_t	B)
 char	*ecl_dq1(void)
 {
 	printf("syntax error\n");
-	return (strdup(""));/*  */
+	return (ft_strdup(""));
 }
 
 char	*ecl_dq2(char	*cl, size_t	B, size_t i)
@@ -37,7 +35,7 @@ char	*ecl_dq2(char	*cl, size_t	B, size_t i)
 	if (!r || !*r)
 		return (r);
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -50,6 +48,6 @@ char	*ecl_dq3(char	*cl, size_t	B, size_t i)
 		return (r);
 	r[B + i] = '"';
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

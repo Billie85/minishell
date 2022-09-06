@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "asterisk.h"
 
-#include "../debug.h"
-
 char	**as_as_list1(size_t dw);
 char	**as_as_list2(char *cl, size_t dw);
 char	**as_as_list3(char *cl, size_t dw);
@@ -36,7 +34,7 @@ char	**as_as_list2(char *cl, size_t dw)
 	char	**r;
 	char	*s;
 
-	s = strdup("");/*  */
+	s = ft_strdup("");
 	if (!s)
 		return (m_error());
 	while (*cl == '*')
@@ -60,7 +58,7 @@ char	**as_as_list3(char *cl, size_t dw)
 		cl++;
 	if (*cl == '\0')
 	{
-		s = strdup("");/*  */
+		s = ft_strdup("");
 		if (!s)
 			return (m_error());
 		r = as_as_list(cl, dw + 1);

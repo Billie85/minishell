@@ -1,7 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
 #include "minishell.h"
-#include "debug.h"
 
 void	itosd1(char	*str, int n);
 char	**cpy_list_std(char	**p, size_t dw);
@@ -61,7 +58,7 @@ char	**cpy_list_std(char	**p, size_t dw)
 		r[dw] = NULL;
 		return (r);
 	}
-	s = strdup(*p);/*  */
+	s = ft_strdup(*p);
 	if (!s)
 		return (m_error());
 	r = cpy_list_std(p + 1, dw + 1);

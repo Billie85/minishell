@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "mkcmd.h"
 
-#include "../debug.h"
-
 char	**cmdlist1(t_cmd *c, char *cl, char **ncl, size_t ll);
 char	**cmdlist2(t_cmd *c, char *cl, char **ncl, size_t ll);
 char	**cmdlist3(t_cmd *c, char *cl, char **ncl, size_t ll);
@@ -20,21 +18,21 @@ char	**cmdlist(t_cmd *c, char *cl, char **ncl, size_t ll)
 		cl++;
 	if (!*cl)
 		return (cmdlist1(c, cl, ncl, ll));
-	else if (!strncmp(cl, "< ", 2))/*  */
+	else if (!ft_strncmp(cl, "< ", 2))
 		return (cmdlist2(c, cl, ncl, ll));
-	else if (!strncmp(cl, "> ", 2))/*  */
+	else if (!ft_strncmp(cl, "> ", 2))
 		return (cmdlist3(c, cl, ncl, ll));
-	else if (!strncmp(cl, "<< ", 3))/*  */
+	else if (!ft_strncmp(cl, "<< ", 3))
 		return (cmdlist4(c, cl, ncl, ll));
-	else if (!strncmp(cl, ">> ", 3))/*  */
+	else if (!ft_strncmp(cl, ">> ", 3))
 		return (cmdlist5(c, cl, ncl, ll));
-	else if (!strncmp(cl, "| ", 2))/*  */
+	else if (!ft_strncmp(cl, "| ", 2))
 		return (cmdlist6(c, cl, ncl, ll));
-	else if (!strncmp(cl, "; ", 2))/*  */
+	else if (!ft_strncmp(cl, "; ", 2))
 		return (cmdlist7(c, cl, ncl, ll));
-	else if (!strncmp(cl, "|| ", 3))/*  */
+	else if (!ft_strncmp(cl, "|| ", 3))
 		return (cmdlist8(c, cl, ncl, ll));
-	else if (!strncmp(cl, "&& ", 3))/*  */
+	else if (!ft_strncmp(cl, "&& ", 3))
 		return (cmdlist9(c, cl, ncl, ll));
 	else
 		return (cmdlist0(c, cl, ncl, ll));
@@ -68,7 +66,7 @@ char	**cmdlist2(t_cmd *c, char *cl, char **ncl, size_t ll)
 	cl = skip_tk(cl);
 	if (!s)
 		return (NULL);
-	else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
+	else if (!*s || *s == '<' || *s == '>' || *s == '|' || !ft_strcmp(s, "&&"))
 	{
 		printf("syntax error\n");
 		free(s);
@@ -95,7 +93,7 @@ char	**cmdlist3(t_cmd *c, char *cl, char **ncl, size_t ll)
 	cl = skip_tk(cl);
 	if (!s)
 		return (NULL);
-	else if (!*s || *s == '<' || *s == '>' || *s == '|' || !strcmp(s, "&&"))
+	else if (!*s || *s == '<' || *s == '>' || *s == '|' || !ft_strcmp(s, "&&"))
 	{
 		printf("syntax error\n");
 		free(s);

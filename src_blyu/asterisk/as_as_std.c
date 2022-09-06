@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "asterisk.h"
 
-#include "../debug.h"
-
 char	*as_as_std1(char *cl, char **cln, size_t B, size_t	i);
 char	*as_as_std2(char *cl, char **cln, size_t B, size_t	i);
 char	*as_as_std3(char *cl, char **cln, size_t B, size_t	i);
@@ -33,7 +31,7 @@ char	*as_as_std1(char *cl, char **cln, size_t B, size_t	i)
 		return (NULL);
 	r[B + i] = '\0';
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -46,7 +44,7 @@ char	*as_as_std2(char *cl, char **cln, size_t B, size_t	i)
 		return (NULL);
 	r[B + i] = cl[i + 1];
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -58,6 +56,6 @@ char	*as_as_std3(char *cl, char **cln, size_t B, size_t	i)
 	if (!r)
 		return (NULL);
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

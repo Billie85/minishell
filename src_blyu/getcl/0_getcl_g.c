@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "getcl.h"
 
-#include "../debug.h"
-
 extern t_g	g_;
 
 char	*getcl(void)

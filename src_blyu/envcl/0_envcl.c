@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "envcl.h"
 
-#include "../debug.h"
-
 char	*envcl(char *cl)
 {
 	size_t	i;

@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "mkcmd.h"
 
-#include "../debug.h"
-
 char	*tk_sq(char *cl, size_t B)
 {
 	size_t	i;
@@ -15,6 +13,6 @@ char	*tk_sq(char *cl, size_t B)
 	if (!r)
 		return (NULL);
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

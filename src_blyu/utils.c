@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "debug.h"
 
 char	*cm_name1(char *s);
 char	*cm_name2(char *p, char *s);
@@ -11,7 +10,7 @@ char	*cm_name(char *s)
 
 	getcwd(pathname, PATHNAME_SIZE);
 	if (*s == '/')
-		r = strdup(s);/*  */
+		r = ft_strdup(s);
 	else if (*s == '.')
 		r = ft_strjoin(pathname, s + 1);
 	else if (*s == '~')
@@ -22,7 +21,7 @@ char	*cm_name(char *s)
 	{
 		free(r);
 		printf("no such comand %s\n", s);
-		r = strdup("");/*  */
+		r = ft_strdup("");
 	}
 	if (!r)
 		printf("malloc error\n");
@@ -36,7 +35,7 @@ char	*cm_name1(char *s)
 	size_t	f;
 
 	path = get_env("PATH");
-	f = strlen(path);
+	f = ft_strlen(path);
 	while (f)
 	{
 		while (f && path[f] != ':')
@@ -54,7 +53,7 @@ char	*cm_name1(char *s)
 		if (path[f] == ':')
 			f--;
 	}
-	return (strdup(""));/*  */
+	return (ft_strdup(""));
 }
 
 char	*cm_name2(char *p, char *s)
@@ -66,7 +65,7 @@ char	*cm_name2(char *p, char *s)
 	i = 0;
 	while (p[i] && p[i] != ':')
 		i++;
-	r = malloc(i + strlen(s) + 2);
+	r = malloc(i + ft_strlen(s) + 2);
 	if (!r)
 		return (m_error());
 	i = 0;

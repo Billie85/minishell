@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "envcl.h"
 
-#include "../debug.h"
-
 char	*ecl_env_std1(char *cl, size_t B, char *env, size_t ii);
 
 char	*ecl_env_std(char *cl, size_t B)
@@ -18,7 +16,7 @@ char	*ecl_env_std(char *cl, size_t B)
 	{
 		cl++;
 		env = get_env(envname);
-		ii = strlen(envname);/*  */
+		ii = ft_strlen(envname);
 	}
 	else
 	{
@@ -35,21 +33,21 @@ char	*ecl_env_std1(char *cl, size_t B, char *env, size_t ii)
 	char	*r;
 
 	if (env)
-		i = strlen(env);/*  */
-	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' || cl[ii] == '|' || cl[ii] == ';' || !strncmp(cl + ii, "&&", 2))
+		i = ft_strlen(env);
+	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' || cl[ii] == '|' || cl[ii] == ';' || !ft_strncmp(cl + ii, "&&", 2))
 	{
-		r = ecl_sp(cl + ii, B + i + 1);/*  */
+		r = ecl_sp(cl + ii, B + i + 1);
 		if (!r || !*r)
 			return (r);
 		r[B + i] = ' ';
 	}
 	else
 	{
-		r = ecl_std(cl + ii, B + i);/*  */
+		r = ecl_std(cl + ii, B + i);
 		if (!r || !*r)
 			return (r);
 	}
 	if (i)
-		memcpy(r + B, env, i);/*  */
+		ft_memcpy(r + B, env, i);
 	return (r);
 }

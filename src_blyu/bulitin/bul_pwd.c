@@ -1,5 +1,4 @@
 #include "../minishell.h"
-#include "../debug.h"
 
 int	bul_pwd(int argc, char *argv[])
 {

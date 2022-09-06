@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "mkcmd.h"
 
-#include "../debug.h"
-
 char	*tk_std1(char *cl, size_t B, size_t i);
 char	*tk_std2(char *cl, size_t B, size_t i);
 char	*tk_std3(char *cl, size_t B, size_t i);
@@ -14,7 +12,7 @@ char	*tk_std(char *cl, size_t B)
 	size_t	i;
 
 	i = 0;
-	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && strncmp(cl + i, "$?", 2) && cl[i] != ' ' && cl[i])
+	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && ft_strncmp(cl + i, "$?", 2) && cl[i] != ' ' && cl[i])
 		i++;
 	if (!cl[i] || cl[i] == ' ')
 		return (tk_std1(cl, B, i));
@@ -38,7 +36,7 @@ char	*tk_std1(char *cl, size_t B, size_t i)
 	r[0] = (char)1;
 	r[B + i] = '\0';
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -50,7 +48,7 @@ char	*tk_std2(char *cl, size_t B, size_t i)
 	if (!r)
 		return (NULL);
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }
 
@@ -63,6 +61,6 @@ char	*tk_std3(char *cl, size_t B, size_t i)
 		return (NULL);
 	r[B + i] = cl[i + 1];
 	if (i)
-		memcpy(r + B, cl, i);/*  */
+		ft_memcpy(r + B, cl, i);
 	return (r);
 }

@@ -1,9 +1,4 @@
 #include "../minishell.h"
-#include "../debug.h"
-//fd=2
-
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
 
 int	bul_unset(int argc, char *argv[])
 {
@@ -16,7 +11,7 @@ int	bul_unset(int argc, char *argv[])
 	while ((int)i < argc)
 	{
 		ii = 0;
-		while (isalpha(argv[i][ii]))
+		while (ft_isalpha(argv[i][ii]))
 			ii++;
 		if (argv[i][ii] == '\0')
 		{

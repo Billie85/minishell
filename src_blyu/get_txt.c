@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "debug.h"
 
 char	*gt_std(char *end, size_t B);
 char	*gt_mkmem(char *f, size_t B);
@@ -18,10 +17,10 @@ char	*gt_std(char *end, size_t B)
 
 	s = readline(PROMPT_);
 	if (!s)
-		return (strdup(""));/*  */
-	if (!strcmp(s, end))/*  */
+		return (ft_strdup(""));
+	if (!ft_strcmp(s, end))
 		return (gt_mkmem(s, B));
-	i = strlen(s);
+	i = ft_strlen(s);
 	if (i >= 2 && s[i - 1] != '\\' && s[i] == '\\')
 		gt_std1(end, B, s, i);
 	else
@@ -37,7 +36,7 @@ char	*gt_std1(char *end, size_t B, char *s, size_t i)
 	r = gt_std(end, B + i);
 	if (!r || !(*r))
 		return (r);
-	memcpy(r, s, i);/*  */
+	ft_memcpy(r, s, i);
 	return (r);
 }
 
@@ -49,7 +48,7 @@ char	*gt_std2(char *end, size_t B, char *s, size_t i)
 	if (!r || !(*r))
 		return (r);
 	r[B + i] = '\n';
-	memcpy(r, s, i);/*  */
+	ft_memcpy(r, s, i);
 	return (r);
 }
 

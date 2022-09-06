@@ -103,11 +103,20 @@ char	*cm_name(char *s);
 char	*skip_tk(char *cl);
 
 //libft_plus.c
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strstr(const char *s1, const char *s2);
 
 //libft
-char	*ft_strjoin(char const	*s1, char const	*s2);
+int		ft_isalpha(int c);
+int		ft_isalnum(int c);
+size_t	ft_strlen(const char *str);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	*ft_memmove(void *dest, const void *src, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	*ft_calloc(size_t count, size_t size);
+char	*ft_strdup(const char *s1);
 void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
+char	*ft_strjoin(char const *s1, char const *s2);
+
 
 #endif

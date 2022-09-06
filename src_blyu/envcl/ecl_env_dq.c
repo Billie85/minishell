@@ -1,8 +1,6 @@
 #include "../minishell.h"
 #include "envcl.h"
 
-#include "../debug.h"
-
 char	*ecl_env_dq1(char *cl, size_t B, char *env, size_t ii);
 
 char	*ecl_env_dq(char *cl, size_t B)
@@ -18,7 +16,7 @@ char	*ecl_env_dq(char *cl, size_t B)
 	{
 		cl++;
 		env = get_env(envname);
-		ii = strlen(envname);/*  */
+		ii = ft_strlen(envname);
 	}
 	else
 	{
@@ -35,13 +33,13 @@ char	*ecl_env_dq1(char *cl, size_t B, char *env, size_t ii)
 	char	*r;
 
 	if (env)
-		i = strlen(env);/*  */
+		i = ft_strlen(env);
 	else
 		i = 0;
-	r = ecl_dq(cl + ii, B + i);/*  */
+	r = ecl_dq(cl + ii, B + i);
 	if (!r || !*r)
 		return (r);
 	if (i)
-		memcpy(r + B, env, i);/*  */
+		ft_memcpy(r + B, env, i);
 	return (r);
 }
