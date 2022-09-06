@@ -14,7 +14,7 @@ GETCl_SRCS		= 0_getcl_g.c gcl_dq.c gcl_nc.c gcl_sq.c gcl_stdA.c gcl_stdB.c
 MKCMD_SRCS		= 0_mkcmd.c cmdlistB.c tk_ques_g.c tk_stdA.c \
 cmdlistA.c cmdlistC.c tk_dq.c tk_sq.c tk_stdB.c
 
-LIBFT_PULUS		= ft_strcmp.c ft_strstr.c
+LIBFT_PULUS		= ft_strcmp.c ft_strstr.c                                                    zzz_libft.c
 
 SRCS			= exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c \
 sig_g.c utils.c exe_line.c toolA.c
@@ -58,10 +58,10 @@ OBJS += main.o
 all : $(NAME)	
 
 $(NAME)	: $(OBJS) $(LIBFT_a)
-	gcc $(CFLAGS) $(OBJS) $(LIBFT_a) -o $(NAME) -L$(shell brew --prefix readline)/lib  -lreadline
+	gcc $(CFLAGS) $(OBJS) $(LIBFT_a) -o $(NAME) -L$(shell brew --prefix readline)/lib -lreadline 
 
 %.o : %.c
-	gcc $(CFLAGS) -c $< -o $@ -L$(shell brew --prefix readline)/lib  -lreadline
+	gcc $(CFLAGS) -c $< -o $@
 
 main.o : main.c
 	$(CC) $(CFRAGS) -c main.c
