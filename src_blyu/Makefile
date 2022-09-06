@@ -14,6 +14,8 @@ GETCl_SRCS		= 0_getcl_g.c gcl_dq.c gcl_nc.c gcl_sq.c gcl_stdA.c gcl_stdB.c
 MKCMD_SRCS		= 0_mkcmd.c cmdlistB.c tk_ques_g.c tk_stdA.c \
 cmdlistA.c cmdlistC.c tk_dq.c tk_sq.c tk_stdB.c
 
+LIBFT_PULUS		= *.c
+
 SRCS			= exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c \
 sig_g.c utils.c exe_line.c toolA.c
 
@@ -27,6 +29,7 @@ ENVCL_SRCS_PATH		= $(addprefix envcl/,$(ENVCL_SRCS))
 FIND_SRCS_PATH		= $(addprefix find/,$(FIND_SRCS))
 GETCl_SRCS_PATH		= $(addprefix getcl/,$(GETCl_SRCS))
 MKCMD_SRCS_PATH		= $(addprefix mkcmd/,$(MKCMD_SRCS))
+LIBFT_PULUS_PATH	= $(addprefix mkcmd/,$(LIBFT_PULUS))
 SRCS_PATH			= $(addprefix ./,$(SRCS))
 
 ASTERISK_SRCS_OBJS	= $(ASTERISK_SRCS_PATH:.c=.o)
@@ -35,6 +38,7 @@ ENVCL_SRCS_OBJS		= $(ENVCL_SRCS_PATH:.c=.o)
 FIND_SRCS_OBJS		= $(FIND_SRCS_PATH:.c=.o)
 GETCl_SRCS_OBJS		= $(GETCl_SRCS_PATH:.c=.o)
 MKCMD_SRCS_OBJS		= $(MKCMD_SRCS_PATH:.c=.o)
+LIBFT_PULUS_OBJS	= $(LIBFT_PULUS_PATH:.c=.o)
 SRCS_OBJS			= $(SRCS_PATH:.c=.o)
 
 OBJS += $(ASTERISK_SRCS_OBJS)
@@ -43,6 +47,7 @@ OBJS += $(ENVCL_SRCS_OBJS)
 OBJS += $(FIND_SRCS_OBJS)
 OBJS += $(GETCl_SRCS_OBJS)
 OBJS += $(MKCMD_SRCS_OBJS)
+OBJS += $(LIBFT_PULUS_OBJS)
 OBJS += $(SRCS_OBJS)
 OBJS += main.o
 
