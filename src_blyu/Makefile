@@ -24,7 +24,7 @@ LIBFT_a			= libft.a
 
 CC	= cc
 RM	= rm -rf
-CFLAGS	= -Wall -Wextra -Werror -I includes
+CFLAGS	= -Wall -Wextra -Werror
 
 ASTERISK_SRCS_PATH	= $(addprefix asterisk/,$(ASTERISK_SRCS))
 BULITIN_SRCS_PATH	= $(addprefix bulitin/,$(BULITIN_SRCS))
