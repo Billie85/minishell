@@ -40,7 +40,7 @@ void	*free_list_return(void *l, void *r)
 	return (r);
 }
 
-int		ep3(char *s1, char *s2, char *s3)
+int	ep3(char *s1, char *s2, char *s3)
 {
 	ft_putstr_fd(s1, 2);
 	ft_putstr_fd(s2, 2);

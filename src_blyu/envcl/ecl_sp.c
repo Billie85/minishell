@@ -9,8 +9,8 @@ char	*ecl_sp(char *cl, size_t B)
 {
 	if (*cl == ' ')
 		return (ecl_sp1(cl, B));
-	else if (!ft_strncmp(cl, ">>", 2) || !ft_strncmp(cl, "<<", 2)\
-	 || !ft_strncmp(cl, "||", 2) || !ft_strncmp(cl, "&&", 2))
+	else if (!ft_strncmp(cl, ">>", 2) || !ft_strncmp(cl, "<<", 2) \
+	|| !ft_strncmp(cl, "||", 2) || !ft_strncmp(cl, "&&", 2))
 		return (ecl_sp2(cl, B));
 	else
 		return (ecl_sp3(cl, B));

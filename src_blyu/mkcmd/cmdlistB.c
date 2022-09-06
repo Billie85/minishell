@@ -32,6 +32,7 @@ char	**cmdlist4(t_cmd *c, char *cl, char **ncl, size_t ll)
 int	cmdlist4_sendtxt(char	*s)
 {
 	int	fd[2];
+
 	pipe(fd);
 	s = get_txt(s);
 	if (!s)

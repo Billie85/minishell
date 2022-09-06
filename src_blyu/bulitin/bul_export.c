@@ -19,7 +19,7 @@ int	bul_export(int argc, char *argv[])
 			set_env(argv[i], argv[i] + ii + 1);
 		}
 		else if (argv[i][ii] != '\0')
-			r = ep3("minishell: export: `", argv[i]\
+			r = ep3("minishell: export: `", argv[i] \
 			, "': not a valid identifier\n");
 		i++;
 	}	

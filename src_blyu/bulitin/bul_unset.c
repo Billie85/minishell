@@ -18,7 +18,7 @@ int	bul_unset(int argc, char *argv[])
 			rm_env(argv[i]);
 		}
 		else
-			r = ep3("minishell: unset: `", argv[i]\
+			r = ep3("minishell: unset: `", argv[i] \
 			, "': not a valid identifier\n");
 		i++;
 	}	
