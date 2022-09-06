@@ -34,7 +34,8 @@ char	*ecl_env_std1(char *cl, size_t B, char *env, size_t ii)
 
 	if (env)
 		i = ft_strlen(env);
-	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' || cl[ii] == '|' || cl[ii] == ';' || !ft_strncmp(cl + ii, "&&", 2))
+	if (cl[ii] == ' ' || cl[ii] == '<' || cl[ii] == '>' \
+	|| cl[ii] == '|' || cl[ii] == ';' || !ft_strncmp(cl + ii, "&&", 2))
 	{
 		r = ecl_sp(cl + ii, B + i + 1);
 		if (!r || !*r)

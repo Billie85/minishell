@@ -13,7 +13,7 @@ char	*gcl_sq(char *cl, size_t B)
 		i++;
 	if (!cl[i])
 		return (gcl_sq1(cl, B, i));
-	else //(cl[i] == '\'')
+	else
 		return (gcl_sq2(cl, B, i));
 	return (NULL);
 }

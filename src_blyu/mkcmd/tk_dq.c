@@ -15,7 +15,7 @@ char	*tk_dq(char *cl, size_t B)
 		if (!r)
 			return (NULL);
 	}
-	else //(cl[i] == '"')
+	else
 	{
 		r = tk_std(cl + i + 1, B + i);
 		if (!r)

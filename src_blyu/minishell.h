@@ -54,15 +54,17 @@ int		bul_export(int argc, char *argv[]);
 int		bul_pwd(int argc, char *argv[]);
 int		bul_unset(int argc, char *argv[]);
 
-//sig.c
+//sig
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
-//envcl.c
+
+//envcl
 char	*envcl(char *cl);
-//shell_loop.c
+
+//shell_loop
 void	shell_loop(void);
 
-//tool.c
+//tool
 void	itosd(char *str, int n);
 void	free_list(char	**p);
 char	**cpy_list(char	**p);
@@ -72,37 +74,39 @@ void	*free_return(void *p, void *r);
 void	*free_list_return(void *l, void *r);
 int		ep3(char *s1, char *s2, char *s3);
 
-//evn.c
+//evn
 char	**ev(char **set);
 char	*get_env(char *s);
 int		set_env(char *name, char *arg);
 int		rm_env(char *s);
 
-//exe_bulitin.c
+//exe_bulitin
 int		isbulitin(char *s);
 int		exe_bulitin(t_cmd *c);
 
-//mkcmd.c
+//mkcmd
 char	*mkcmd(t_cmd *c, char *cl);
-//getcl.c
+
+//getcl
 char	*getcl(void);
-//exe_line.c
+
+//exe_line
 int		exe_line(char *cl);
 
-//get_txt.c
+//get_txt
 char	*get_txt(char *end);
 
-//find.c
+//find
 char	**find(char **lst);
 
-//asterisk.c
+//asterisk
 char	*asterisk(char *cl);
 
-//utils.c
+//utils
 char	*cm_name(char *s);
 char	*skip_tk(char *cl);
 
-//libft_plus.c
+//libft_plus
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strstr(const char *s1, const char *s2);
 
@@ -117,6 +121,5 @@ void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
-
 
 #endif

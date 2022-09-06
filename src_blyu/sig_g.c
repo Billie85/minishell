@@ -13,7 +13,7 @@ void	sigint_handler(int sig)
 		kill(0, SIGINT);
 		printf("^C\n");
 	}
-	else //(g_.status == READING)
+	else
 	{
 		printf ("\n");
 		rl_on_new_line();
@@ -34,7 +34,7 @@ void	sigquit_handler(int sig)
 		kill(0, SIGQUIT);
 		printf("^\\\n");
 	}
-	else //(g_.status == READING)
+	else
 	{
 		rl_on_new_line();
 		rl_redisplay();

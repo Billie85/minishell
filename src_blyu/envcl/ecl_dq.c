@@ -12,11 +12,11 @@ char	*ecl_dq(char	*cl, size_t	B)
 	i = 0;
 	while (cl[i] != '"' && cl[i] != '$' && cl[i])
 		i++;
-	if (!cl[i])//構文エラー
+	if (!cl[i])
 		return (ecl_dq1());
 	else if (cl[i] == '$')
 		return (ecl_dq2(cl, B, i));
-	else //(cl[i] == '"')
+	else
 		return (ecl_dq3(cl, B, i));
 	return (NULL);
 }

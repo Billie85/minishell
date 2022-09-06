@@ -75,7 +75,7 @@ char	**cmdlist2(t_cmd *c, char *cl, char **ncl, size_t ll)
 	}
 	if (c->pipe[R_PIPE] >= 0)
 		close(c->pipe[R_PIPE]);
-	c->pipe[R_PIPE] = open(s, O_RDONLY | O_CREAT, S_IREAD | S_IWRITE);//S_IERITEが定義されていません。
+	c->pipe[R_PIPE] = open(s, O_RDONLY | O_CREAT, S_IREAD | S_IWRITE);
 	free(s);
 	r = cmdlist(c, cl, ncl, ll);
 	return (r);
@@ -102,7 +102,7 @@ char	**cmdlist3(t_cmd *c, char *cl, char **ncl, size_t ll)
 	}
 	if (c->pipe[W_PIPE] >= 0)
 		close(c->pipe[W_PIPE]);
-	c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT, S_IREAD | S_IWRITE);//S_IREADが定義されていません。
+	c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT, S_IREAD | S_IWRITE);
 	free(s);
 	r = cmdlist(c, cl, ncl, ll);
 	return (r);

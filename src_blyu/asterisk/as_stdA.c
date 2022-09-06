@@ -16,7 +16,7 @@ char	*as_std(char *cl, size_t B)
 		return (as_std1(cl, B, i));
 	else if (cl[i] == ' ')
 		return (as_std2(cl, B, i));
-	else //(cl[i] == '*')
+	else
 		return (as_std3(cl, B));
 	return (NULL);
 }
@@ -38,7 +38,7 @@ char	*as_std2(char *cl, size_t B, size_t	i)
 	char	*r;
 
 	while (cl[i] == ' ')
-			i++;
+		i++;
 	r = as_std(cl + i, B + i);
 	if (!r)
 		return (NULL);

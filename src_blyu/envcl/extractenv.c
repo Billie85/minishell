@@ -12,7 +12,7 @@ char	*extractenv(char *cl)
 		i++;
 	r = malloc(i + 1);
 	if (!r)
-		return(m_error());
+		return (m_error());
 	if (i)
 		ft_memcpy(r, cl, i);
 	r[i] = '\0';

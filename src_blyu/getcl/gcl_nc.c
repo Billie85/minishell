@@ -13,7 +13,8 @@ char	*gcl_nc(char	*cl, size_t	B)
 	e = 1;
 	while ((cl[i] == '|' || cl[i] == '&') && i < 2)
 		i++;
-	while (cl[i] && (cl[i] == ' ' || cl[i] == '|' || !ft_strncmp(cl + i, "&&", 2)))
+	while (cl[i] && (cl[i] == ' ' || cl[i] == '|' \
+	|| !ft_strncmp(cl + i, "&&", 2)))
 	{
 		if (cl[i] == '|' || cl[i] == '&')
 		{

@@ -10,12 +10,12 @@ char	*ecl_sq(char	*cl, size_t	B)
 	while (cl[i] != '\'' && cl[i])
 		i++;
 	if (!cl[i])
-	{//構文エラー
+	{
 		printf("syntax error\n");
 		r = ft_strdup("");
 		return (r);
 	}
-	else //(cl[i] == '\'')
+	else
 	{
 		r = ecl_std(cl + i + 1, B + i + 1);
 		if (!r || !*r)

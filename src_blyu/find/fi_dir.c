@@ -12,7 +12,8 @@ void	fi_dir(char **r)
 	while (r[i])
 	{
 		l = ft_strlen(r[i]);
-		if ((l >= 2 && r[i][l - 2] == '/' && r[i][l - 1] == '.') || (l == 1 && r[i][0] == '.'))//line long
+		if ((l >= 2 && r[i][l - 2] == '/' && r[i][l - 1] == '.') \
+		|| (l == 1 && r[i][0] == '.'))
 		{
 			r[i][l - 2] = '\0';
 			if (r[i + 1] && ! ft_strncmp (r[i + 1], r[i], ft_strlen(r[i])))

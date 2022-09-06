@@ -59,7 +59,7 @@ char	*gt_mkmem(char *f, size_t B)
 	free(f);
 	r = malloc(B + 1);
 	if (!r)
-		return(m_error());
+		return (m_error());
 	r[0] = (char)1;
 	r[B] = '\0';
 	return (r);

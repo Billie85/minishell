@@ -4,9 +4,9 @@
 char	**cmdlist6(t_cmd *c, char *cl, char **ncl, size_t ll)
 {
 	char	**r;
+	int		fd[2];
 
 	cl = skip_tk(cl);
-	int	fd[2];
 	pipe(fd);
 	if (c->pipe[W_PIPE] >= 0)
 		close(fd[W_PIPE]);

@@ -13,14 +13,16 @@ char	*ecl_std(char	*cl, size_t	B)
 	size_t	i;
 
 	i = 0;
-	while (cl[i] != ' ' && cl[i] != '<' && cl[i] != '>' && cl[i] != '|' && cl[i] != ';' && ft_strncmp(cl + i, "&&", 2) \
-			&& cl[i] != '$' \
-			&& cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' \
-			&& cl[i])
+	while (cl[i] != ' ' && cl[i] != '<' && cl[i] != '>' \
+	&& cl[i] != '|' && cl[i] != ';' && ft_strncmp(cl + i, "&&", 2) \
+	&& cl[i] != '$' \
+	&& cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' \
+	&& cl[i])
 		i++;
 	if (!cl[i])
 		return (ecl_std1(cl, B, i));
-	else if (cl[i] == ' ' || cl[i] == '<' || cl[i] == '>' || cl[i] == '|' || cl[i] == ';' || cl[i] == '&')
+	else if (cl[i] == ' ' || cl[i] == '<' || cl[i] == '>' \
+	|| cl[i] == '|' || cl[i] == ';' || cl[i] == '&')
 		return (ecl_std2(cl, B, i));
 	else if (cl[i] == '$')
 		return (ecl_std3(cl, B, i));
@@ -28,7 +30,7 @@ char	*ecl_std(char	*cl, size_t	B)
 		return (ecl_std4(cl, B, i));
 	else if (cl[i] == '"')
 		return (ecl_std5(cl, B, i));
-	else //(cl[i] == '\'')
+	else
 		return (ecl_std6(cl, B, i));
 	return (NULL);
 }

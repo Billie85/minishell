@@ -13,7 +13,7 @@ char	*gcl_dq(char	*cl, size_t	B)
 		i++;
 	if (!cl[i])
 		return (gcl_dq1(cl, B, i));
-	else //(cl[i] == '"')
+	else
 		return (gcl_dq2(cl, B, i));
 	return (NULL);
 }

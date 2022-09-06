@@ -7,7 +7,9 @@ void	exe_bulitin3(t_cmd *c);
 
 int	isbulitin(char *s)
 {
-	return (!ft_strcmp(s, "echo") || !ft_strcmp(s, "cd") || !ft_strcmp(s, "pwd") || !ft_strcmp(s, "export") || !ft_strcmp(s, "unset") || !ft_strcmp(s, "env") || !ft_strcmp(s, "exit"));
+	return (!ft_strcmp(s, "echo") || !ft_strcmp(s, "cd") \
+	|| !ft_strcmp(s, "pwd") || !ft_strcmp(s, "export") \
+	|| !ft_strcmp(s, "unset") || !ft_strcmp(s, "env") || !ft_strcmp(s, "exit"));
 }
 
 int	exe_bulitin(t_cmd *c)
