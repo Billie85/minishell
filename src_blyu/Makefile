@@ -16,8 +16,8 @@ cmdlistA.c cmdlistC.c tk_dq.c tk_sq.c tk_stdB.c
 
 LIBFT_PULUS		= ft_strcmp.c ft_strstr.c
 
-SRCS			= exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c \
-sig_g.c utils.c exe_line.c toolA.c
+SRCS			= main.c exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c \
+ utils.c exe_line.c toolA.c
 
 LIBFT_d			= libft/
 LIBFT_a			= libft.a
@@ -53,7 +53,7 @@ OBJS += $(GETCl_SRCS_OBJS)
 OBJS += $(MKCMD_SRCS_OBJS)
 OBJS += $(LIBFT_PULUS_OBJS)
 OBJS += $(SRCS_OBJS)
-OBJS += main.o
+OBJS += sig_g.o
 
 all : $(NAME)	
 
@@ -63,8 +63,8 @@ $(NAME)	: $(OBJS) $(LIBFT_a)
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-main.o : main.c
-	$(CC) $(CFRAGS) -c main.c
+sig_g.o : sig_g.c
+	$(CC) $(CFLAGS) -c $< -o $@ -L$(shell brew --prefix readline)/lib -lreadline
 
 $(LIBFT_a) : 
 	cd "$(LIBFT_d)" && make bonus
