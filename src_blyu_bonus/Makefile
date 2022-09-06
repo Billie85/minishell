@@ -30,7 +30,7 @@ GETCl_SRCSb		= 0_getcl_g_bonus.c gcl_dq_bonus.c gcl_nc_bonus.c gcl_sq_bonus.c gc
 
 MKCMD_SRCSb		= 0_mkcmd_bonus.c cmdlistB_bonus.c tk_ques_g_bonus.c tk_stdA_bonus.c cmdlistA_bonus.c cmdlistC_bonus.c tk_dq_bonus.c tk_sq_bonus.c tk_stdB_bonus.c
 
-LIBFT_PULUS_b	= ft_strcmp_bonus.c ft_strstr_bonus.c
+LIBFT_PULUSb	= ft_strcmp_bonus.c ft_strstr_bonus.c
 
 SRCSb			= main_bonus.c exe_bulitin_g_bonus.c shell_loop_bonus.c toolB_bonus.c env_bonus.c exe_cmd_g_bonus.c get_txt_bonus.c utils_bonus.c exe_line_bonus.c toolA_bonus.c
 
