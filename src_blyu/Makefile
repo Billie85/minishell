@@ -64,7 +64,7 @@ $(NAME)	: $(OBJS) $(LIBFT_a)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 sig_g.o : sig_g.c
-	$(CC) $(CFLAGS) -c $< -o $@ -lreadline
+	$(CC) -c $< -o $@
 
 $(LIBFT_a) : 
 	cd "$(LIBFT_d)" && make bonus
