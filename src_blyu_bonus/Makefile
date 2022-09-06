@@ -124,11 +124,13 @@ $(LIBFT_a) :
 
 clean	: 
 	$(RM) $(OBJS)
+	$(RM) $(OBJSb)
 	$(RM) $(LIBFT_a)
 	cd "$(LIBFT_dir)" && make fclean
 
 fclean	: clean
 	$(RM) $(NAME)
+	$(RM) $(NAMEb)
 	
 re	: fclean all
 
