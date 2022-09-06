@@ -12,7 +12,6 @@ void	as_std3_cpy(char *r, size_t B, char **l);
 char	*as_std(char *cl, size_t B)
 {
 	size_t	i;
-	char	*r;
 
 	i = as_std_aslen(cl);
 	if (!cl[i])
@@ -21,6 +20,7 @@ char	*as_std(char *cl, size_t B)
 		return (as_std2(cl, B, i));
 	else //(cl[i] == '*')
 		return (as_std3(cl, B));
+	return (NULL);
 }
 
 char	*as_std1(char *cl, size_t B, size_t	i)

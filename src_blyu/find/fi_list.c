@@ -4,15 +4,11 @@
 #include "../debug.h"
 
 char	**fi_list1(char *search, size_t	i);
-char	**fi_list2(char *search, size_t	i);
+char	**fi_list2(void);
 
 char	**fi_list(char *search)
 {
 	size_t	i;
-	char	c;
-	t_dirs	d;
-	char	**r;
-	size_t	ii;
 
 	i = strlen(search);
 	while (i && search[i] != '/')
@@ -20,7 +16,7 @@ char	**fi_list(char *search)
 	if (search[i] == '/')
 		return (fi_list1(search, i));
 	else
-		return (fi_list2(search, i));
+		return (fi_list2());
 	return (NULL);
 }
 
@@ -51,7 +47,7 @@ char	**fi_list1(char *search, size_t	i)
 	return (r);
 }
 
-char	**fi_list2(char *search, size_t	i)
+char	**fi_list2(void)
 {
 	t_dirs	d;
 	char	**r;

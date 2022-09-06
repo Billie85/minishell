@@ -6,7 +6,6 @@
 char	*ecl_sq(char	*cl, size_t	B)
 {
 	size_t	i;
-	char	*ncl;
 	char	*r;
 //TEST
 	i = 0;

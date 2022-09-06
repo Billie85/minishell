@@ -12,7 +12,6 @@ char	*tk_std5(char *cl, size_t B, size_t i);
 char	*tk_std(char *cl, size_t B)
 {
 	size_t	i;
-	char	*r;
 
 	i = 0;
 	while (cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'' && strncmp(cl + i, "$?", 2) && cl[i] != ' ' && cl[i])

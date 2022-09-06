@@ -14,30 +14,19 @@ int	bul_cd(int argc, char *argv[])
 	{
 		if (access(argv[1], F_OK))
 		{
-			printf("the file not exit\n");
+			ft_putstr_fd("the file not exit\n", 2);
 			return (1);
 		}
 		if (access(argv[1], X_OK))
-		{
-			printf("cd: permission denied: %s\n", argv[1]);
-			return (1);
-		}
+			return (ep3("cd: permission denied: ", argv[1], "\n"));
 		if (chdir(argv[1]))
-		{
-			ft_putstr_fd("cd: not a directory:", 2);
-			ft_putchar_fd(' ', 2);
-			ft_putstr_fd(argv[1], 2);
-			ft_putchar_fd('\n', 2);
-			//printf("cd: not a directory: %s\n", argv[1]);
-			return (1);
-		}
+			return (ep3("cd: not a directory: ", argv[1], "\n"));
 		getcwd(pathname, PATHNAME_SIZE);
 		return (set_env("PWD", pathname));
 	}
 	else
 	{
-		printf("invalid args\n");
-		return (0);
+		ft_putstr_fd("invalid args\n", 2);
+		return (1);
 	}
 }
-//25

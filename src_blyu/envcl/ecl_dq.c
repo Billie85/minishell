@@ -10,7 +10,6 @@ char	*ecl_dq3(char	*cl, size_t	B, size_t i);
 char	*ecl_dq(char	*cl, size_t	B)
 {
 	size_t	i;
-	char	*r;
 
 	i = 0;
 	while (cl[i] != '"' && cl[i] != '$' && cl[i])

@@ -10,8 +10,6 @@ char	**as_as_list4(char *cl, size_t dw);
 
 char	**as_as_list(char *cl, size_t dw)
 {
-	char	*s;
-
 	if (*cl == '\0' || *cl == ' ')
 		return (as_as_list1(dw));
 	else if (*cl == '*' && !dw)

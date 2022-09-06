@@ -70,6 +70,7 @@ size_t	list_len(char **l);
 void	*m_error(void);
 void	*free_return(void *p, void *r);
 void	*free_list_return(void *l, void *r);
+int		ep3(char *s1, char *s2, char *s3);
 
 //evn.c
 char	**ev(char **set);

@@ -9,8 +9,6 @@ char	*gcl_sq2(char *cl, size_t B, size_t i);
 char	*gcl_sq(char *cl, size_t B)
 {
 	size_t	i;
-	char	*ncl;
-	char	*r;
 
 	i = 0;
 	while (cl[i] != '\'' && cl[i])
@@ -45,7 +43,6 @@ char	*gcl_sq1(char *cl, size_t B, size_t i)
 
 char	*gcl_sq2(char *cl, size_t B, size_t i)
 {
-	char	*ncl;
 	char	*r;
 
 	r = gcl_std(cl + i + 1, B + i + 1);

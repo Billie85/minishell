@@ -13,7 +13,6 @@ char	*ecl_std6(char	*cl, size_t	B, size_t i);
 char	*ecl_std(char	*cl, size_t	B)
 {
 	size_t	i;
-	char	*r;
 
 	i = 0;
 	while (cl[i] != ' ' && cl[i] != '<' && cl[i] != '>' && cl[i] != '|' && cl[i] != ';' && strncmp(cl + i, "&&", 2)/*  */ \

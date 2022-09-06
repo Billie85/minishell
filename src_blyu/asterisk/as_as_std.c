@@ -10,7 +10,6 @@ char	*as_as_std3(char *cl, char **cln, size_t B, size_t	i);
 char	*as_as_std(char *cl, char **cln, size_t B)
 {
 	size_t	i;
-	char	*r;
 
 	i = 0;
 	while (cl[i] && cl[i] != '*' && cl[i] != ' ' && cl[i] != '\\' && cl[i] != '"' && cl[i] != '\'')//line long
@@ -21,6 +20,7 @@ char	*as_as_std(char *cl, char **cln, size_t B)
 		return (as_as_std2(cl, cln, B, i));
 	else //	(cl[i] == '"' && cl[i] == '\'')
 		return (as_as_std3(cl, cln, B, i));
+	return (NULL);
 }
 
 char	*as_as_std1(char *cl, char **cln, size_t B, size_t	i)

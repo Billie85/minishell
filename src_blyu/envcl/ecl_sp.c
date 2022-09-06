@@ -9,9 +9,6 @@ char	*ecl_sp3(char *cl, size_t B);
 
 char	*ecl_sp(char *cl, size_t B)
 {
-	size_t	i;
-	char	*r;
-
 	if (*cl == ' ')
 		return (ecl_sp1(cl, B));
 	else if (!strncmp(cl, ">>", 2) || !strncmp(cl, "<<", 2) || !strncmp(cl, "||", 2) || !strncmp(cl, "&&", 2))/*  */

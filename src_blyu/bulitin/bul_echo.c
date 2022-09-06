@@ -17,11 +17,11 @@ int	bul_echo(int argc, char *argv[])
 		nop = 1;
 		i++;
 	}
-	while (i < argc)
+	while ((int)i < argc)
 	{
 		printf("%s", argv[i]);
 		i++;
-		if (i < argc)
+		if ((int)i < argc)
 			printf(" ");
 	}
 	if (!nop)

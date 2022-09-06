@@ -26,7 +26,7 @@ int	exe_line(char *cl)
 		cleanc(&c);
 		if (i)
 			return (1);
-		while (*cl && *cl == ' ')/* 不要 */
+		while (*cl && *cl == ' ')
 			cl++;
 	}
 	return (0);
@@ -45,9 +45,6 @@ void	initializec(t_cmd	*c)
 
 void	cleanc(t_cmd	*c)
 {
-	size_t	i;
-
-	i = 0;
 	free_list(c->cmd);
 	c->cmd = NULL;
 	if (c->pipe[R_PIPE] >= 0)
@@ -58,14 +55,3 @@ void	cleanc(t_cmd	*c)
 	c->pipe[W_PIPE] = -1;
 	return ;
 }
-/* 
-for (size_t i = 0; c.cmd[i]; i++)
-{
-TESTs(c.cmd[i])
-}
-TESTn(c.pipe[R_PIPE])
-TESTn(c.pipe[W_PIPE])
-TESTn(c.pipe[NEXT_PIPE])
-TESTn(c.n_type)
-
- */

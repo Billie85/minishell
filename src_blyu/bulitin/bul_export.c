@@ -13,7 +13,7 @@ int	bul_export(int argc, char *argv[])
 
 	r = 0;
 	i = 1;
-	while (i < argc)
+	while ((int)i < argc)
 	{
 		ii = 0;
 		while (isalpha(argv[i][ii]))/*  */
@@ -24,15 +24,8 @@ int	bul_export(int argc, char *argv[])
 			set_env(argv[i], argv[i] + ii + 1);
 		}
 		else if (argv[i][ii] != '\0')
-		{
-			ft_putstr_fd("minishell: export: ", 2);
-			ft_putstr_fd(argv[i], 2);
-			ft_putchar_fd(' ', 2);
-			ft_putstr_fd(": not a valid identifier\n", 2);
-			//printf("minishell: export: `%s': not a valid identifier\n", argv[i]);
-			r = 1;
-		}
+			r = ep3("minishell: export: `", argv[i], "': not a valid identifier\n");
 		i++;
 	}	
 	return (r);
-}//25
+}

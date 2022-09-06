@@ -88,7 +88,6 @@ char	**env_space(char *s)
 int	rm_env(char *s)
 {
 	char	**env;
-	char	**r;
 	size_t	i;
 	size_t	l;
 

@@ -4,7 +4,6 @@
 void	shell_loop(void)
 {
 	char	*cl;
-	size_t	cn;
 	int		i;
 
 	cl = getcl();
