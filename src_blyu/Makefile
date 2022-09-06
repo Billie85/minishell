@@ -14,7 +14,7 @@ GETCl_SRCS		= 0_getcl_g.c gcl_dq.c gcl_nc.c gcl_sq.c gcl_stdA.c gcl_stdB.c
 MKCMD_SRCS		= 0_mkcmd.c cmdlistB.c tk_ques_g.c tk_stdA.c \
 cmdlistA.c cmdlistC.c tk_dq.c tk_sq.c tk_stdB.c
 
-LIBFT_PULUS		= *.c
+LIBFT_PULUS		= zzz_libft.c
 
 SRCS			= exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c \
 sig_g.c utils.c exe_line.c toolA.c
