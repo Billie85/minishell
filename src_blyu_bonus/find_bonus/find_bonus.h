@@ -1,6 +1,6 @@
 #ifndef FIND_BONUS_H
 # define FIND_BONUS_H
-# include "../minishell.h"
+# include "../minishell_bonus.h"
 
 typedef struct s_dirs
 {

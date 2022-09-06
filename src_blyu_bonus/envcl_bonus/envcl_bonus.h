@@ -1,6 +1,6 @@
 #ifndef ENVCL_BONUS_H
 # define ENVCL_BONUS_H
-# include "../minishell.h"
+# include "../minishell_bonus.h"
 
 char	*ecl_std(char *cl, size_t B);
 char	*ecl_dq(char *cl, size_t B);
