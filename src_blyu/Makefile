@@ -19,7 +19,7 @@ sig_g.c utils.c exe_line.c toolA.c
 
 CC	= gcc
 RM	= rm -rf
-CFLAGS	= -Wall -Wextra -Werror -L$(shell brew --prefix readline)/lib -lreadline 
+CFLAGS	= -Wall -Wextra -Werror -I includes
 
 ASTERISK_SRCS_PATH	= $(addprefix asterisk/,$(ASTERISK_SRCS))
 BULITIN_SRCS_PATH	= $(addprefix bulitin/,$(BULITIN_SRCS))
@@ -47,7 +47,7 @@ OBJS += $(SRCS_OBJS)
 OBJS += main.o
 
 $(NAME)	: $(OBJS)
-	gcc $(CFLAGS) $(OBJS) -o $(NAME)
+	gcc $(CFLAGS) $(OBJS) -o $(NAME) -L$(shell brew --prefix readline)/lib -lreadline 
 
 %.o : %.c
 	gcc $(CFLAGS) -c $< -o $@
