@@ -20,23 +20,3 @@ char	*getcl(void)
 	g_.status = EXEING;
 	return (r);
 }
-
-/* 
-int main(void)
-{
-    char *cl;
-    t_cmd    *cmd;
-	
-	signal(SIGINT, sigint_handler);
-    cl = getcl();
-    while (cl)
-    {
-        add_history(cl);
-		cl = etcl(cl);
-		printf("-%s[\\n]\n", cl);
-		free(cl);
-        cl = getcl();
-    }
-    return 0;
-}
- */
