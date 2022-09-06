@@ -18,21 +18,21 @@ SRCS			= main.c exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c
 ######################################################################################################################
 NAMEb	= minishell_bonus
 
-ASTERISK_SRCS_b	= 0_asterisk_bonus.c as_as_list_bonus.c as_as_q_bonus.c as_as_std_bonus.c as_stdA_bonus.c as_stdB_bonus.c
+ASTERISK_SRCSb	= 0_asterisk_bonus.c as_as_list_bonus.c as_as_q_bonus.c as_as_std_bonus.c as_stdA_bonus.c as_stdB_bonus.c
 
-BULITIN_SRCS_b	= bul_cd_bonus.c bul_echo_bonus.c bul_env_bonus.c bul_export_bonus.c bul_pwd_bonus.c bul_unset_bonus.c
+BULITIN_SRCSb	= bul_cd_bonus.c bul_echo_bonus.c bul_env_bonus.c bul_export_bonus.c bul_pwd_bonus.c bul_unset_bonus.c
 
-ENVCL_SRCS_b	= 0_envcl_bonus.c ecl_env_dq_bonus.c ecl_sp_bonus.c ecl_stdA_bonus.c ecl_dq_bonus.c ecl_env_std_bonus.c ecl_sq_bonus.c ecl_stdB_bonus.c extractenv_bonus.c
+ENVCL_SRCSb		= 0_envcl_bonus.c ecl_env_dq_bonus.c ecl_sp_bonus.c ecl_stdA_bonus.c ecl_dq_bonus.c ecl_env_std_bonus.c ecl_sq_bonus.c ecl_stdB_bonus.c extractenv_bonus.c
 
-FIND_SRCS_b		= 0_find_bonus.c fi_dir_bonus.c fi_list_bonus.c fi_ok_bonus.c fi_std_bonus.c
+FIND_SRCSb		= 0_find_bonus.c fi_dir_bonus.c fi_list_bonus.c fi_ok_bonus.c fi_std_bonus.c
 
-GETCl_SRCS_b	= 0_getcl_g_bonus.c gcl_dq_bonus.c gcl_nc_bonus.c gcl_sq_bonus.c gcl_stdA_bonus.c gcl_stdB_bonus.c
+GETCl_SRCSb		= 0_getcl_g_bonus.c gcl_dq_bonus.c gcl_nc_bonus.c gcl_sq_bonus.c gcl_stdA_bonus.c gcl_stdB_bonus.c
 
-MKCMD_SRCS_b	= 0_mkcmd_bonus.c cmdlistB_bonus.c tk_ques_g_bonus.c tk_stdA_bonus.c cmdlistA_bonus.c cmdlistC_bonus.c tk_dq_bonus.c tk_sq_bonus.c tk_stdB_bonus.c
+MKCMD_SRCSb		= 0_mkcmd_bonus.c cmdlistB_bonus.c tk_ques_g_bonus.c tk_stdA_bonus.c cmdlistA_bonus.c cmdlistC_bonus.c tk_dq_bonus.c tk_sq_bonus.c tk_stdB_bonus.c
 
 LIBFT_PULUS_b	= ft_strcmp_bonus.c ft_strstr_bonus.c
 
-SRCS_b			= main_bonus.c exe_bulitin_g_bonus.c shell_loop_bonus.c toolB_bonus.c env_bonus.c exe_cmd_g_bonus.c get_txt_bonus.c utils_bonus.c exe_line_bonus.c toolA_bonus.c
+SRCSb			= main_bonus.c exe_bulitin_g_bonus.c shell_loop_bonus.c toolB_bonus.c env_bonus.c exe_cmd_g_bonus.c get_txt_bonus.c utils_bonus.c exe_line_bonus.c toolA_bonus.c
 
 
 LIBFT_dir		= libft/
