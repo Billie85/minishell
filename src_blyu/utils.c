@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/06 18:16:04 by root              #+#    #+#             */
+/*   Updated: 2022/09/06 21:43:56 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*cm_name1(char *s);
@@ -35,23 +47,20 @@ char	*cm_name1(char *s)
 	size_t	f;
 
 	path = get_env("PATH");
-	f = ft_strlen(path);
-	while (f)
+	f = 0;
+	while (path[f])
 	{
-		while (f && path[f] != ':')
-			f--;
-		if (path[f] == ':')
-			r = cm_name2(path + f + 1, s);
-		else
-			r = cm_name2(path + f, s);
+		r = cm_name2(path + f, s);
 		if (!r)
 			return (NULL);
 		else if (!access(r, X_OK))
 			return (r);
 		else
 			free(r);
+		while (path[f] && path[f] != ':')
+			f++;
 		if (path[f] == ':')
-			f--;
+			f++;
 	}
 	return (ft_strdup(""));
 }

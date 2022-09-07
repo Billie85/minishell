@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/06 18:15:17 by root              #+#    #+#             */
+/*   Updated: 2022/09/06 19:50:47 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_g	g_;
@@ -11,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc == 1)
 		shell_loop();
 	free_list(ev(NULL));
-	return (0);
+	return (g_.retn);
 }
 
 void	preexe(char **envp)
@@ -20,6 +32,7 @@ void	preexe(char **envp)
 
 	g_.exeret = 0;
 	g_.status = EXEING;
+	g_.retn = 0;
 	envp = cpy_list(envp);
 	if (!envp)
 		exit(1);

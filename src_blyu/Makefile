@@ -14,7 +14,7 @@ MKCMD_SRCS		= 0_mkcmd.c cmdlistB.c tk_ques_g.c tk_stdA.c cmdlistA.c cmdlistC.c t
 
 LIBFT_PULUS		= ft_strcmp.c ft_strstr.c
 
-SRCS			= main.c exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c utils.c exe_line.c toolA.c
+SRCS			= main.c exe_bulitin_g.c shell_loop.c toolB.c env.c exe_cmd_g.c get_txt.c utils.c exe_line_g.c toolA.c
 ######################################################################################################################
 NAMEb	= minishell_bonus
 
@@ -32,7 +32,7 @@ MKCMD_SRCSb		= 0_mkcmd_bonus.c cmdlistB_bonus.c tk_ques_g_bonus.c tk_stdA_bonus.
 
 LIBFT_PULUSb	= ft_strcmp_bonus.c ft_strstr_bonus.c
 
-SRCSb			= main_bonus.c exe_bulitin_g_bonus.c shell_loop_bonus.c toolB_bonus.c env_bonus.c exe_cmd_g_bonus.c get_txt_bonus.c utils_bonus.c exe_line_bonus.c toolA_bonus.c
+SRCSb			= main_bonus.c exe_bulitin_g_bonus.c shell_loop_bonus.c toolB_bonus.c env_bonus.c exe_cmd_g_bonus.c get_txt_bonus.c utils_bonus.c exe_line_g_bonus.c toolA_bonus.c
 
 
 LIBFT_dir		= libft/

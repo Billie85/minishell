@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exe_bulitin_g.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/06 18:14:33 by root              #+#    #+#             */
+/*   Updated: 2022/09/07 10:01:26 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern t_g	g_;
@@ -73,5 +85,9 @@ void	exe_bulitin3(t_cmd *c)
 		dup2(c->pipe[W_PIPE], STDOUT_FILENO);
 		close(c->pipe[W_PIPE]);
 	}
+	if (c->n_type == AND && g_.exeret)
+		c->n_type = SKIP;
+	else if (c->n_type == OR && !(g_.exeret))
+		c->n_type = SKIP;
 	return ;
 }

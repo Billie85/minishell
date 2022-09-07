@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/06 18:16:33 by root              #+#    #+#             */
+/*   Updated: 2022/09/06 20:00:38 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <sys/wait.h>
@@ -36,6 +48,7 @@ typedef struct s_g
 {
 	int	status;
 	int	exeret;
+	int	retn;
 }	t_g;
 
 typedef struct s_cmd
@@ -112,11 +125,13 @@ char	*ft_strstr(const char *s1, const char *s2);
 
 //libft
 int		ft_isalpha(int c);
+int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 size_t	ft_strlen(const char *str);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 void	ft_putstr_fd(char *s, int fd);

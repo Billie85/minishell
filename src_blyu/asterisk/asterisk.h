@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asterisk.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/06 18:16:19 by blyu              #+#    #+#             */
+/*   Updated: 2022/09/06 18:16:20 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ASTERISK_H
-# define ASTERISK_H //bad prprocessor indentation
+# define ASTERISK_H
 # include "../minishell.h"
 
 char	*as_std(char *cl, size_t B);

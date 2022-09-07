@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmdlistA.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/06 18:23:12 by blyu              #+#    #+#             */
+/*   Updated: 2022/09/07 08:21:17 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 #include "mkcmd.h"
 
@@ -102,6 +114,7 @@ char	**cmdlist3(t_cmd *c, char *cl, char **ncl, size_t ll)
 	}
 	if (c->pipe[W_PIPE] >= 0)
 		close(c->pipe[W_PIPE]);
+	unlink(s);
 	c->pipe[W_PIPE] = open(s, O_WRONLY | O_CREAT, S_IREAD | S_IWRITE);
 	free(s);
 	r = cmdlist(c, cl, ncl, ll);
