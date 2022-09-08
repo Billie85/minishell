@@ -42,7 +42,7 @@ char	*cm_name1(char *s)
 		r = cm_name2(path + f, s);
 		if (!r)
 			return (NULL);
-		else if (!access(r, X_OK))
+		else if (isexe(s))
 			return (r);
 		else
 			free(r);
@@ -105,4 +105,18 @@ char	*skip_tk(char *cl)
 	while (*cl == ' ')
 		cl++;
 	return (cl);
+}
+
+
+int	isexe(char *s)
+{
+	struct dirent	*dent;
+
+	if (access(s, X_OK))
+		return (0);
+	dent = opendir(s);
+	if (!dent)
+		return (1);
+	closedir(dent);
+	return (0);
 }

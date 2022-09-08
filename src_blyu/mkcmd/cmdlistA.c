@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:23:12 by blyu              #+#    #+#             */
-/*   Updated: 2022/09/07 08:21:17 by blyu             ###   ########.fr       */
+/*   Updated: 2022/09/08 08:01:12 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**cmdlist1(t_cmd *c, char *cl, char **ncl, size_t ll)
 {
 	char	**r;
 
-	r = malloc(sizeof(char **) * ll + 1);
+	r = malloc(sizeof(char **) * (ll + 1));
 	if (!r)
 		return (NULL);
 	*ncl = cl;
