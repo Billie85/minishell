@@ -65,6 +65,6 @@ void	exe_start(t_cmd *c, char *cm)
 		close(c->pipe[W_PIPE]);
 	}
 	execve(cm, c->cmd, ev(NULL));
-	exit(0);
-	return ;
+	ft_putstr_fd("execution error\n", 2);
+	exit(1);
 }

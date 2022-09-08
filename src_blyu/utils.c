@@ -9,14 +9,10 @@ int		isexe(char *s);
 
 char	*cm_name(char *s)
 {
-	char	pathname[PATHNAME_SIZE];
 	char	*r;
 
-	getcwd(pathname, PATHNAME_SIZE);
-	if (*s == '/')
+	if (*s == '/' || *s == '.')
 		r = ft_strdup(s);
-	else if (*s == '.')
-		r = ft_strjoin3(pathname, "/", s);
 	else if (*s == '~')
 		r = ft_strjoin(get_env("HOME"), s + 1);
 	else
