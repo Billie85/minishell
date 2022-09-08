@@ -111,6 +111,7 @@ char	*skip_tk(char *cl);
 //libft_plus
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strstr(const char *s1, const char *s2);
+char	*ft_strjoin3(const char *s1, const char *s2, const char *s3);
 
 //libft
 int		ft_isalpha(int c);

@@ -1,8 +1,11 @@
 
 #include "minishell.h"
 
+#include "debug.h"
+
 char	*cm_name1(char *s);
 char	*cm_name2(char *p, char *s);
+int		isexe(char *s);
 
 char	*cm_name(char *s)
 {
@@ -13,12 +16,12 @@ char	*cm_name(char *s)
 	if (*s == '/')
 		r = ft_strdup(s);
 	else if (*s == '.')
-		r = ft_strjoin(pathname, s + 1);
+		r = ft_strjoin3(pathname, "/", s);
 	else if (*s == '~')
 		r = ft_strjoin(get_env("HOME"), s + 1);
 	else
 		r = cm_name1(s);
-	if (r && access(r, X_OK))
+	if (r && !isexe(r))
 	{
 		free(r);
 		printf("no such comand %s\n", s);
@@ -42,7 +45,7 @@ char	*cm_name1(char *s)
 		r = cm_name2(path + f, s);
 		if (!r)
 			return (NULL);
-		else if (isexe(s))
+		else if (isexe(r))
 			return (r);
 		else
 			free(r);
@@ -81,6 +84,20 @@ char	*cm_name2(char *p, char *s)
 	return (r);
 }
 
+int	isexe(char *s)
+{
+	DIR	*dir;
+
+	if (!access(s, X_OK))
+	{
+		dir = opendir(s);
+		if (!dir)
+			return (1);
+		closedir(dir);
+	}
+	return (0);
+}
+
 char	*skip_tk(char *cl)
 {
 	char	c;
@@ -105,18 +122,4 @@ char	*skip_tk(char *cl)
 	while (*cl == ' ')
 		cl++;
 	return (cl);
-}
-
-
-int	isexe(char *s)
-{
-	struct dirent	*dent;
-
-	if (access(s, X_OK))
-		return (0);
-	dent = opendir(s);
-	if (!dent)
-		return (1);
-	closedir(dent);
-	return (0);
 }

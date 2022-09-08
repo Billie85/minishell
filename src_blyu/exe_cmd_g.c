@@ -64,7 +64,7 @@ void	exe_start(t_cmd *c, char *cm)
 		dup2(c->pipe[W_PIPE], STDOUT_FILENO);
 		close(c->pipe[W_PIPE]);
 	}
-	execve(cm, c->cmd, NULL);
+	execve(cm, c->cmd, ev(NULL));
 	exit(0);
 	return ;
 }
