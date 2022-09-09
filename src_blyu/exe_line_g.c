@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 #include "debug.h"
 
@@ -75,11 +74,12 @@ int	is_exit(t_cmd *c)
 		else
 		{
 			if (list_len(c->cmd) > 2)
-				return (ep3("minishell: exit: too many arguments\n", "", "") * 0);
+				return (ep3("minishell: exit: too many arguments\n" \
+				, "", "") * 0);
 			g_.retn = ft_atoi(c->cmd[1]) & 0xff;
 		}
 	}
-	else 
+	else
 		g_.retn = g_.exeret & 0xff;
 	printf("exit\n");
 	return (1);

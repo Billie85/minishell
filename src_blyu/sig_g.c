@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 extern t_g	g_;

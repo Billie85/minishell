@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 int	bul_pwd(int argc, char *argv[])

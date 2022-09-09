@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 t_g	g_;

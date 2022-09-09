@@ -1,7 +1,4 @@
-
 #include "minishell.h"
-
-#include "debug.h"
 
 void	itosd1(char	*str, int n);
 char	**cpy_list_std(char	**p, size_t dw);

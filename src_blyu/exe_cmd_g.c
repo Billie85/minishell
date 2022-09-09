@@ -1,6 +1,4 @@
-
 #include "minishell.h"
-#include "debug.h"
 
 extern t_g	g_;
 

@@ -1,18 +1,17 @@
-
 #include "../minishell.h"
 
 int	one_arg(void);
 
-int    bul_export(int argc, char *argv[])
+int	bul_export(int argc, char *argv[])
 {
 	size_t	i;
-	size_t 	ii;
+	size_t	ii;
 	int		r;
 
 	r = 0;
 	i = 1;
 	if (argc == 1)
-		return(one_arg());
+		return (one_arg());
 	while ((int)i < argc)
 	{
 		ii = 0;
@@ -33,7 +32,7 @@ int    bul_export(int argc, char *argv[])
 
 int	one_arg(void)
 {
-	char    **export;
+	char	**export;
 
 	export = ev(NULL);
 	if (!export)

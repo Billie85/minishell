@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 char	**env_space(char *s);

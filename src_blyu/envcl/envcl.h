@@ -1,4 +1,3 @@
-
 #ifndef ENVCL_H
 # define ENVCL_H
 # include "../minishell.h"

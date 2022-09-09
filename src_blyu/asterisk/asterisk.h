@@ -1,4 +1,3 @@
-
 #ifndef ASTERISK_H
 # define ASTERISK_H
 # include "../minishell.h"

@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 #include "mkcmd.h"
 
@@ -15,7 +14,8 @@ char	**cmdlist4(t_cmd *c, char *cl, char **ncl, size_t ll)
 	s = tk_std(cl, 0);
 	if (!s)
 		return (NULL);
-	else if ((!(*s) && !(*cl)) || *s == '<' || *s == '>' || *s == '|' || !ft_strcmp(s, "&&"))
+	else if ((!(*s) && !(*cl)) \
+	|| *s == '<' || *s == '>' || *s == '|' || !ft_strcmp(s, "&&"))
 	{
 		printf("syntax error\n");
 		free(s);

@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 char	*gt_std(char *end, size_t B);
