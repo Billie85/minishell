@@ -31,7 +31,7 @@ int	bul_echo(int argc, char *argv[])
 
 int	is_opn(char *s)
 {
-	if (*s != '-' && s[1] != 'n')
+	if (ft_strncmp(s, "-n", 2))
 		return (0);
 	s++;
 	while (*s == 'n')

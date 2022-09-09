@@ -22,11 +22,25 @@
 
 #include "debug.h"
 
+#include "../debug.h"
+
 #ifndef _H 
 #include ""
 #endif
 
 
+
+size_t	t = 0;
+while (c.cmd[t])
+{
+TESTs(c.cmd[t])
+t++;
+}
+TESTn(c.pipe[R_PIPE])
+TESTn(c.pipe[W_PIPE])
+TESTn(c.pipe[NEXT_PIPE])
+TESTn(c.n_type)
+TESTn(c.ps)
 
 
 

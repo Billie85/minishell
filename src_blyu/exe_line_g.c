@@ -1,5 +1,6 @@
 
 #include "minishell.h"
+#include "debug.h"
 
 extern t_g	g_;
 
@@ -62,23 +63,24 @@ int	cleanc(t_cmd	*c)
 
 int	is_exit(t_cmd *c)
 {
-	size_t	i;
-
 	if (ft_strcmp(c->cmd[0], "exit"))
 		return (0);
-	printf("exit\n");
 	if (c->cmd[1])
 	{
-		i = 0;
-		while (c->cmd[1][i] && ft_isdigit(c->cmd[1][i]))
-			i++;
-		if (c->cmd[1][i])
+		if (is_numustr(c->cmd[1]))
 		{
 			g_.retn = 255;
 			ep3("minishell: exit: ", c->cmd[1], ": numeric argument required\n");
 		}
 		else
+		{
+			if (list_len(c->cmd) > 2)
+				return (ep3("minishell: exit: too many arguments\n", "", "") * 0);
 			g_.retn = ft_atoi(c->cmd[1]) & 0xff;
+		}
 	}
+	else 
+		g_.retn = g_.exeret & 0xff;
+	printf("exit\n");
 	return (1);
 }

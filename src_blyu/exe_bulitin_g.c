@@ -59,6 +59,8 @@ void	exe_bulitin2(t_cmd *c)
 		g_.exeret = bul_unset(i, c->cmd);
 	else if (!ft_strcmp(c->cmd[0], "env"))
 		g_.exeret = bul_env(i, c->cmd);
+	else
+		g_.exeret = 1;
 	return ;
 }
 

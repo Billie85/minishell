@@ -75,6 +75,7 @@ void	*m_error(void);
 void	*free_return(void *p, void *r);
 void	*free_list_return(void *l, void *r);
 int		ep3(char *s1, char *s2, char *s3);
+int		is_numustr(char *s);
 
 //evn
 char	**ev(char **set);
@@ -111,7 +112,6 @@ char	*skip_tk(char *cl);
 //libft_plus
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strstr(const char *s1, const char *s2);
-char	*ft_strjoin3(const char *s1, const char *s2, const char *s3);
 
 //libft
 int		ft_isalpha(int c);
