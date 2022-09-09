@@ -1,4 +1,3 @@
-
 #ifndef GETCL_H
 # define GETCL_H
 # include "../minishell.h"
