@@ -20,7 +20,7 @@ char	*cm_name(char *s)
 	if (r && !isexe(r))
 	{
 		free(r);
-		printf("no such comand %s\n", s);
+		printf("no such command %s\n", s);
 		r = ft_strdup("");
 	}
 	if (!r)

@@ -42,7 +42,10 @@ int	exe_cmd1(t_cmd *c)
 	while (c->n_type != PIPE && c->ps)
 	{
 		wait(&(g_.exeret));
-		g_.exeret = WEXITSTATUS(g_.exeret);
+		if (WIFSIGNALED(g_.exeret))
+			g_.exeret = WTERMSIG(g_.exeret) + 0x80;
+		else
+			g_.exeret = WEXITSTATUS(g_.exeret);
 		c->ps--;
 	}
 	if (c->n_type == AND && g_.exeret)

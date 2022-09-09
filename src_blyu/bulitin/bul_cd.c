@@ -9,7 +9,7 @@ int	bul_cd(int argc, char *argv[])
 	{
 		if (access(argv[1], F_OK))
 		{
-			ft_putstr_fd("the file not exit\n", 2);
+			ft_putstr_fd("the file not exist\n", 2);
 			return (1);
 		}
 		if (access(argv[1], X_OK))
