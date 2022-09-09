@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cmdlistB.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 18:23:18 by blyu              #+#    #+#             */
-/*   Updated: 2022/09/06 18:23:19 by blyu             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../minishell.h"
 #include "mkcmd.h"
@@ -24,16 +13,16 @@ char	**cmdlist4(t_cmd *c, char *cl, char **ncl, size_t ll)
 	while (*cl == ' ')
 		cl++;
 	s = tk_std(cl, 0);
-	cl = skip_tk(cl);
 	if (!s)
 		return (NULL);
-	else if (!*s || *s == '<' || *s == '>' || *s == '|' || !ft_strcmp(s, "&&"))
+	else if ((!(*s) && !(*cl)) || *s == '<' || *s == '>' || *s == '|' || !ft_strcmp(s, "&&"))
 	{
 		printf("syntax error\n");
 		free(s);
 		c->n_type = SYNTAXERROR;
 		return (NULL);
 	}
+	cl = skip_tk(cl);
 	if (c->pipe[R_PIPE] >= 0)
 		close(c->pipe[R_PIPE]);
 	c->pipe[R_PIPE] = cmdlist4_sendtxt(s);

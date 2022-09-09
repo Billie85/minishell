@@ -1,6 +1,8 @@
 
 #include "minishell.h"
 
+#include "debug.h"
+
 void	itosd1(char	*str, int n);
 char	**cpy_list_std(char	**p, size_t dw);
 
@@ -28,7 +30,7 @@ void	itosd1(char	*str, int n)
 	int	nn;
 
 	nn = 1;
-	while (n / nn < -10)
+	while (n / nn <= -10)
 		nn *= 10;
 	while (nn > 0)
 	{
