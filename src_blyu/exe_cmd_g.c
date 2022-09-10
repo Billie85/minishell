@@ -55,7 +55,7 @@ int	exe_cmd1(t_cmd *c)
 
 void	exe_start(t_cmd *c, char *cm)
 {
-	if (c->pipe[NEXT_PIPE])
+	if (c->pipe[NEXT_PIPE] >= 0)
 		close(c->pipe[NEXT_PIPE]);
 	if (c->pipe[R_PIPE] >= 0)
 	{
