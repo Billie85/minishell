@@ -11,7 +11,7 @@ int	bul_unset(int argc, char *argv[])
 	while ((int)i < argc)
 	{
 		ii = 0;
-		while (ft_isalpha(argv[i][ii]))
+		while (ft_isalpha(argv[i][ii]) || argv[i][ii] == '_')
 			ii++;
 		if (argv[i][ii] == '\0')
 		{
