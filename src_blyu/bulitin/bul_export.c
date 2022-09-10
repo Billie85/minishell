@@ -40,6 +40,7 @@ int	one_arg(void)
 		return (1);
 	while (*export)
 	{
+		printf ("declare -x ");
 		i = 0;
 		while (export[0][i] != '=')
 		{
@@ -48,7 +49,7 @@ int	one_arg(void)
 		}
 		printf("=\"");
 		i++;
-		printf("declare -x %s\"\n", export[0] + i);
+		printf("%s\"\n", export[0] + i);
 		export++;
 	}
 	return (0);
