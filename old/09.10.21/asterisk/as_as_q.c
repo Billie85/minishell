@@ -1,5 +1,5 @@
-#include "../minishell_bonus.h"
-#include "asterisk_bonus.h"
+#include "../minishell.h"
+#include "asterisk.h"
 
 char	*as_as_q(char *cl, char **cln, size_t B, char c)
 {

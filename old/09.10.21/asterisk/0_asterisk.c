@@ -1,5 +1,5 @@
-#include "../minishell_bonus.h"
-#include "asterisk_bonus.h"
+#include "../minishell.h"
+#include "asterisk.h"
 
 char	*asterisk(char *cl)
 {
