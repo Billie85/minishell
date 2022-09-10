@@ -65,7 +65,7 @@ int	is_exit(t_cmd *c)
 		return (0);
 	if (c->cmd[1])
 	{
-		if (is_numustr(c->cmd[1]))
+		if (!is_numustr(c->cmd[1]))
 		{
 			g_.retn = 255;
 			ep3("minishell: exit: ", c->cmd[1], ": numeric argument required\n");
