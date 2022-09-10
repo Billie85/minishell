@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmdlistA.c                                         :+:      :+:    :+:   */
+/*   cmdlistA_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:23:12 by blyu              #+#    #+#             */
-/*   Updated: 2022/09/08 08:01:12 by blyu             ###   ########.fr       */
+/*   Updated: 2022/09/10 21:44:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "mkcmd.h"
+#include "../minishell_bonus.h"
+#include "mkcmd_bonus.h"
 
 char	**cmdlist1(t_cmd *c, char *cl, char **ncl, size_t ll);
 char	**cmdlist2(t_cmd *c, char *cl, char **ncl, size_t ll);

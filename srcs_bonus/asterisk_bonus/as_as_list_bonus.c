@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "asterisk.h"
+#include "../minishell_bonus.h"
+#include "asterisk_bonus.h"
 
 char	**as_as_list1(size_t dw);
 char	**as_as_list2(char *cl, size_t dw);

@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "find.h"
+#include "../minishell_bonus.h"
+#include "find_bonus.h"
 
 void	fi_dir(char **r)
 {

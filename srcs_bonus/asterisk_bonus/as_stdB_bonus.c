@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "asterisk.h"
+#include "../minishell_bonus.h"
+#include "asterisk_bonus.h"
 
 size_t	as_std_aslen(char *cl)
 {

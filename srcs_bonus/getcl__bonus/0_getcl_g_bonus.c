@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "getcl.h"
+#include "../minishell_bonus.h"
+#include "getcl_bonus.h"
 
 extern t_g	g_;
 

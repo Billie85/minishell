@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "getcl.h"
+#include "../minishell_bonus.h"
+#include "getcl_bonus.h"
 
 char	*gcl_std1(char	*cl, size_t	B, size_t i);
 char	*gcl_std2(char	*cl, size_t	B, size_t i);

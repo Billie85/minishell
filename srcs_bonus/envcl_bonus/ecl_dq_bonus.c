@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "envcl.h"
+#include "../minishell_bonus.h"
+#include "envcl_bonus.h"
 
 char	*ecl_dq1(void);
 char	*ecl_dq2(char	*cl, size_t	B, size_t i);

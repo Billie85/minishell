@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "mkcmd.h"
+#include "../minishell_bonus.h"
+#include "mkcmd_bonus.h"
 
 int	cmdlist4_sendtxt(char *s);
 

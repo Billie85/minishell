@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "envcl.h"
+#include "../minishell_bonus.h"
+#include "envcl_bonus.h"
 
 char	*ecl_env_std1(char *cl, size_t B, char *env, size_t ii);
 

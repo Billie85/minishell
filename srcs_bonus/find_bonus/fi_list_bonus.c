@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "find.h"
+#include "../minishell_bonus.h"
+#include "find_bonus.h"
 
 char	**fi_list1(char *search, size_t	i);
 char	**fi_list2(void);

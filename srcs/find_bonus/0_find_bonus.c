@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "find.h"
+#include "../minishell_bonus.h"
+#include "find_bonus.h"
 
 char	**find(char **lst)
 {

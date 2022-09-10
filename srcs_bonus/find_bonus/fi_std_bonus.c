@@ -1,5 +1,5 @@
-#include "../minishell.h"
-#include "find.h"
+#include "../minishell_bonus.h"
+#include "find_bonus.h"
 
 char	**fi_std1(size_t dw);
 char	**fi_std2(t_dirs *d, size_t dw);

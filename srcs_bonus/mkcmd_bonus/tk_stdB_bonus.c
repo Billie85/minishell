@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tk_stdB.c                                          :+:      :+:    :+:   */
+/*   tk_stdB_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:23:53 by blyu              #+#    #+#             */
-/*   Updated: 2022/09/06 18:23:54 by blyu             ###   ########.fr       */
+/*   Updated: 2022/09/10 21:44:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "mkcmd.h"
+#include "../minishell_bonus.h"
+#include "mkcmd_bonus.h"
 
 char	*tk_std4(char *cl, size_t B, size_t i)
 {
