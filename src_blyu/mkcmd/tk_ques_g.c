@@ -1,7 +1,6 @@
 #include "../minishell.h"
 #include "mkcmd.h"
 
-#include "../debug.h"
 extern t_g	g_;
 
 char	*tk_ques(char *cl, size_t B, char *(*f)(char *, size_t))

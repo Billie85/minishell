@@ -3,6 +3,7 @@
 t_g	g_;
 
 void	preexe(char **envp);
+int		incshlv(void);
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -25,10 +26,25 @@ void	preexe(char **envp)
 	if (!envp)
 		exit(1);
 	ev(envp);
+	if (incshlv())
+	{
+		free_list(ev(NULL));
+		exit(1);
+	}
 	tcgetattr(STDIN_FILENO, &s);
 	s.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &s);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	return ;
+}
+
+int incshlv(void)
+{
+	int		lv;
+	char	lvstr[32];
+
+	lv = ft_atoi(get_env("SHLVL")) + 1;
+	itosd(lvstr, lv);
+	return (set_env("SHLVL", lvstr));
 }
