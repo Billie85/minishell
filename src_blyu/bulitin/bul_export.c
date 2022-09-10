@@ -33,13 +33,22 @@ int	bul_export(int argc, char *argv[])
 int	one_arg(void)
 {
 	char	**export;
+	size_t	i;
 
 	export = ev(NULL);
 	if (!export)
 		return (1);
 	while (*export)
 	{
-		printf("declare -x %s\n", *export);
+		i = 0;
+		while (export[0][i] != '=')
+		{
+			printf("%c", export[0][i]);
+			i++;
+		}
+		printf("=\"");
+		i++;
+		printf("declare -x %s\"\n", export[0] + i);
 		export++;
 	}
 	return (0);
