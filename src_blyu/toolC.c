@@ -6,7 +6,7 @@ int	is_numustr(char *s)
 		s++;
 	while (*s && ft_isdigit(*s))
 		s++;
-	if (!s)
+	if (!(*s))
 		return (1);
 	return (0);
 }
