@@ -39,7 +39,7 @@ void	preexe(char **envp)
 	return ;
 }
 
-int incshlv(void)
+int	incshlv(void)
 {
 	int		lv;
 	char	lvstr[32];
