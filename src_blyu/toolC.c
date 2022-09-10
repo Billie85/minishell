@@ -2,6 +2,8 @@
 
 int	is_numustr(char *s)
 {
+	if (!(*s))
+		return (0);
 	if (*s == '-')
 		s++;
 	while (*s && ft_isdigit(*s))
