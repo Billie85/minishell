@@ -17,8 +17,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 void	preexe(char **envp)
 {
-	struct termios	s;
-
 	g_.exeret = 0;
 	g_.status = EXEING;
 	g_.retn = 0;
@@ -31,9 +29,6 @@ void	preexe(char **envp)
 		free_list(ev(NULL));
 		exit(1);
 	}
-	tcgetattr(STDIN_FILENO, &s);
-	s.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &s);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	return ;

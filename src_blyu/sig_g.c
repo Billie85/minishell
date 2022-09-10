@@ -5,15 +5,7 @@ extern t_g	g_;
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	if (g_.status & SIGCOME)
-		g_.status &= ~SIGCOME;
-	else if (g_.status == EXEING)
-	{
-		g_.status |= SIGCOME;
-		kill(0, SIGINT);
-		printf("^C\n");
-	}
-	else
+	if (g_.status == READING)
 	{
 		printf ("\n");
 		rl_on_new_line();
@@ -26,15 +18,7 @@ void	sigint_handler(int sig)
 void	sigquit_handler(int sig)
 {
 	(void)sig;
-	if (g_.status & SIGCOME)
-		g_.status &= ~SIGCOME;
-	else if (g_.status == EXEING)
-	{
-		g_.status |= SIGCOME;
-		kill(0, SIGQUIT);
-		printf("^\\\n");
-	}
-	else
+	if (g_.status == READING)
 	{
 		rl_on_new_line();
 		rl_redisplay();
