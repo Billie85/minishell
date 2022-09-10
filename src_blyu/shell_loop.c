@@ -8,7 +8,8 @@ void	shell_loop(void)
 	cl = getcl();
 	while (cl)
 	{
-		add_history(cl);
+		if (*cl)
+			add_history(cl);
 		cl = envcl(cl);
 		if (!cl)
 			break ;
